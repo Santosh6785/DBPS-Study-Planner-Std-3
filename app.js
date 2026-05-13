@@ -698,13 +698,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (user) {
       // Show app, hide login
       document.getElementById("login-screen").style.display = "none";
-      document.getElementById("app").style.display = "flex";
+      document.getElementById("app-shell").style.display = "flex";
       updateHeaderUser(user);
       render();
       setTimeout(showOnboarding, 500);
     } else {
       // Show login, hide app
-      document.getElementById("app").style.display = "none";
+      document.getElementById("app-shell").style.display = "none";
       document.getElementById("login-screen").style.display = "flex";
     }
   });
