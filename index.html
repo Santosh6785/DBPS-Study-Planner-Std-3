@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
   <title>Study Planner – Std 3 – DBPS 2026-27</title>
-  <meta name="description"    content="11-week progressive study planner for Standard 3, First Assessment July 1 2026. School term, summer vacation, and pre-assessment phases.">
-  <meta name="keywords"       content="study planner, standard 3, class 3, DBPS, assessment, summer vacation">
-  <meta name="author"         content="Santosh">
+  <meta name="description" content="11-week progressive study planner for Standard 3. First Assessment July 1 2026. Covers school term, summer vacation, and pre-assessment phases.">
+  <meta name="keywords" content="study planner, standard 3, class 3, DBPS, assessment, summer vacation">
+  <meta name="author" content="Santosh">
+
   <meta property="og:type"        content="website">
   <meta property="og:title"       content="Study Planner – Std 3 – DBPS 2026-27">
   <meta property="og:description" content="11-week study planner. Assessment: July 1, 2026.">
@@ -14,7 +16,8 @@
   <meta property="og:url"         content="https://santosh6785.github.io/DBPS-Study-Planner-Std-3/">
   <meta name="twitter:card"        content="summary">
   <meta name="twitter:title"       content="Study Planner – Std 3 – DBPS 2026-27">
-  <meta name="twitter:description" content="11-week study planner for Standard 3. Assessment: July 1, 2026.">
+  <meta name="twitter:description" content="11-week study planner for Std 3. Assessment: July 1, 2026.">
+
   <meta name="theme-color" content="#1a1a2e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -23,12 +26,13 @@
   <link rel="apple-touch-icon" href="icon-180.png">
   <link rel="icon"             href="icon-192.svg" type="image/svg+xml">
   <link rel="icon"             href="icon-180.png" type="image/png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    /* ── Variables ─────────────────────────────── */
+    /* ══ Variables ═══════════════════════════════════════ */
     :root {
       --bg:#F8FAFC; --surface:#fff; --text:#1a1a2e; --text2:#374151; --text3:#6b7280;
       --border:#e5e7eb; --border2:#f3f4f6; --navy:#1a1a2e; --navy2:#0f3460;
@@ -37,13 +41,14 @@
     }
     @media (prefers-color-scheme:dark) {
       :root:not(.theme-light) {
-        --bg:#111827; --surface:#1f2937; --text:#f9fafb; --text2:#d1d5db; --text3:#9ca3af;
-        --border:#374151; --border2:#1f2937;
+        --bg:#111827;--surface:#1f2937;--text:#f9fafb;--text2:#d1d5db;--text3:#9ca3af;
+        --border:#374151;--border2:#1f2937;
       }
     }
-    body.theme-dark { --bg:#111827;--surface:#1f2937;--text:#f9fafb;--text2:#d1d5db;--text3:#9ca3af;--border:#374151;--border2:#1f2937; }
-    body.theme-light{ --bg:#F8FAFC;--surface:#fff;  --text:#1a1a2e;--text2:#374151;--text3:#6b7280;--border:#e5e7eb;--border2:#f3f4f6; }
+    body.theme-dark  {--bg:#111827;--surface:#1f2937;--text:#f9fafb;--text2:#d1d5db;--text3:#9ca3af;--border:#374151;--border2:#1f2937;}
+    body.theme-light {--bg:#F8FAFC;--surface:#fff;  --text:#1a1a2e;--text2:#374151;--text3:#6b7280;--border:#e5e7eb;--border2:#f3f4f6;}
 
+    /* ══ Reset ═══════════════════════════════════════════ */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html {font-size:16px;scroll-behavior:smooth;}
     body {font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s;}
@@ -52,48 +57,153 @@
     *{-webkit-tap-highlight-color:transparent;}
     ::-webkit-scrollbar{display:none;}
 
-    /* ── App ─────────────────────────────────── */
-    #app{max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;}
-
-    /* ── Skeleton ──────────────────────────── */
+    /* ══ Skeleton ════════════════════════════════════════ */
     #skeleton{position:fixed;inset:0;z-index:999;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
-    .sk-icon{font-size:48px;animation:sk-bounce .8s infinite alternate;}
+    .sk-icon{font-size:52px;animation:sk-bounce .8s infinite alternate;}
     .sk-text{color:rgba(255,255,255,.7);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;}
     .sk-bar{width:160px;height:4px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden;}
     .sk-fill{height:100%;width:40%;background:#3B82F6;border-radius:99px;animation:sk-slide 1s ease-in-out infinite alternate;}
-    @keyframes sk-bounce{from{transform:translateY(0);}to{transform:translateY(-8px);}}
+    @keyframes sk-bounce{from{transform:translateY(0);}to{transform:translateY(-10px);}}
     @keyframes sk-slide{from{margin-left:0;}to{margin-left:60%;}}
 
-    /* ── Header ─────────────────────────────── */
-    .app-header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);padding:calc(var(--safe-top) + 12px) 14px 0;color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.35);}
+    /* ══ LOGIN SCREEN ════════════════════════════════════ */
+    #login-screen{
+      display:none; /* shown by JS when not signed in */
+      position:fixed;inset:0;z-index:500;
+      background:linear-gradient(160deg,#0f0c29 0%,#302b63 50%,#24243e 100%);
+      align-items:center;justify-content:center;
+      padding:20px 16px;
+      overflow-y:auto;
+    }
+
+    .login-card{
+      width:100%;max-width:400px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:28px;
+      padding:32px 24px 28px;
+      backdrop-filter:blur(20px);
+      text-align:center;
+      animation:login-appear .4s ease;
+    }
+    @keyframes login-appear{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+    .login-logo{font-size:60px;margin-bottom:10px;display:block;}
+
+    .login-title{
+      font-size:24px;font-weight:900;color:#fff;
+      letter-spacing:-.5px;margin-bottom:4px;
+    }
+    .login-sub{
+      font-size:13px;color:rgba(255,255,255,.5);
+      font-weight:600;margin-bottom:24px;
+    }
+
+    .login-features{
+      display:flex;flex-direction:column;gap:8px;
+      margin-bottom:28px;text-align:left;
+    }
+    .login-feature{
+      display:flex;align-items:flex-start;gap:10px;
+      background:rgba(255,255,255,.07);
+      border-radius:12px;padding:10px 12px;
+      font-size:12px;color:rgba(255,255,255,.85);
+      line-height:1.4;font-weight:600;
+    }
+    .login-feature-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+
+    /* Google sign-in button */
+    #google-signin-btn{
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      width:100%;padding:14px 20px;
+      background:#fff;color:#1a1a2e;
+      border:none;border-radius:14px;
+      font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;
+      cursor:pointer;
+      box-shadow:0 4px 20px rgba(0,0,0,.3);
+      transition:transform .15s,box-shadow .15s;
+      margin-bottom:14px;
+    }
+    #google-signin-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.4);}
+    #google-signin-btn:active{transform:scale(.98);}
+    #google-signin-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+
+    /* Spinner for sign-in loading */
+    .spinner{
+      display:inline-block;width:18px;height:18px;
+      border:2.5px solid #e5e7eb;border-top-color:#1a1a2e;
+      border-radius:50%;animation:spin .6s linear infinite;
+      flex-shrink:0;
+    }
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    #signin-error{
+      font-size:12px;color:#FCA5A5;font-weight:600;
+      min-height:16px;margin-bottom:8px;line-height:1.4;
+    }
+
+    .login-privacy{
+      font-size:11px;color:rgba(255,255,255,.35);
+      font-weight:600;line-height:1.5;
+    }
+
+    .login-assessment-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.4);
+      border-radius:99px;padding:5px 14px;
+      font-size:11px;font-weight:800;color:#FCA5A5;
+      margin-bottom:20px;
+    }
+
+    /* ══ APP SHELL ═══════════════════════════════════════ */
+    #app{
+      display:none; /* shown by JS after sign-in */
+      max-width:480px;margin:0 auto;min-height:100vh;
+      flex-direction:column;
+    }
+
+    /* ── Header ───────────────────────────────────────── */
+    .app-header{
+      background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+      padding:calc(var(--safe-top) + 12px) 14px 0;
+      color:#fff;position:sticky;top:0;z-index:100;
+      box-shadow:0 2px 20px rgba(0,0,0,.35);
+    }
     .header-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
     .header-icon{font-size:24px;line-height:1;flex-shrink:0;}
     .header-titles{flex:1;min-width:0;}
     .header-main{font-size:16px;font-weight:900;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .header-sub{font-size:10px;color:rgba(255,255,255,.6);font-weight:600;}
-    .header-actions{display:flex;gap:6px;flex-shrink:0;}
+    .header-actions{display:flex;align-items:center;gap:6px;flex-shrink:0;}
     .header-icon-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:5px 7px;font-size:15px;cursor:pointer;color:#fff;line-height:1;}
+
+    /* User info in header */
+    #user-section{display:flex;align-items:center;gap:6px;}
+    .user-avatar{width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.4);flex-shrink:0;}
+    .user-name{font-size:11px;font-weight:800;color:rgba(255,255,255,.85);max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .signout-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:4px 8px;font-size:10px;font-weight:800;color:rgba(255,255,255,.7);cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap;}
+
     .countdown-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.45);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:800;color:#FCA5A5;margin-bottom:8px;}
     #install-banner{display:none;align-items:center;gap:10px;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.4);border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:12px;color:rgba(255,255,255,.9);}
     #install-banner span{flex:1;font-weight:600;}
     #install-btn{background:#3B82F6;color:#fff;border:none;border-radius:8px;padding:5px 12px;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;cursor:pointer;}
     #dismiss-install{background:transparent;border:none;color:rgba(255,255,255,.5);font-size:18px;cursor:pointer;padding:0 4px;}
 
-    /* ── Tab bar ──────────────────────────── */
+    /* ── Tab bar ─────────────────────────────────────── */
     .tab-bar{display:flex;gap:6px;padding:0 14px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);}
     .tab-btn{flex:1;padding:8px 4px;border:none;border-radius:10px 10px 0 0;background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;transition:all .2s;}
     .tab-btn.active{background:var(--bg);color:var(--text);}
 
-    /* ── Main ──────────────────────────────── */
+    /* ── Main content ────────────────────────────────── */
     #main{flex:1;padding:12px 12px calc(var(--nav-h) + var(--safe-bot) + 14px);transition:opacity .15s;}
     .tab-content{display:flex;flex-direction:column;gap:10px;}
 
-    /* ── Streak banner ────────────────────── */
+    /* ── Streak banner ────────────────────────────────── */
     .streak-banner{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#EA580C,#F97316);border-radius:16px;padding:12px 16px;color:#fff;}
     .streak-num{font-size:16px;font-weight:900;}
     .streak-sub{font-size:11px;color:rgba(255,255,255,.8);}
 
-    /* ── Day scroll (snap) ────────────────── */
+    /* ── Day scroll (snap) ───────────────────────────── */
     .day-scroll{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;align-items:center;scrollbar-width:none;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
     .day-btn{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;border-radius:12px;border:none;background:var(--surface);color:var(--text3);font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;position:relative;scroll-snap-align:start;}
     .day-btn.active{color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.25);transform:translateY(-1px);}
@@ -102,7 +212,7 @@
     .today-btn{flex-shrink:0;padding:6px 12px;border-radius:12px;border:1.5px solid #3B82F6;background:var(--surface);color:#3B82F6;font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;white-space:nowrap;}
     .day-prog{font-size:9px;font-weight:800;color:#fff;border-radius:99px;padding:1px 5px;min-width:26px;text-align:center;margin-top:1px;}
 
-    /* ── Day header ───────────────────────── */
+    /* ── Day header ──────────────────────────────────── */
     .day-header{border-radius:18px;padding:14px 16px;color:#fff;}
     .day-header-top{display:flex;align-items:flex-start;gap:12px;}
     .day-header-info{flex:1;}
@@ -113,7 +223,7 @@
     .day-progress-bar-wrap{height:5px;background:rgba(255,255,255,.2);border-radius:99px;margin-top:10px;overflow:hidden;}
     .day-progress-bar{height:100%;border-radius:99px;transition:width .4s ease;}
 
-    /* ── Slots ────────────────────────────── */
+    /* ── Slot cards ──────────────────────────────────── */
     .slots-list{display:flex;flex-direction:column;gap:8px;}
     .slot-break{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:10px;background:var(--border2);border:1px dashed var(--border);}
     .slot-card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);transition:transform .15s,opacity .2s;}
@@ -135,27 +245,20 @@
     .slot-card-body{padding:10px 14px;}
     .slot-subject-name{font-size:14px;font-weight:900;margin-bottom:3px;transition:color .2s;}
     .slot-topic{font-size:12px;line-height:1.5;margin-bottom:7px;transition:color .2s,text-decoration .2s;}
-
-    /* Slot note display */
     .slot-note-display{display:flex;align-items:flex-start;gap:5px;background:var(--border2);border-radius:8px;padding:5px 8px;margin-bottom:7px;}
     .slot-note-icon{font-size:12px;flex-shrink:0;}
     .slot-note-text{font-size:11px;color:var(--text2);line-height:1.4;font-style:italic;}
-
     .slot-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
     .slot-sess-badge{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;}
     .slot-footer-actions{display:flex;align-items:center;gap:8px;}
-
-    /* Note button */
     .note-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 8px;font-size:11px;cursor:pointer;color:var(--text3);font-family:'Nunito',sans-serif;font-weight:700;}
     .note-btn.note-btn-active{border-color:#F59E0B;color:#F59E0B;background:#FFFBEB;}
-
-    /* Done checkbox */
     .done-label{display:flex;align-items:center;gap:5px;cursor:pointer;user-select:none;}
     .done-check{width:16px;height:16px;accent-color:#22C55E;cursor:pointer;flex-shrink:0;}
     .done-check-label{font-size:11px;font-weight:800;color:#22C55E;}
     .slot-card.slot-done .done-check-label{color:#9CA3AF;}
 
-    /* ── Flow card ────────────────────────── */
+    /* ── Flow card ────────────────────────────────────── */
     .flow-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
     .flow-card-title{font-size:13px;font-weight:900;color:var(--text);margin-bottom:10px;}
     .flow-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
@@ -165,7 +268,7 @@
     .flow-label{font-size:12px;color:var(--text2);line-height:1.3;}
     .flow-label.bold{font-weight:800;color:var(--text);}
 
-    /* ── Summer card ──────────────────────── */
+    /* ── Summer card ─────────────────────────────────── */
     .summer-preview-card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);border:1.5px solid #FED7AA;}
     .summer-preview-head{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;background:#FFF7ED;}
     body.theme-dark .summer-preview-head{background:#1c1300;}
@@ -178,7 +281,7 @@
     .summer-slot-time{font-size:10px;font-weight:800;flex-shrink:0;}
     .summer-slot-note{font-size:11px;color:var(--text2);margin-top:2px;line-height:1.4;}
 
-    /* ── Note dialog ──────────────────────── */
+    /* ── Note dialog ─────────────────────────────────── */
     .dialog-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);display:flex;align-items:flex-end;justify-content:center;padding:0 12px 12px;}
     .dialog-card{background:var(--surface);border-radius:20px;padding:18px;width:100%;max-width:460px;}
     .dialog-title{font-size:15px;font-weight:900;color:var(--text);margin-bottom:12px;}
@@ -186,11 +289,11 @@
     .note-textarea:focus{outline:none;border-color:#3B82F6;}
     .dialog-actions{display:flex;gap:8px;margin-top:12px;}
     .dialog-btn{flex:1;padding:10px;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;cursor:pointer;}
-    .dialog-btn-cancel{background:var(--border2);color:var(--text3);}
-    .dialog-btn-clear{background:#FEE2E2;color:#DC2626;}
-    .dialog-btn-save{background:linear-gradient(135deg,#3B82F6,#6366F1);color:#fff;}
+    .cancel{background:var(--border2);color:var(--text3);}
+    .clear{background:#FEE2E2;color:#DC2626;}
+    .save{background:linear-gradient(135deg,#3B82F6,#6366F1);color:#fff;}
 
-    /* ── Stats card ───────────────────────── */
+    /* ── Stats card ──────────────────────────────────── */
     .stats-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.07);}
     .stats-title{font-size:13px;font-weight:900;color:var(--text);margin-bottom:12px;}
     .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
@@ -205,10 +308,11 @@
     .stats-top-item{display:flex;align-items:center;gap:8px;}
     .stats-top-item span:first-child{font-size:14px;}
     .motiv-tip{display:flex;align-items:flex-start;gap:8px;background:linear-gradient(135deg,#EFF6FF,#EDE9FE);border-radius:12px;padding:10px 12px;}
+    body.theme-dark .motiv-tip{background:linear-gradient(135deg,#1e3a5f,#2d1b69);}
     .motiv-icon{font-size:18px;flex-shrink:0;}
-    .motiv-text{font-size:12px;color:#374151;line-height:1.5;font-style:italic;}
+    .motiv-text{font-size:12px;color:var(--text2);line-height:1.5;font-style:italic;}
 
-    /* ── Roadmap ──────────────────────────── */
+    /* ── Roadmap ─────────────────────────────────────── */
     .roadmap-intro{background:var(--navy);border-radius:16px;padding:14px 16px;color:#fff;}
     .roadmap-intro-title{font-size:16px;font-weight:900;margin-bottom:4px;}
     .roadmap-intro-sub{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;}
@@ -218,7 +322,8 @@
     .overall-bar-fill{height:100%;background:linear-gradient(90deg,#3B82F6,#22C55E);border-radius:99px;transition:width .5s ease;}
     .overall-bar-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);font-weight:700;margin-bottom:12px;}
     .ical-row{display:flex;}
-    .ical-btn{flex:1;padding:8px 12px;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;color:#2563EB;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;cursor:pointer;text-align:center;text-decoration:none;display:block;}
+    .ical-btn{flex:1;padding:8px 12px;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;color:#2563EB;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;cursor:pointer;text-align:center;}
+    body.theme-dark .ical-btn{background:#1e3a5f;border-color:#1e40af;color:#93C5FD;}
     .phase-toggle{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
     .phase-btn{flex-shrink:0;padding:8px 14px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text3);font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;transition:all .2s;white-space:nowrap;}
     .phase-btn.active{color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.2);}
@@ -250,7 +355,7 @@
     .sum-total{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1.5px solid #BBF7D0;font-size:13px;font-weight:800;color:#166534;}
     .sum-note{font-size:11px;color:#16a34a;margin-top:4px;}
 
-    /* ── Insights ─────────────────────────── */
+    /* ── Insights ────────────────────────────────────── */
     .insights-intro{background:var(--navy);border-radius:16px;padding:14px 16px;color:#fff;}
     .insights-intro-title{font-size:16px;font-weight:900;margin-bottom:4px;}
     .insights-intro-sub{font-size:12px;color:rgba(255,255,255,.6);}
@@ -266,15 +371,12 @@
     .tip-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
     .tip-num{font-size:15px;font-weight:900;color:#3B82F6;flex-shrink:0;min-width:22px;}
     .tip-text{font-size:12px;color:var(--text2);line-height:1.55;}
-
-    /* ── Feedback card ────────────────────── */
     .feedback-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
-    .feedback-title{font-size:14px;font-weight:900;color:var(--text);margin-bottom:6px;}
-    .feedback-body{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.5;}
+    .feedback-title{font-size:14px;font-weight:900;color:var(--text);margin-bottom:10px;}
     .feedback-actions{display:flex;gap:8px;flex-wrap:wrap;}
     .feedback-btn{flex:1;padding:9px 12px;background:#1a1a2e;color:#fff;border-radius:10px;text-align:center;text-decoration:none;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;display:block;}
 
-    /* ── Bottom nav ───────────────────────── */
+    /* ── Bottom nav ─────────────────────────────────── */
     .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:calc(var(--nav-h) + var(--safe-bot));padding-bottom:var(--safe-bot);background:var(--surface);border-top:1px solid var(--border);display:flex;z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
     .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:none;background:transparent;color:var(--text3);font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;cursor:pointer;transition:color .2s;}
     .nav-btn .nav-icon{font-size:22px;transition:transform .2s;}
@@ -282,52 +384,98 @@
     .nav-btn.active .nav-icon{transform:scale(1.15);}
     .nav-btn.active .nav-label{font-weight:900;}
 
-    /* ── Onboarding ───────────────────────── */
+    /* ── Onboarding ─────────────────────────────────── */
     #onboarding-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;align-items:flex-end;justify-content:center;padding:0 12px 12px;animation:fade-in .25s ease;}
     @keyframes fade-in{from{opacity:0;}to{opacity:1;}}
     .onboard-card{background:var(--surface);border-radius:24px;padding:20px 20px 16px;width:100%;max-width:460px;animation:slide-up .3s ease;max-height:90vh;overflow-y:auto;}
     @keyframes slide-up{from{transform:translateY(40px);opacity:0;}to{transform:translateY(0);opacity:1;}}
     .onboard-icon{font-size:40px;text-align:center;margin-bottom:6px;}
     .onboard-title{font-size:18px;font-weight:900;color:var(--text);text-align:center;margin-bottom:14px;}
-    .onboard-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+    .onboard-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
     .onboard-step{padding:10px 12px;background:var(--border2);border-radius:12px;}
     .onboard-step-title{font-size:13px;font-weight:800;color:var(--text);}
     .onboard-step-desc{font-size:12px;color:var(--text2);line-height:1.4;margin-top:2px;}
     .onboard-btn{width:100%;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#3B82F6,#6366F1);color:#fff;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 4px 14px rgba(59,130,246,.4);}
 
-    /* ── Print styles ─────────────────────── */
+    /* ══ Print ═══════════════════════════════════════════ */
     @media print {
-      body { background: white !important; font-size: 11px !important; }
-      .app-header, .tab-bar, .bottom-nav, .today-btn, .note-btn,
-      .done-label, .summer-preview-card, .onboard-card,
-      #install-banner, #skeleton, #onboarding-overlay { display: none !important; }
-      #app { max-width: 100% !important; }
-      #main { padding: 0 !important; }
-      .tab-content { gap: 6px !important; }
-      .slot-card, .flow-card, .week-card, .stats-card,
-      .tips-card, .feedback-card, .insight-card {
-        box-shadow: none !important;
-        border: 1px solid #e5e7eb !important;
-        break-inside: avoid;
+      body{background:white!important;font-size:11px!important;}
+      .app-header,.tab-bar,.bottom-nav,.today-btn,.note-btn,
+      .done-label,.summer-preview-card,#install-banner,
+      #skeleton,#login-screen,#onboarding-overlay{display:none!important;}
+      #app{display:block!important;max-width:100%!important;}
+      #main{padding:0!important;}
+      .slot-card,.flow-card,.week-card,.stats-card,.tips-card,.feedback-card,.insight-card{
+        box-shadow:none!important;border:1px solid #e5e7eb!important;break-inside:avoid;
       }
-      .day-scroll { display: none !important; }
-      .day-header { color: #1a1a2e !important; border: 2px solid #1a1a2e !important; }
-      .slot-card-head { color: #fff !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-      .week-head { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-      .streak-banner { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-      @page { margin: 12mm; }
+      .day-scroll{display:none!important;}
+      .slot-card-head,.week-head,.streak-banner,.phase-header,.day-header{
+        print-color-adjust:exact;-webkit-print-color-adjust:exact;
+      }
+      @page{margin:12mm;}
     }
   </style>
 </head>
 <body>
 
-<div id="skeleton" role="status" aria-label="Loading study planner">
+<!-- ── Skeleton ──────────────────────────────────────── -->
+<div id="skeleton" role="status" aria-label="Loading">
   <div class="sk-icon" aria-hidden="true">🎒</div>
-  <div class="sk-text">Loading your study planner…</div>
+  <div class="sk-text">Loading your planner…</div>
   <div class="sk-bar"><div class="sk-fill"></div></div>
 </div>
 
+<!-- ══ LOGIN SCREEN ══════════════════════════════════════ -->
+<div id="login-screen" role="main" aria-label="Sign in to Study Planner">
+  <div class="login-card">
+
+    <span class="login-logo" aria-hidden="true">🎒</span>
+    <h1 class="login-title">Study Planner</h1>
+    <p class="login-sub">Std 3 · DBPS 2026–27</p>
+
+    <div class="login-assessment-badge">
+      🎯 First Assessment: July 1, 2026
+    </div>
+
+    <div class="login-features" role="list">
+      <div class="login-feature" role="listitem">
+        <span class="login-feature-icon">📅</span>
+        <span>Daily study slots with checkboxes, notes, and streak tracking</span>
+      </div>
+      <div class="login-feature" role="listitem">
+        <span class="login-feature-icon">🗺️</span>
+        <span>11-week roadmap across 3 phases — current week always highlighted</span>
+      </div>
+      <div class="login-feature" role="listitem">
+        <span class="login-feature-icon">☁️</span>
+        <span>All progress saved to cloud — works on every device, never lost</span>
+      </div>
+      <div class="login-feature" role="listitem">
+        <span class="login-feature-icon">📵</span>
+        <span>Works offline after first sign-in — study anywhere</span>
+      </div>
+      <div class="login-feature" role="listitem">
+        <span class="login-feature-icon">🔒</span>
+        <span>Your data is private — only you can access it</span>
+      </div>
+    </div>
+
+    <div id="signin-error" role="alert" aria-live="polite"></div>
+
+    <button id="google-signin-btn" aria-label="Sign in with Google">
+      <!-- content set by app.js -->
+    </button>
+
+    <p class="login-privacy">
+      Sign in with your Google account · Data stored securely in Firebase
+    </p>
+
+  </div>
+</div>
+
+<!-- ══ MAIN APP (shown after sign-in) ════════════════════ -->
 <div id="app">
+
   <header class="app-header" role="banner">
     <div class="header-top">
       <div class="header-icon" aria-hidden="true">🎒</div>
@@ -336,8 +484,9 @@
         <div class="header-sub">DBPS 2026–27 · 3 Phases · 11 Weeks</div>
       </div>
       <div class="header-actions">
+        <div id="user-section"></div>
         <button id="help-btn"  class="header-icon-btn" aria-label="Help / App tour" title="Help">❓</button>
-        <button id="theme-btn" class="header-icon-btn" aria-label="Toggle dark/light mode" title="Toggle theme">🌗</button>
+        <button id="theme-btn" class="header-icon-btn" aria-label="Toggle dark/light mode" title="Theme">🌗</button>
       </div>
     </div>
     <div class="countdown-pill" role="status" aria-live="polite">
@@ -369,18 +518,29 @@
       <span class="nav-icon" aria-hidden="true">💡</span><span class="nav-label">Insights</span>
     </button>
   </nav>
+
 </div>
 
+<!-- ── Service worker ─────────────────────────────────── -->
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js')
         .then(r => console.log('SW:', r.scope))
-        .catch(e => console.warn('SW err:', e));
+        .catch(e => console.warn('SW error:', e));
     });
   }
 </script>
+
+<!-- ── Firebase compat SDK (CDN, not cached by SW) ────── -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<!-- ── App scripts (load order matters) ─────────────────── -->
 <script src="data.js"></script>
+<script src="firebase.js"></script>
 <script src="app.js"></script>
+
 </body>
 </html>
