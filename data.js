@@ -2,13 +2,13 @@
 // data.js  ·  All static content – ES module exports
 // ═══════════════════════════════════════════════════════
 
-export const COLORS = {
+const COLORS = {
   english_lang:"#3B82F6", english_lit:"#A855F7", english_gram:"#6366F1",
   maths:"#14B8A6", mental_maths:"#10B981", evs:"#22C55E", moral:"#EAB308",
   gk:"#EF4444", hindi_vaideeka:"#F97316", hindi_gram:"#DC2626",
   hindi_writing:"#B45309", spelling:"#F59E0B", poem:"#EC4899",
 };
-export const LABELS = {
+const LABELS = {
   english_lang:"Active English",   english_lit:"Magnolia (Lit.)",
   english_gram:"English Grammar",  maths:"Mathematics",
   mental_maths:"Mental Maths",     evs:"EVS",
@@ -17,21 +17,21 @@ export const LABELS = {
   hindi_writing:"Hindi Writing",   spelling:"Spelling & Vocab",
   poem:"Poem Recitation",
 };
-export const EMOJI = {
+const EMOJI = {
   english_lang:"📘", english_lit:"📖", english_gram:"✏️", maths:"🔢",
   mental_maths:"🧠", evs:"🌿", moral:"🌟", gk:"🌍",
   hindi_vaideeka:"📕", hindi_gram:"📝", hindi_writing:"✍️",
   spelling:"🔤", poem:"🎤",
 };
-export const SESS = {
+const SESS = {
   s1:"Eve Slot 1", s2:"Eve Slot 2", morning:"Morning", afternoon:"Afternoon",
 };
-export const DAY_COLOR = {
+const DAY_COLOR = {
   Monday:"#2563EB", Tuesday:"#9333EA", Wednesday:"#059669",
   Thursday:"#EA580C", Friday:"#DC2626", Saturday:"#0891B2", Sunday:"#16A34A",
 };
 
-export const DAYS = [
+const DAYS = [
   {
     day:"Monday", short:"Mon", emoji:"🌅",
     note:"2:30–6:30 PM fully free — rest, snack, outdoor play. Study starts sharp at 6:30 PM.",
@@ -122,7 +122,7 @@ export const DAYS = [
   },
 ];
 
-export const SUMMER_SLOTS = [
+const SUMMER_SLOTS = [
   {time:"8:00 AM",end:"8:30 AM",icon:"🥣",label:"Breakfast + Morning routine",color:"#22C55E",type:"routine"},
   {time:"8:30 AM",end:"9:10 AM",icon:"📘",label:"Active English / Magnolia revision",color:"#3B82F6",type:"study",note:"40 min — read chapters aloud, answer exercises without looking at notes"},
   {time:"9:10 AM",end:"9:50 AM",icon:"🔢",label:"Mathematics",color:"#14B8A6",type:"study",note:"40 min — Chapter Test practice + HOTS questions, time every set of sums"},
@@ -144,7 +144,7 @@ export const SUMMER_SLOTS = [
   {time:"9:30 PM",end:"Bedtime",icon:"😴",label:"Sleep — 8–9 hrs essential",color:"#1a1a2e",type:"rest"},
 ];
 
-export const PHASES = [
+const PHASES = [
   {
     phase:"Phase 1", label:"School Term", dates:"Apr 13 – May 16",
     color:"#1a1a2e", icon:"🏫",
@@ -191,7 +191,7 @@ export const PHASES = [
   },
 ];
 
-export const INSIGHTS = [
+const INSIGHTS = [
   {emoji:"📅",color:"#2563EB",title:"Revised Timeline — Assessment Is July 1",body:"The original plan assumed a May assessment. With July 1 confirmed, there are 11 full weeks. Phase 1 (school term Apr 13–May 16): complete all new chapters + first revision. Phase 2 (summer vacation May 17–Jun 21): deep revision + mock tests with full-day schedule. Phase 3 (Jun 22–30): final sprint. This is a very comfortable runway — no need to rush."},
   {emoji:"☀️",color:"#EA580C",title:"Summer Vacation: Full-Day Schedule Kicks In",body:"From May 17, children are home all day. The vacation daily plan: morning study 8:30 AM–12:05 PM (Active English, Maths, EVS, Hindi, Grammar), long midday break with lunch and nap 12:05–3:45 PM, afternoon study 3:45–4:55 PM (GK, Hindi Grammar, Poems), extended outdoor play, and 30-min Mental Maths drill at 6:30 PM. Total ~4.5 hrs/day — never more than 40 min per sitting."},
   {emoji:"🎯",color:"#DC2626",title:"Don't Waste the Vacation — It's Your Biggest Advantage",body:"5.5 weeks of full days at home is a rare gift. Most children do nothing in summer and panic in June. If the vacation plan is followed, your child will have done 4–5 full rounds of revision of every subject before school reopens on June 22. Week 11 (Jun 22–30) becomes calm confidence-building — not a panic session."},
@@ -205,7 +205,7 @@ export const INSIGHTS = [
   {emoji:"✅",color:"#22C55E",title:"GK Ch 1 & 2 Already Done!",body:"BrainBytes Ch 1 (Solar System) and Ch 2 (Eating Healthy) completed on 6/4/26. Only Ch 3–7 remain — 5 chapters × 20 min. During vacation, make one fact card per chapter and do rapid-fire quizzes. All 7 chapters should be answerable orally in under 7 minutes total by Week 10."},
 ];
 
-export const TIPS = [
+const TIPS = [
   ["6:30 PM start — every school day","Same time daily builds the habit faster than any reward system."],
   ["Don't skip vacation study","5.5 weeks of full-day revision is the biggest advantage. Even 3 hrs/day changes everything."],
   ["Active English — oral then write","Read exercises aloud together. Child answers orally first, then writes."],
@@ -217,7 +217,7 @@ export const TIPS = [
   ["Week 11 is calm, not panic","If vacation plan is followed, Jun 22–30 is revision — not catching up."],
 ];
 
-export const MOTIV_TIPS = [
+const MOTIV_TIPS = [
   "Every 40-minute session today is one step closer to July 1. Small steps, big results! 💪",
   "Revision is not repetition — it is understanding more deeply each time. Keep going! 🌟",
   "The children who do a little every day beat the ones who cram. You're doing it right! 📘",
