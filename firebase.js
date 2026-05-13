@@ -17,10 +17,11 @@
   };
 
   // ── In-memory cache (avoids repeated Firestore reads) ──
-  let _user     = null;
-  let _progress = {};   // { "YYYY-MM-DD_dayIdx_slotIdx": true }
-  let _notes    = {};   // { "dayIdx_slotIdx": "text" }
+  let _user         = null;
+  let _progress     = {};   // { "YYYY-MM-DD_dayIdx_slotIdx": true }
+  let _notes        = {};   // { "dayIdx_slotIdx": "text" }
   let _authChangeCb = null;
+  let _authResolved = false; // true once first onAuthStateChanged has fired
 
   // ── Init ──────────────────────────────────────────────
   firebase.initializeApp(CONFIG);
@@ -40,6 +41,7 @@
       _progress = {};
       _notes    = {};
     }
+    _authResolved = true;
     if (_authChangeCb) _authChangeCb(user);
   });
 
@@ -71,7 +73,11 @@
     get currentUser() { return _user; },
     get uid()         { return _user ? _user.uid : null; },
 
-    onAuthChange(cb) { _authChangeCb = cb; },
+    // If auth already resolved before app.js registered this callback, fire now.
+    onAuthChange(cb) {
+      _authChangeCb = cb;
+      if (_authResolved) cb(_user);
+    },
 
     async signIn() {
       const p = new firebase.auth.GoogleAuthProvider();
