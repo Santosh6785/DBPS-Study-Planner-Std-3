@@ -1,546 +1,633 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
-  <title>Study Planner – Std 3 – DBPS 2026-27</title>
-  <meta name="description" content="11-week progressive study planner for Standard 3. First Assessment July 1 2026. Covers school term, summer vacation, and pre-assessment phases.">
-  <meta name="keywords" content="study planner, standard 3, class 3, DBPS, assessment, summer vacation">
-  <meta name="author" content="Santosh">
-
-  <meta property="og:type"        content="website">
-  <meta property="og:title"       content="Study Planner – Std 3 – DBPS 2026-27">
-  <meta property="og:description" content="11-week study planner. Assessment: July 1, 2026.">
-  <meta property="og:image"       content="icon-512.svg">
-  <meta property="og:url"         content="https://santosh6785.github.io/DBPS-Study-Planner-Std-3/">
-  <meta name="twitter:card"        content="summary">
-  <meta name="twitter:title"       content="Study Planner – Std 3 – DBPS 2026-27">
-  <meta name="twitter:description" content="11-week study planner for Std 3. Assessment: July 1, 2026.">
-
-  <meta name="theme-color" content="#1a1a2e">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="StudyPlan Std3">
-  <link rel="manifest"         href="manifest.json">
-  <link rel="apple-touch-icon" href="icon-180.png">
-  <link rel="icon"             href="icon-192.svg" type="image/svg+xml">
-  <link rel="icon"             href="icon-180.png" type="image/png">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-    /* ══ Variables ═══════════════════════════════════════ */
-    :root {
-      --bg:#F8FAFC; --surface:#fff; --text:#1a1a2e; --text2:#374151; --text3:#6b7280;
-      --border:#e5e7eb; --border2:#f3f4f6; --navy:#1a1a2e; --navy2:#0f3460;
-      --safe-top:env(safe-area-inset-top,0px); --safe-bot:env(safe-area-inset-bottom,0px);
-      --nav-h:64px;
-    }
-    @media (prefers-color-scheme:dark) {
-      :root:not(.theme-light) {
-        --bg:#111827;--surface:#1f2937;--text:#f9fafb;--text2:#d1d5db;--text3:#9ca3af;
-        --border:#374151;--border2:#1f2937;
-      }
-    }
-    body.theme-dark  {--bg:#111827;--surface:#1f2937;--text:#f9fafb;--text2:#d1d5db;--text3:#9ca3af;--border:#374151;--border2:#1f2937;}
-    body.theme-light {--bg:#F8FAFC;--surface:#fff;  --text:#1a1a2e;--text2:#374151;--text3:#6b7280;--border:#e5e7eb;--border2:#f3f4f6;}
-
-    /* ══ Reset ═══════════════════════════════════════════ */
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html {font-size:16px;scroll-behavior:smooth;}
-    body {font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s;}
-    :focus-visible{outline:3px solid #3B82F6;outline-offset:2px;border-radius:6px;}
-    :not(:focus-visible){outline:none;}
-    *{-webkit-tap-highlight-color:transparent;}
-    ::-webkit-scrollbar{display:none;}
-
-    /* ══ Skeleton ════════════════════════════════════════ */
-    #skeleton{position:fixed;inset:0;z-index:999;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
-    .sk-icon{font-size:52px;animation:sk-bounce .8s infinite alternate;}
-    .sk-text{color:rgba(255,255,255,.7);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;}
-    .sk-bar{width:160px;height:4px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden;}
-    .sk-fill{height:100%;width:40%;background:#3B82F6;border-radius:99px;animation:sk-slide 1s ease-in-out infinite alternate;}
-    @keyframes sk-bounce{from{transform:translateY(0);}to{transform:translateY(-10px);}}
-    @keyframes sk-slide{from{margin-left:0;}to{margin-left:60%;}}
-
-    /* ══ LOGIN SCREEN ════════════════════════════════════ */
-    #login-screen{
-      display:none; /* shown by JS when not signed in */
-      position:fixed;inset:0;z-index:500;
-      background:linear-gradient(160deg,#0f0c29 0%,#302b63 50%,#24243e 100%);
-      align-items:center;justify-content:center;
-      padding:20px 16px;
-      overflow-y:auto;
-    }
-
-    .login-card{
-      width:100%;max-width:400px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:28px;
-      padding:32px 24px 28px;
-      backdrop-filter:blur(20px);
-      text-align:center;
-      animation:login-appear .4s ease;
-    }
-    @keyframes login-appear{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-
-    .login-logo{font-size:60px;margin-bottom:10px;display:block;}
-
-    .login-title{
-      font-size:24px;font-weight:900;color:#fff;
-      letter-spacing:-.5px;margin-bottom:4px;
-    }
-    .login-sub{
-      font-size:13px;color:rgba(255,255,255,.5);
-      font-weight:600;margin-bottom:24px;
-    }
-
-    .login-features{
-      display:flex;flex-direction:column;gap:8px;
-      margin-bottom:28px;text-align:left;
-    }
-    .login-feature{
-      display:flex;align-items:flex-start;gap:10px;
-      background:rgba(255,255,255,.07);
-      border-radius:12px;padding:10px 12px;
-      font-size:12px;color:rgba(255,255,255,.85);
-      line-height:1.4;font-weight:600;
-    }
-    .login-feature-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
-
-    /* Google sign-in button */
-    #google-signin-btn{
-      display:flex;align-items:center;justify-content:center;gap:10px;
-      width:100%;padding:14px 20px;
-      background:#fff;color:#1a1a2e;
-      border:none;border-radius:14px;
-      font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;
-      cursor:pointer;
-      box-shadow:0 4px 20px rgba(0,0,0,.3);
-      transition:transform .15s,box-shadow .15s;
-      margin-bottom:14px;
-    }
-    #google-signin-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.4);}
-    #google-signin-btn:active{transform:scale(.98);}
-    #google-signin-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
-
-    /* Spinner for sign-in loading */
-    .spinner{
-      display:inline-block;width:18px;height:18px;
-      border:2.5px solid #e5e7eb;border-top-color:#1a1a2e;
-      border-radius:50%;animation:spin .6s linear infinite;
-      flex-shrink:0;
-    }
-    @keyframes spin{to{transform:rotate(360deg);}}
-
-    #signin-error{
-      font-size:12px;color:#FCA5A5;font-weight:600;
-      min-height:16px;margin-bottom:8px;line-height:1.4;
-    }
-
-    .login-privacy{
-      font-size:11px;color:rgba(255,255,255,.35);
-      font-weight:600;line-height:1.5;
-    }
-
-    .login-assessment-badge{
-      display:inline-flex;align-items:center;gap:6px;
-      background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.4);
-      border-radius:99px;padding:5px 14px;
-      font-size:11px;font-weight:800;color:#FCA5A5;
-      margin-bottom:20px;
-    }
-
-    /* ══ APP SHELL ═══════════════════════════════════════ */
-    #app{
-      display:none; /* shown by JS after sign-in */
-      max-width:480px;margin:0 auto;min-height:100vh;
-      flex-direction:column;
-    }
-
-    /* ── Header ───────────────────────────────────────── */
-    .app-header{
-      background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
-      padding:calc(var(--safe-top) + 12px) 14px 0;
-      color:#fff;position:sticky;top:0;z-index:100;
-      box-shadow:0 2px 20px rgba(0,0,0,.35);
-    }
-    .header-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-    .header-icon{font-size:24px;line-height:1;flex-shrink:0;}
-    .header-titles{flex:1;min-width:0;}
-    .header-main{font-size:16px;font-weight:900;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .header-sub{font-size:10px;color:rgba(255,255,255,.6);font-weight:600;}
-    .header-actions{display:flex;align-items:center;gap:6px;flex-shrink:0;}
-    .header-icon-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:5px 7px;font-size:15px;cursor:pointer;color:#fff;line-height:1;}
-
-    /* User info in header */
-    #user-section{display:flex;align-items:center;gap:6px;}
-    .user-avatar{width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.4);flex-shrink:0;}
-    .user-name{font-size:11px;font-weight:800;color:rgba(255,255,255,.85);max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .signout-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:4px 8px;font-size:10px;font-weight:800;color:rgba(255,255,255,.7);cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap;}
-
-    .countdown-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.45);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:800;color:#FCA5A5;margin-bottom:8px;}
-    #install-banner{display:none;align-items:center;gap:10px;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.4);border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:12px;color:rgba(255,255,255,.9);}
-    #install-banner span{flex:1;font-weight:600;}
-    #install-btn{background:#3B82F6;color:#fff;border:none;border-radius:8px;padding:5px 12px;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;cursor:pointer;}
-    #dismiss-install{background:transparent;border:none;color:rgba(255,255,255,.5);font-size:18px;cursor:pointer;padding:0 4px;}
-
-    /* ── Tab bar ─────────────────────────────────────── */
-    .tab-bar{display:flex;gap:6px;padding:0 14px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);}
-    .tab-btn{flex:1;padding:8px 4px;border:none;border-radius:10px 10px 0 0;background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;transition:all .2s;}
-    .tab-btn.active{background:var(--bg);color:var(--text);}
-
-    /* ── Main content ────────────────────────────────── */
-    #main{flex:1;padding:12px 12px calc(var(--nav-h) + var(--safe-bot) + 14px);transition:opacity .15s;}
-    .tab-content{display:flex;flex-direction:column;gap:10px;}
-
-    /* ── Streak banner ────────────────────────────────── */
-    .streak-banner{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#EA580C,#F97316);border-radius:16px;padding:12px 16px;color:#fff;}
-    .streak-num{font-size:16px;font-weight:900;}
-    .streak-sub{font-size:11px;color:rgba(255,255,255,.8);}
-
-    /* ── Day scroll (snap) ───────────────────────────── */
-    .day-scroll{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;align-items:center;scrollbar-width:none;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
-    .day-btn{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;border-radius:12px;border:none;background:var(--surface);color:var(--text3);font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;position:relative;scroll-snap-align:start;}
-    .day-btn.active{color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.25);transform:translateY(-1px);}
-    .today-dot{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#F59E0B;}
-    .day-btn.active .today-dot{background:rgba(255,255,255,.8);}
-    .today-btn{flex-shrink:0;padding:6px 12px;border-radius:12px;border:1.5px solid #3B82F6;background:var(--surface);color:#3B82F6;font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;white-space:nowrap;}
-    .day-prog{font-size:9px;font-weight:800;color:#fff;border-radius:99px;padding:1px 5px;min-width:26px;text-align:center;margin-top:1px;}
-
-    /* ── Day header ──────────────────────────────────── */
-    .day-header{border-radius:18px;padding:14px 16px;color:#fff;}
-    .day-header-top{display:flex;align-items:flex-start;gap:12px;}
-    .day-header-info{flex:1;}
-    .day-name{font-size:22px;font-weight:900;line-height:1;margin-bottom:5px;}
-    .day-note-text{font-size:11px;color:rgba(255,255,255,.7);line-height:1.4;font-style:italic;}
-    .day-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
-    .day-badge{background:rgba(255,255,255,.15);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:700;}
-    .day-progress-bar-wrap{height:5px;background:rgba(255,255,255,.2);border-radius:99px;margin-top:10px;overflow:hidden;}
-    .day-progress-bar{height:100%;border-radius:99px;transition:width .4s ease;}
-
-    /* ── Slot cards ──────────────────────────────────── */
-    .slots-list{display:flex;flex-direction:column;gap:8px;}
-    .slot-break{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:10px;background:var(--border2);border:1px dashed var(--border);}
-    .slot-card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);transition:transform .15s,opacity .2s;}
-    .slot-card:active{transform:scale(.99);}
-    .slot-card.slot-key{box-shadow:0 3px 12px rgba(0,0,0,.12);border:1.5px solid #FCD34D;}
-    .slot-card.slot-key .slot-card-body{background:#FFFBEB;}
-    .slot-card.slot-done{opacity:.7;}
-    .slot-card.slot-done .slot-card-body{background:var(--border2)!important;}
-    body.theme-dark .slot-card.slot-key .slot-card-body{background:#292524;}
-    .slot-card-head{padding:9px 12px;display:flex;justify-content:space-between;align-items:center;}
-    .slot-head-left{display:flex;align-items:center;gap:8px;}
-    .slot-emoji{font-size:18px;}
-    .slot-time-label{font-size:13px;font-weight:800;color:#fff;}
-    .slot-head-right{display:flex;gap:5px;align-items:center;}
-    .slot-pill{border-radius:99px;padding:2px 8px;font-size:10px;font-weight:800;}
-    .key-pill{background:rgba(255,255,255,.3);color:#fff;}
-    .dur-pill{background:rgba(0,0,0,.2);color:#fff;}
-    .done-pill{background:rgba(255,255,255,.3);color:#fff;}
-    .slot-card-body{padding:10px 14px;}
-    .slot-subject-name{font-size:14px;font-weight:900;margin-bottom:3px;transition:color .2s;}
-    .slot-topic{font-size:12px;line-height:1.5;margin-bottom:7px;transition:color .2s,text-decoration .2s;}
-    .slot-note-display{display:flex;align-items:flex-start;gap:5px;background:var(--border2);border-radius:8px;padding:5px 8px;margin-bottom:7px;}
-    .slot-note-icon{font-size:12px;flex-shrink:0;}
-    .slot-note-text{font-size:11px;color:var(--text2);line-height:1.4;font-style:italic;}
-    .slot-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
-    .slot-sess-badge{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;}
-    .slot-footer-actions{display:flex;align-items:center;gap:8px;}
-    .note-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 8px;font-size:11px;cursor:pointer;color:var(--text3);font-family:'Nunito',sans-serif;font-weight:700;}
-    .note-btn.note-btn-active{border-color:#F59E0B;color:#F59E0B;background:#FFFBEB;}
-    .done-label{display:flex;align-items:center;gap:5px;cursor:pointer;user-select:none;}
-    .done-check{width:16px;height:16px;accent-color:#22C55E;cursor:pointer;flex-shrink:0;}
-    .done-check-label{font-size:11px;font-weight:800;color:#22C55E;}
-    .slot-card.slot-done .done-check-label{color:#9CA3AF;}
-
-    /* ── Flow card ────────────────────────────────────── */
-    .flow-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
-    .flow-card-title{font-size:13px;font-weight:900;color:var(--text);margin-bottom:10px;}
-    .flow-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
-    .flow-dot{width:8px;height:8px;border-radius:99px;flex-shrink:0;margin-top:5px;}
-    .flow-info{flex:1;}
-    .flow-time{font-size:10px;font-weight:800;line-height:1.2;}
-    .flow-label{font-size:12px;color:var(--text2);line-height:1.3;}
-    .flow-label.bold{font-weight:800;color:var(--text);}
-
-    /* ── Summer card ─────────────────────────────────── */
-    .summer-preview-card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);border:1.5px solid #FED7AA;}
-    .summer-preview-head{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;background:#FFF7ED;}
-    body.theme-dark .summer-preview-head{background:#1c1300;}
-    .summer-slots{padding:8px 10px 10px;display:flex;flex-direction:column;gap:5px;}
-    .summer-slot{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:12px;}
-    .summer-slot-icon{width:32px;height:32px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;}
-    .summer-slot-info{flex:1;min-width:0;}
-    .summer-slot-header{display:flex;justify-content:space-between;align-items:center;gap:6px;}
-    .summer-slot-label{font-size:12px;font-weight:800;color:var(--text);}
-    .summer-slot-time{font-size:10px;font-weight:800;flex-shrink:0;}
-    .summer-slot-note{font-size:11px;color:var(--text2);margin-top:2px;line-height:1.4;}
-
-    /* ── Note dialog ─────────────────────────────────── */
-    .dialog-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);display:flex;align-items:flex-end;justify-content:center;padding:0 12px 12px;}
-    .dialog-card{background:var(--surface);border-radius:20px;padding:18px;width:100%;max-width:460px;}
-    .dialog-title{font-size:15px;font-weight:900;color:var(--text);margin-bottom:12px;}
-    .note-textarea{width:100%;border:1.5px solid var(--border);border-radius:12px;padding:10px 12px;font-family:'Nunito',sans-serif;font-size:13px;color:var(--text);background:var(--bg);resize:none;line-height:1.5;}
-    .note-textarea:focus{outline:none;border-color:#3B82F6;}
-    .dialog-actions{display:flex;gap:8px;margin-top:12px;}
-    .dialog-btn{flex:1;padding:10px;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;cursor:pointer;}
-    .cancel{background:var(--border2);color:var(--text3);}
-    .clear{background:#FEE2E2;color:#DC2626;}
-    .save{background:linear-gradient(135deg,#3B82F6,#6366F1);color:#fff;}
-
-    /* ── Stats card ──────────────────────────────────── */
-    .stats-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.07);}
-    .stats-title{font-size:13px;font-weight:900;color:var(--text);margin-bottom:12px;}
-    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
-    .stats-box{background:var(--border2);border-radius:12px;padding:8px;text-align:center;}
-    .stats-num{font-size:18px;font-weight:900;line-height:1;}
-    .stats-lbl{font-size:9px;color:var(--text3);font-weight:700;margin-top:3px;}
-    .stats-bar-track{height:8px;background:var(--border2);border-radius:99px;overflow:hidden;margin-bottom:12px;}
-    .stats-bar-fill{height:100%;border-radius:99px;transition:width .5s ease;}
-    .stats-top{background:var(--border2);border-radius:12px;padding:10px 12px;margin-bottom:12px;}
-    .stats-top-label{font-size:10px;font-weight:800;color:var(--text3);margin-bottom:8px;}
-    .stats-top-items{display:flex;flex-direction:column;gap:5px;}
-    .stats-top-item{display:flex;align-items:center;gap:8px;}
-    .stats-top-item span:first-child{font-size:14px;}
-    .motiv-tip{display:flex;align-items:flex-start;gap:8px;background:linear-gradient(135deg,#EFF6FF,#EDE9FE);border-radius:12px;padding:10px 12px;}
-    body.theme-dark .motiv-tip{background:linear-gradient(135deg,#1e3a5f,#2d1b69);}
-    .motiv-icon{font-size:18px;flex-shrink:0;}
-    .motiv-text{font-size:12px;color:var(--text2);line-height:1.5;font-style:italic;}
-
-    /* ── Roadmap ─────────────────────────────────────── */
-    .roadmap-intro{background:var(--navy);border-radius:16px;padding:14px 16px;color:#fff;}
-    .roadmap-intro-title{font-size:16px;font-weight:900;margin-bottom:4px;}
-    .roadmap-intro-sub{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;}
-    .overall-progress-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
-    .overall-progress-title{font-size:13px;font-weight:800;color:var(--text);margin-bottom:8px;}
-    .overall-bar-track{height:10px;background:var(--border2);border-radius:99px;overflow:hidden;margin-bottom:6px;}
-    .overall-bar-fill{height:100%;background:linear-gradient(90deg,#3B82F6,#22C55E);border-radius:99px;transition:width .5s ease;}
-    .overall-bar-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);font-weight:700;margin-bottom:12px;}
-    .ical-row{display:flex;}
-    .ical-btn{flex:1;padding:8px 12px;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;color:#2563EB;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;cursor:pointer;text-align:center;}
-    body.theme-dark .ical-btn{background:#1e3a5f;border-color:#1e40af;color:#93C5FD;}
-    .phase-toggle{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
-    .phase-btn{flex-shrink:0;padding:8px 14px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text3);font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;transition:all .2s;white-space:nowrap;}
-    .phase-btn.active{color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.2);}
-    .phase-btn.current-phase{border-color:#F59E0B;}
-    .phase-header{border-radius:18px;padding:14px 16px;color:#fff;}
-    .phase-header-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px;}
-    .phase-title{font-size:17px;font-weight:900;line-height:1.2;}
-    .phase-dates{font-size:12px;color:rgba(255,255,255,.7);margin-top:3px;}
-    .phase-note{font-size:11px;color:rgba(255,255,255,.7);font-style:italic;line-height:1.4;padding-top:6px;border-top:1px solid rgba(255,255,255,.2);}
-    .week-card{background:var(--surface);border-radius:18px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.07);}
-    .week-card.week-current{box-shadow:0 0 0 3px #F59E0B,0 4px 16px rgba(0,0,0,.15);}
-    .week-card.week-past{opacity:.7;}
-    .week-head{padding:10px 16px;display:flex;justify-content:space-between;align-items:center;}
-    .week-title{font-size:14px;font-weight:900;color:#fff;}
-    .week-tag{background:rgba(255,255,255,.2);color:#fff;border-radius:99px;padding:2px 10px;font-size:11px;font-weight:700;}
-    .week-focus{padding:8px 14px;font-size:11px;font-weight:800;border-left:3px solid;background:var(--border2);line-height:1.4;}
-    .week-rows{padding:6px 0;}
-    .week-row{display:flex;gap:8px;padding:6px 14px;border-bottom:1px solid var(--border2);align-items:flex-start;}
-    .week-row:last-child{border-bottom:none;}
-    .week-row-lbl{font-size:11px;font-weight:800;color:var(--text3);min-width:112px;flex-shrink:0;line-height:1.4;}
-    .week-row-val{font-size:11px;color:var(--text2);line-height:1.5;flex:1;}
-    .summary-card{background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:16px;padding:14px;}
-    body.theme-dark .summary-card{background:#052e16;}
-    .summary-title{font-size:13px;font-weight:900;color:#166534;margin-bottom:10px;}
-    .sum-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
-    .sum-dot{width:8px;height:8px;border-radius:99px;flex-shrink:0;}
-    .sum-label{font-size:11px;color:var(--text2);flex:1;}
-    .sum-time{font-size:12px;font-weight:900;}
-    .sum-total{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1.5px solid #BBF7D0;font-size:13px;font-weight:800;color:#166534;}
-    .sum-note{font-size:11px;color:#16a34a;margin-top:4px;}
-
-    /* ── Insights ────────────────────────────────────── */
-    .insights-intro{background:var(--navy);border-radius:16px;padding:14px 16px;color:#fff;}
-    .insights-intro-title{font-size:16px;font-weight:900;margin-bottom:4px;}
-    .insights-intro-sub{font-size:12px;color:rgba(255,255,255,.6);}
-    .insight-card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);}
-    .insight-head{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
-    .insight-head-left{display:flex;align-items:center;gap:10px;}
-    .insight-title{font-size:13px;font-weight:800;color:#fff;line-height:1.3;}
-    .insight-arrow{color:rgba(255,255,255,.8);font-size:16px;flex-shrink:0;}
-    .insight-body{padding:12px 14px;font-size:13px;color:var(--text2);line-height:1.65;}
-    .tips-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
-    .tips-title{font-size:14px;font-weight:900;color:var(--text);margin-bottom:10px;}
-    .tip-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid var(--border2);}
-    .tip-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-    .tip-num{font-size:15px;font-weight:900;color:#3B82F6;flex-shrink:0;min-width:22px;}
-    .tip-text{font-size:12px;color:var(--text2);line-height:1.55;}
-    .feedback-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
-    .feedback-title{font-size:14px;font-weight:900;color:var(--text);margin-bottom:10px;}
-    .feedback-actions{display:flex;gap:8px;flex-wrap:wrap;}
-    .feedback-btn{flex:1;padding:9px 12px;background:#1a1a2e;color:#fff;border-radius:10px;text-align:center;text-decoration:none;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;display:block;}
-
-    /* ── Bottom nav ─────────────────────────────────── */
-    .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:calc(var(--nav-h) + var(--safe-bot));padding-bottom:var(--safe-bot);background:var(--surface);border-top:1px solid var(--border);display:flex;z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
-    .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:none;background:transparent;color:var(--text3);font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;cursor:pointer;transition:color .2s;}
-    .nav-btn .nav-icon{font-size:22px;transition:transform .2s;}
-    .nav-btn.active{color:var(--text);}
-    .nav-btn.active .nav-icon{transform:scale(1.15);}
-    .nav-btn.active .nav-label{font-weight:900;}
-
-    /* ── Onboarding ─────────────────────────────────── */
-    #onboarding-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;align-items:flex-end;justify-content:center;padding:0 12px 12px;animation:fade-in .25s ease;}
-    @keyframes fade-in{from{opacity:0;}to{opacity:1;}}
-    .onboard-card{background:var(--surface);border-radius:24px;padding:20px 20px 16px;width:100%;max-width:460px;animation:slide-up .3s ease;max-height:90vh;overflow-y:auto;}
-    @keyframes slide-up{from{transform:translateY(40px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-    .onboard-icon{font-size:40px;text-align:center;margin-bottom:6px;}
-    .onboard-title{font-size:18px;font-weight:900;color:var(--text);text-align:center;margin-bottom:14px;}
-    .onboard-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
-    .onboard-step{padding:10px 12px;background:var(--border2);border-radius:12px;}
-    .onboard-step-title{font-size:13px;font-weight:800;color:var(--text);}
-    .onboard-step-desc{font-size:12px;color:var(--text2);line-height:1.4;margin-top:2px;}
-    .onboard-btn{width:100%;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#3B82F6,#6366F1);color:#fff;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 4px 14px rgba(59,130,246,.4);}
-
-    /* ══ Print ═══════════════════════════════════════════ */
-    @media print {
-      body{background:white!important;font-size:11px!important;}
-      .app-header,.tab-bar,.bottom-nav,.today-btn,.note-btn,
-      .done-label,.summer-preview-card,#install-banner,
-      #skeleton,#login-screen,#onboarding-overlay{display:none!important;}
-      #app{display:block!important;max-width:100%!important;}
-      #main{padding:0!important;}
-      .slot-card,.flow-card,.week-card,.stats-card,.tips-card,.feedback-card,.insight-card{
-        box-shadow:none!important;border:1px solid #e5e7eb!important;break-inside:avoid;
-      }
-      .day-scroll{display:none!important;}
-      .slot-card-head,.week-head,.streak-banner,.phase-header,.day-header{
-        print-color-adjust:exact;-webkit-print-color-adjust:exact;
-      }
-      @page{margin:12mm;}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#1a1a2e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="StudyPlan Std3">
+<meta name="description" content="11-week cloud-synced study planner for Standard 3. Assessment: July 1, 2026.">
+<title>Study Planner – Std 3 – DBPS 2026-27</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8FAFC;--surface:#fff;--text:#1a1a2e;--text2:#374151;--text3:#6b7280;--border:#e5e7eb;--border2:#f3f4f6;--navy:#1a1a2e;--navy2:#0f3460;--safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px);--nav-h:64px;}
+@media(prefers-color-scheme:dark){:root:not(.theme-light){--bg:#111827;--surface:#1f2937;--text:#f9fafb;--text2:#d1d5db;--text3:#9ca3af;--border:#374151;--border2:#1f2937;}}
+body.theme-dark{--bg:#111827;--surface:#1f2937;--text:#f9fafb;--text2:#d1d5db;--text3:#9ca3af;--border:#374151;--border2:#1f2937;}
+body.theme-light{--bg:#F8FAFC;--surface:#fff;--text:#1a1a2e;--text2:#374151;--text3:#6b7280;--border:#e5e7eb;--border2:#f3f4f6;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s;}
+:focus-visible{outline:3px solid #3B82F6;outline-offset:2px;border-radius:6px;}
+:not(:focus-visible){outline:none;}
+*{-webkit-tap-highlight-color:transparent;}
+::-webkit-scrollbar{display:none;}
+/* Skeleton */
+#skeleton{position:fixed;inset:0;z-index:999;background:#1a1a2e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
+.sk-icon{font-size:52px;animation:skb .8s infinite alternate;}
+.sk-text{color:rgba(255,255,255,.7);font-size:14px;font-weight:700;}
+.sk-bar{width:160px;height:4px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden;}
+.sk-fill{height:100%;width:40%;background:#3B82F6;border-radius:99px;animation:sks 1s ease-in-out infinite alternate;}
+@keyframes skb{from{transform:translateY(0);}to{transform:translateY(-10px);}}
+@keyframes sks{from{margin-left:0;}to{margin-left:60%;}}
+/* Login */
+#login-screen{display:none;position:fixed;inset:0;z-index:500;background:linear-gradient(160deg,#0f0c29,#302b63 50%,#24243e);align-items:center;justify-content:center;padding:20px 16px;overflow-y:auto;}
+.login-card{width:100%;max-width:400px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:32px 24px 28px;backdrop-filter:blur(20px);text-align:center;animation:la .4s ease;}
+@keyframes la{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.login-logo{font-size:60px;display:block;margin-bottom:10px;}
+.login-title{font-size:24px;font-weight:900;color:#fff;margin-bottom:4px;}
+.login-sub{font-size:13px;color:rgba(255,255,255,.5);font-weight:600;margin-bottom:20px;}
+.login-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.4);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:800;color:#FCA5A5;margin-bottom:20px;}
+.login-features{display:flex;flex-direction:column;gap:8px;margin-bottom:26px;text-align:left;}
+.login-feature{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,.07);border-radius:12px;padding:10px 12px;font-size:12px;color:rgba(255,255,255,.85);font-weight:600;line-height:1.4;}
+.login-feature-icon{font-size:18px;flex-shrink:0;}
+#signin-error{font-size:12px;color:#FCA5A5;font-weight:600;min-height:16px;margin-bottom:10px;line-height:1.4;}
+#google-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px 20px;background:#fff;color:#1a1a2e;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.3);transition:transform .15s,box-shadow .15s;margin-bottom:14px;}
+#google-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.4);}
+#google-btn:active{transform:scale(.98);}
+#google-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.spinner{display:inline-block;width:18px;height:18px;border:2.5px solid #e5e7eb;border-top-color:#1a1a2e;border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.login-privacy{font-size:11px;color:rgba(255,255,255,.35);font-weight:600;}
+/* App shell */
+#app{display:none;max-width:480px;margin:0 auto;min-height:100vh;flex-direction:column;}
+/* Header */
+.app-header{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:calc(var(--safe-top) + 12px) 14px 0;color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.35);}
+.header-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.header-icon{font-size:24px;flex-shrink:0;}
+.header-titles{flex:1;min-width:0;}
+.header-main{font-size:16px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.header-sub{font-size:10px;color:rgba(255,255,255,.6);font-weight:600;}
+.header-actions{display:flex;gap:6px;align-items:center;flex-shrink:0;}
+.hbtn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:5px 7px;font-size:15px;cursor:pointer;color:#fff;line-height:1;}
+.user-chip{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);border-radius:99px;padding:3px 8px 3px 3px;border:1px solid rgba(255,255,255,.15);}
+.user-chip img,.user-avatar-init{width:24px;height:24px;border-radius:50%;object-fit:cover;flex-shrink:0;}
+.user-avatar-init{background:#3B82F6;color:#fff;font-weight:900;font-size:11px;display:flex;align-items:center;justify-content:center;}
+.user-name{font-size:11px;font-weight:800;color:#fff;max-width:70px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.signout-btn{background:transparent;border:none;color:rgba(255,255,255,.6);font-size:13px;cursor:pointer;padding:0 2px;font-weight:900;}
+.cpill{display:inline-flex;align-items:center;gap:6px;background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.45);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:800;color:#FCA5A5;margin-bottom:8px;}
+#install-banner{display:none;align-items:center;gap:10px;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.4);border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:12px;color:rgba(255,255,255,.9);}
+#install-banner span{flex:1;font-weight:600;}
+#install-btn{background:#3B82F6;color:#fff;border:none;border-radius:8px;padding:5px 12px;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;cursor:pointer;}
+#dismiss-install{background:transparent;border:none;color:rgba(255,255,255,.5);font-size:18px;cursor:pointer;padding:0 4px;}
+.tab-bar{display:flex;gap:6px;padding:0 14px;background:linear-gradient(135deg,var(--navy),var(--navy2));}
+.tab-btn{flex:1;padding:8px 4px;border:none;border-radius:10px 10px 0 0;background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;transition:all .2s;}
+.tab-btn.active{background:var(--bg);color:var(--text);}
+#main{flex:1;padding:12px 12px calc(var(--nav-h) + var(--safe-bot) + 14px);}
+.tab-content{display:flex;flex-direction:column;gap:10px;}
+/* Streak */
+.streak-banner{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#EA580C,#F97316);border-radius:16px;padding:12px 16px;color:#fff;}
+.streak-num{font-size:16px;font-weight:900;}
+.streak-sub{font-size:11px;color:rgba(255,255,255,.8);}
+/* Day scroll */
+.day-scroll{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;align-items:center;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+.day-btn{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;border-radius:12px;border:none;background:var(--surface);color:var(--text3);font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;position:relative;scroll-snap-align:start;}
+.day-btn.active{color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.25);transform:translateY(-1px);}
+.today-dot{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#F59E0B;}
+.day-btn.active .today-dot{background:rgba(255,255,255,.8);}
+.today-btn{flex-shrink:0;padding:6px 12px;border-radius:12px;border:1.5px solid #3B82F6;background:var(--surface);color:#3B82F6;font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;white-space:nowrap;}
+.day-prog{font-size:9px;font-weight:800;color:#fff;border-radius:99px;padding:1px 5px;min-width:26px;text-align:center;margin-top:1px;}
+/* Day header */
+.day-header{border-radius:18px;padding:14px 16px;color:#fff;}
+.day-header-top{display:flex;align-items:flex-start;gap:12px;}
+.day-header-info{flex:1;}
+.day-name{font-size:22px;font-weight:900;line-height:1;margin-bottom:5px;}
+.day-note-text{font-size:11px;color:rgba(255,255,255,.7);line-height:1.4;font-style:italic;}
+.day-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.day-badge{background:rgba(255,255,255,.15);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:700;}
+.day-pb-wrap{height:5px;background:rgba(255,255,255,.2);border-radius:99px;margin-top:10px;overflow:hidden;}
+.day-pb{height:100%;border-radius:99px;transition:width .4s ease;}
+/* Slots */
+.slots-list{display:flex;flex-direction:column;gap:8px;}
+.slot-break{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:10px;background:var(--border2);border:1px dashed var(--border);}
+.slot-card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);transition:transform .15s,opacity .2s;}
+.slot-card.slot-key{border:1.5px solid #FCD34D;}
+.slot-card.slot-key .slot-card-body{background:#FFFBEB;}
+.slot-card.slot-done{opacity:.7;}
+.slot-card.slot-done .slot-card-body{background:var(--border2)!important;}
+body.theme-dark .slot-card.slot-key .slot-card-body{background:#292524;}
+.slot-card-head{padding:9px 12px;display:flex;justify-content:space-between;align-items:center;}
+.slot-head-left{display:flex;align-items:center;gap:8px;}
+.slot-emoji{font-size:18px;}
+.slot-time-lbl{font-size:13px;font-weight:800;color:#fff;}
+.slot-head-right{display:flex;gap:5px;align-items:center;}
+.slot-pill{border-radius:99px;padding:2px 8px;font-size:10px;font-weight:800;}
+.key-pill{background:rgba(255,255,255,.3);color:#fff;}
+.dur-pill{background:rgba(0,0,0,.2);color:#fff;}
+.done-pill{background:rgba(255,255,255,.3);color:#fff;}
+.slot-card-body{padding:10px 14px;}
+.slot-subj-name{font-size:14px;font-weight:900;margin-bottom:3px;}
+.slot-topic{font-size:12px;line-height:1.5;margin-bottom:7px;}
+.slot-note-display{display:flex;align-items:flex-start;gap:5px;background:var(--border2);border-radius:8px;padding:5px 8px;margin-bottom:7px;}
+.slot-note-text{font-size:11px;color:var(--text2);line-height:1.4;font-style:italic;}
+.slot-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+.slot-sess{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;}
+.slot-footer-actions{display:flex;align-items:center;gap:8px;}
+.note-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 8px;font-size:11px;cursor:pointer;color:var(--text3);font-family:'Nunito',sans-serif;font-weight:700;}
+.note-btn.active{border-color:#F59E0B;color:#F59E0B;background:#FFFBEB;}
+.done-label{display:flex;align-items:center;gap:5px;cursor:pointer;user-select:none;}
+.done-check{width:16px;height:16px;accent-color:#22C55E;cursor:pointer;}
+.done-check-lbl{font-size:11px;font-weight:800;color:#22C55E;}
+.slot-card.slot-done .done-check-lbl{color:#9CA3AF;}
+/* Flow */
+.flow-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.flow-card-title{font-size:13px;font-weight:900;margin-bottom:10px;}
+.flow-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
+.flow-dot{width:8px;height:8px;border-radius:99px;flex-shrink:0;margin-top:5px;}
+.flow-time{font-size:10px;font-weight:800;line-height:1.2;}
+.flow-lbl{font-size:12px;color:var(--text2);line-height:1.3;}
+.flow-lbl.bold{font-weight:800;color:var(--text);}
+/* Summer */
+.summer-card{background:var(--surface);border-radius:16px;overflow:hidden;border:1.5px solid #FED7AA;}
+.summer-head{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;background:#FFF7ED;}
+body.theme-dark .summer-head{background:#1c1300;}
+.summer-slots{padding:8px 10px 10px;display:flex;flex-direction:column;gap:5px;}
+.summer-slot{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:12px;}
+.summer-slot-icon{width:32px;height:32px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;}
+.summer-slot-lbl{font-size:12px;font-weight:800;color:var(--text);}
+.summer-slot-time{font-size:10px;font-weight:800;flex-shrink:0;}
+.summer-slot-note{font-size:11px;color:var(--text2);margin-top:2px;line-height:1.4;}
+/* Note dialog */
+.dialog-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);display:flex;align-items:flex-end;justify-content:center;padding:0 12px 12px;}
+.dialog-card{background:var(--surface);border-radius:20px;padding:18px;width:100%;max-width:460px;}
+.dialog-title{font-size:15px;font-weight:900;margin-bottom:12px;}
+.note-ta{width:100%;border:1.5px solid var(--border);border-radius:12px;padding:10px 12px;font-family:'Nunito',sans-serif;font-size:13px;color:var(--text);background:var(--bg);resize:none;line-height:1.5;}
+.note-ta:focus{outline:none;border-color:#3B82F6;}
+.dialog-actions{display:flex;gap:8px;margin-top:12px;}
+.dbtn{flex:1;padding:10px;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;cursor:pointer;}
+.dbtn-cancel{background:var(--border2);color:var(--text3);}
+.dbtn-clear{background:#FEE2E2;color:#DC2626;}
+.dbtn-save{background:linear-gradient(135deg,#3B82F6,#6366F1);color:#fff;}
+/* Stats */
+.stats-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+.stats-title{font-size:13px;font-weight:900;margin-bottom:12px;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+.stats-box{background:var(--border2);border-radius:12px;padding:8px;text-align:center;}
+.stats-num{font-size:18px;font-weight:900;line-height:1;}
+.stats-lbl{font-size:9px;color:var(--text3);font-weight:700;margin-top:3px;}
+.stats-bar-track{height:8px;background:var(--border2);border-radius:99px;overflow:hidden;margin-bottom:12px;}
+.stats-bar-fill{height:100%;border-radius:99px;transition:width .5s;}
+.stats-top{background:var(--border2);border-radius:12px;padding:10px 12px;margin-bottom:12px;}
+.stats-top-lbl{font-size:10px;font-weight:800;color:var(--text3);margin-bottom:8px;}
+.stats-top-item{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.motiv-tip{display:flex;align-items:flex-start;gap:8px;background:linear-gradient(135deg,#EFF6FF,#EDE9FE);border-radius:12px;padding:10px 12px;}
+.motiv-icon{font-size:18px;flex-shrink:0;}
+.motiv-text{font-size:12px;color:#374151;line-height:1.5;font-style:italic;}
+/* Roadmap */
+.roadmap-intro{background:var(--navy);border-radius:16px;padding:14px 16px;color:#fff;}
+.roadmap-intro-title{font-size:16px;font-weight:900;margin-bottom:4px;}
+.roadmap-intro-sub{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;}
+.overall-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.overall-title{font-size:13px;font-weight:800;margin-bottom:8px;}
+.overall-track{height:10px;background:var(--border2);border-radius:99px;overflow:hidden;margin-bottom:6px;}
+.overall-fill{height:100%;background:linear-gradient(90deg,#3B82F6,#22C55E);border-radius:99px;transition:width .5s;}
+.overall-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);font-weight:700;margin-bottom:12px;}
+.ical-row{display:flex;}
+.ical-btn{flex:1;padding:8px 12px;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;color:#2563EB;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;cursor:pointer;}
+.phase-toggle{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;}
+.phase-btn{flex-shrink:0;padding:8px 14px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text3);font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;cursor:pointer;white-space:nowrap;}
+.phase-btn.active{color:#fff;}
+.phase-btn.cur-phase{border-color:#F59E0B;}
+.phase-header{border-radius:18px;padding:14px 16px;color:#fff;}
+.phase-header-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px;}
+.phase-title{font-size:17px;font-weight:900;line-height:1.2;}
+.phase-dates{font-size:12px;color:rgba(255,255,255,.7);margin-top:3px;}
+.phase-note{font-size:11px;color:rgba(255,255,255,.7);font-style:italic;line-height:1.4;padding-top:6px;border-top:1px solid rgba(255,255,255,.2);}
+.week-card{background:var(--surface);border-radius:18px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+.week-card.week-current{box-shadow:0 0 0 3px #F59E0B,0 4px 16px rgba(0,0,0,.15);}
+.week-card.week-past{opacity:.7;}
+.week-head{padding:10px 16px;display:flex;justify-content:space-between;align-items:center;}
+.week-title{font-size:14px;font-weight:900;color:#fff;}
+.week-tag{background:rgba(255,255,255,.2);color:#fff;border-radius:99px;padding:2px 10px;font-size:11px;font-weight:700;}
+.week-focus{padding:8px 14px;font-size:11px;font-weight:800;border-left:3px solid;background:var(--border2);line-height:1.4;}
+.week-rows{padding:6px 0;}
+.week-row{display:flex;gap:8px;padding:6px 14px;border-bottom:1px solid var(--border2);align-items:flex-start;}
+.week-row:last-child{border-bottom:none;}
+.week-row-lbl{font-size:11px;font-weight:800;color:var(--text3);min-width:112px;flex-shrink:0;line-height:1.4;}
+.week-row-val{font-size:11px;color:var(--text2);line-height:1.5;flex:1;}
+.summary-card{background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:16px;padding:14px;}
+body.theme-dark .summary-card{background:#052e16;}
+.summary-title{font-size:13px;font-weight:900;color:#166534;margin-bottom:10px;}
+.sum-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.sum-dot{width:8px;height:8px;border-radius:99px;flex-shrink:0;}
+.sum-lbl{font-size:11px;color:var(--text2);flex:1;}
+.sum-time{font-size:12px;font-weight:900;}
+.sum-total{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1.5px solid #BBF7D0;font-size:13px;font-weight:800;color:#166534;}
+.sum-note{font-size:11px;color:#16a34a;margin-top:4px;}
+/* Insights */
+.insights-intro{background:var(--navy);border-radius:16px;padding:14px 16px;color:#fff;}
+.insights-intro-title{font-size:16px;font-weight:900;margin-bottom:4px;}
+.insights-intro-sub{font-size:12px;color:rgba(255,255,255,.6);}
+.insight-card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+.insight-head{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+.insight-head-left{display:flex;align-items:center;gap:10px;}
+.insight-title-text{font-size:13px;font-weight:800;color:#fff;line-height:1.3;}
+.insight-arrow{color:rgba(255,255,255,.8);font-size:16px;flex-shrink:0;}
+.insight-body{padding:12px 14px;font-size:13px;color:var(--text2);line-height:1.65;}
+.tips-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.tips-title{font-size:14px;font-weight:900;margin-bottom:10px;}
+.tip-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid var(--border2);}
+.tip-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.tip-num{font-size:15px;font-weight:900;color:#3B82F6;flex-shrink:0;min-width:22px;}
+.tip-text{font-size:12px;color:var(--text2);line-height:1.55;}
+.feedback-card{background:var(--surface);border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.feedback-title{font-size:14px;font-weight:900;margin-bottom:6px;}
+.feedback-body{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.5;}
+.feedback-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.feedback-link{flex:1;padding:9px 12px;background:#1a1a2e;color:#fff;border-radius:10px;text-align:center;text-decoration:none;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;}
+/* Bottom nav */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:calc(var(--nav-h) + var(--safe-bot));padding-bottom:var(--safe-bot);background:var(--surface);border-top:1px solid var(--border);display:flex;z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:none;background:transparent;color:var(--text3);font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;cursor:pointer;}
+.nav-btn .nav-icon{font-size:22px;transition:transform .2s;}
+.nav-btn.active{color:var(--text);}
+.nav-btn.active .nav-icon{transform:scale(1.15);}
+.nav-btn.active .nav-lbl{font-weight:900;}
+/* Onboarding */
+#onboard-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;align-items:flex-end;justify-content:center;padding:0 12px 12px;animation:fdin .25s ease;}
+@keyframes fdin{from{opacity:0;}to{opacity:1;}}
+.onboard-card{background:var(--surface);border-radius:24px;padding:20px 20px 16px;width:100%;max-width:460px;animation:slup .3s ease;max-height:90vh;overflow-y:auto;}
+@keyframes slup{from{transform:translateY(40px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.onboard-icon{font-size:40px;text-align:center;margin-bottom:6px;}
+.onboard-title{font-size:18px;font-weight:900;text-align:center;margin-bottom:14px;}
+.onboard-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.onboard-step{padding:10px 12px;background:var(--border2);border-radius:12px;}
+.onboard-step-title{font-size:13px;font-weight:800;}
+.onboard-step-desc{font-size:12px;color:var(--text2);line-height:1.4;margin-top:2px;}
+.onboard-btn{width:100%;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#3B82F6,#6366F1);color:#fff;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;}
+@media print{
+  body{background:white!important;}
+  .app-header,.tab-bar,.bottom-nav,.today-btn,.note-btn,.done-label,.summer-card,
+  #install-banner,#skeleton,#login-screen,#onboard-overlay{display:none!important;}
+  #app{display:block!important;max-width:100%!important;}
+  #main{padding:0!important;}
+  .slot-card,.flow-card,.week-card,.stats-card{box-shadow:none!important;border:1px solid #e5e7eb!important;break-inside:avoid;}
+  .slot-card-head,.week-head,.day-header{print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+  @page{margin:12mm;}
+}
+</style>
 </head>
 <body>
 
-<!-- ── Skeleton ──────────────────────────────────────── -->
-<div id="skeleton" role="status" aria-label="Loading">
-  <div class="sk-icon" aria-hidden="true">🎒</div>
-  <div class="sk-text">Loading your planner…</div>
-  <div class="sk-bar"><div class="sk-fill"></div></div>
-</div>
+<div id="skeleton"><div class="sk-icon">🎒</div><div class="sk-text">Loading…</div><div class="sk-bar"><div class="sk-fill"></div></div></div>
 
-<!-- ══ LOGIN SCREEN ══════════════════════════════════════ -->
-<div id="login-screen" role="main" aria-label="Sign in to Study Planner">
+<div id="login-screen">
   <div class="login-card">
-
-    <span class="login-logo" aria-hidden="true">🎒</span>
+    <span class="login-logo">🎒</span>
     <h1 class="login-title">Study Planner</h1>
     <p class="login-sub">Std 3 · DBPS 2026–27</p>
-
-    <div class="login-assessment-badge">
-      🎯 First Assessment: July 1, 2026
+    <div class="login-badge">🎯 First Assessment: July 1, 2026</div>
+    <div class="login-features">
+      <div class="login-feature"><span class="login-feature-icon">📅</span><span>Daily slots with checkboxes, notes &amp; streak tracking</span></div>
+      <div class="login-feature"><span class="login-feature-icon">🗺️</span><span>11-week roadmap — current week always highlighted</span></div>
+      <div class="login-feature"><span class="login-feature-icon">☁️</span><span>All progress saved to cloud — works on every device</span></div>
+      <div class="login-feature"><span class="login-feature-icon">🔒</span><span>Your private data only — secured by Google Firebase</span></div>
     </div>
-
-    <div class="login-features" role="list">
-      <div class="login-feature" role="listitem">
-        <span class="login-feature-icon">📅</span>
-        <span>Daily study slots with checkboxes, notes, and streak tracking</span>
-      </div>
-      <div class="login-feature" role="listitem">
-        <span class="login-feature-icon">🗺️</span>
-        <span>11-week roadmap across 3 phases — current week always highlighted</span>
-      </div>
-      <div class="login-feature" role="listitem">
-        <span class="login-feature-icon">☁️</span>
-        <span>All progress saved to cloud — works on every device, never lost</span>
-      </div>
-      <div class="login-feature" role="listitem">
-        <span class="login-feature-icon">📵</span>
-        <span>Works offline after first sign-in — study anywhere</span>
-      </div>
-      <div class="login-feature" role="listitem">
-        <span class="login-feature-icon">🔒</span>
-        <span>Your data is private — only you can access it</span>
-      </div>
-    </div>
-
-    <div id="signin-error" role="alert" aria-live="polite"></div>
-
-    <button id="google-signin-btn" aria-label="Sign in with Google">
-      <!-- content set by app.js -->
+    <div id="signin-error"></div>
+    <button id="google-btn">
+      <svg viewBox="0 0 24 24" width="20" height="20" style="flex-shrink:0"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66 2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Sign in with Google
     </button>
-
-    <p class="login-privacy">
-      Sign in with your Google account · Data stored securely in Firebase
-    </p>
-
+    <p class="login-privacy">Sign in with your Google account · Data stored securely in Firebase</p>
   </div>
 </div>
 
-<!-- ══ MAIN APP (shown after sign-in) ════════════════════ -->
 <div id="app">
-
-  <header class="app-header" role="banner">
+  <header class="app-header">
     <div class="header-top">
-      <div class="header-icon" aria-hidden="true">🎒</div>
+      <div class="header-icon">🎒</div>
       <div class="header-titles">
         <div class="header-main">Study Planner — Std 3</div>
-        <div class="header-sub">DBPS 2026–27 · 3 Phases · 11 Weeks</div>
+        <div class="header-sub">DBPS 2026–27 · ☁️ Cloud synced</div>
       </div>
       <div class="header-actions">
         <div id="user-section"></div>
-        <button id="help-btn"  class="header-icon-btn" aria-label="Help / App tour" title="Help">❓</button>
-        <button id="theme-btn" class="header-icon-btn" aria-label="Toggle dark/light mode" title="Theme">🌗</button>
+        <button id="help-btn" class="hbtn" title="Help">❓</button>
+        <button id="theme-btn" class="hbtn" title="Theme">🌗</button>
       </div>
     </div>
-    <div class="countdown-pill" role="status" aria-live="polite">
-      🎯 Assessment: July 1, 2026 &nbsp;·&nbsp; Summer: May 17 – Jun 21
-    </div>
-    <div id="install-banner" role="banner">
-      <span>📲 Add to home screen for offline access</span>
-      <button id="install-btn">Install</button>
-      <button id="dismiss-install" aria-label="Dismiss">✕</button>
-    </div>
+    <div class="cpill">🎯 Assessment: July 1, 2026 &nbsp;·&nbsp; Summer: May 17 – Jun 21</div>
+    <div id="install-banner"><span>📲 Add to home screen for offline use</span><button id="install-btn">Install</button><button id="dismiss-install">✕</button></div>
   </header>
-
-  <div class="tab-bar" role="tablist" aria-label="Main sections">
-    <button class="tab-btn active" data-tab="schedule" role="tab" aria-selected="true">📅 Schedule</button>
-    <button class="tab-btn"        data-tab="roadmap"  role="tab" aria-selected="false">🗺️ Roadmap</button>
-    <button class="tab-btn"        data-tab="insights" role="tab" aria-selected="false">💡 Insights</button>
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="schedule">📅 Schedule</button>
+    <button class="tab-btn" data-tab="roadmap">🗺️ Roadmap</button>
+    <button class="tab-btn" data-tab="insights">💡 Insights</button>
   </div>
-
-  <main id="main" role="main" aria-live="polite"></main>
-
-  <nav class="bottom-nav" role="navigation" aria-label="Bottom navigation">
-    <button class="nav-btn active" data-tab="schedule" role="tab" aria-selected="true"  aria-label="Schedule">
-      <span class="nav-icon" aria-hidden="true">📅</span><span class="nav-label">Schedule</span>
-    </button>
-    <button class="nav-btn"        data-tab="roadmap"  role="tab" aria-selected="false" aria-label="Roadmap">
-      <span class="nav-icon" aria-hidden="true">🗺️</span><span class="nav-label">Roadmap</span>
-    </button>
-    <button class="nav-btn"        data-tab="insights" role="tab" aria-selected="false" aria-label="Insights">
-      <span class="nav-icon" aria-hidden="true">💡</span><span class="nav-label">Insights</span>
-    </button>
+  <main id="main"></main>
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-tab="schedule"><span class="nav-icon">📅</span><span class="nav-lbl">Schedule</span></button>
+    <button class="nav-btn" data-tab="roadmap"><span class="nav-icon">🗺️</span><span class="nav-lbl">Roadmap</span></button>
+    <button class="nav-btn" data-tab="insights"><span class="nav-icon">💡</span><span class="nav-lbl">Insights</span></button>
   </nav>
-
 </div>
 
-<!-- ── Service worker ─────────────────────────────────── -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .then(r => console.log('SW:', r.scope))
-        .catch(e => console.warn('SW error:', e));
-    });
-  }
-</script>
-
-<!-- ── Firebase compat SDK (CDN, not cached by SW) ────── -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-<!-- ── App scripts (load order matters) ─────────────────── -->
-<script src="data.js"></script>
-<script src="firebase.js"></script>
-<script src="app.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════
+// ALL DATA — no imports needed, all global
+// ═══════════════════════════════════════════════════════
+const COLORS={english_lang:"#3B82F6",english_lit:"#A855F7",english_gram:"#6366F1",maths:"#14B8A6",mental_maths:"#10B981",evs:"#22C55E",moral:"#EAB308",gk:"#EF4444",hindi_vaideeka:"#F97316",hindi_gram:"#DC2626",hindi_writing:"#B45309",spelling:"#F59E0B",poem:"#EC4899"};
+const LABELS={english_lang:"Active English",english_lit:"Magnolia (Lit.)",english_gram:"English Grammar",maths:"Mathematics",mental_maths:"Mental Maths",evs:"EVS",moral:"Moral Science",gk:"General Knowledge",hindi_vaideeka:"Hindi Vaideeka",hindi_gram:"Hindi Grammar",hindi_writing:"Hindi Writing",spelling:"Spelling & Vocab",poem:"Poem Recitation"};
+const EMOJI={english_lang:"📘",english_lit:"📖",english_gram:"✏️",maths:"🔢",mental_maths:"🧠",evs:"🌿",moral:"🌟",gk:"🌍",hindi_vaideeka:"📕",hindi_gram:"📝",hindi_writing:"✍️",spelling:"🔤",poem:"🎤"};
+const SESS={s1:"Eve Slot 1",s2:"Eve Slot 2",morning:"Morning",afternoon:"Afternoon"};
+const DAY_COLOR={Monday:"#2563EB",Tuesday:"#9333EA",Wednesday:"#059669",Thursday:"#EA580C",Friday:"#DC2626",Saturday:"#0891B2",Sunday:"#16A34A"};
+const MOTIV_TIPS=["Every 40-minute session today is one step closer to July 1. Small steps, big results! 💪","Revision is not repetition — it's understanding more deeply each time. Keep going! 🌟","Children who do a little every day beat the ones who cram. You're doing it right! 📘","Shrutilekh practice builds confidence, speed, and accuracy at once. Don't skip it! 📕","A poem learned with expression is never forgotten. Record it today! 🎤","Maths speed comes from daily timed practice. Ten minutes a day makes exam day easy. 🔢","EVS mind maps are the secret weapon. If you can draw it, you'll never forget it. 🌿","Reading aloud is 3× more effective than silent reading for memory retention. 📖","Rest is not wasted time — it's when the brain locks in today's learning. Sleep 9 hrs! 😴","The best parent involvement is asking questions, not giving answers. Quiz the child! ❓","Consistency beats intensity. 90 minutes every day beats 8 hours on Sunday. ⏰","Summer vacation is your biggest advantage. Use it — most children don't. ☀️"];
+const DAYS=[{day:"Monday",short:"Mon",emoji:"🌅",note:"2:30–6:30 PM fully free — rest, snack, outdoor play. Study starts sharp at 6:30 PM.",slots:[{time:"6:30",end:"7:10",subj:"english_lang",topic:"1 chapter — read aloud → all exercises in notebook",dur:40,sess:"s1",key:true},{brk:true,time:"7:10",end:"7:15"},{time:"7:15",end:"7:55",subj:"maths",topic:"Chapter sums + practice — write every sum",dur:40,sess:"s1",key:true},{brk:true,time:"7:55",end:"8:00"},{time:"8:00",end:"8:20",subj:"spelling",topic:"Synonyms / Antonyms — 10 words each from list",dur:20,sess:"s2"},{time:"8:20",end:"8:30",subj:"poem",topic:"Recite 1–2 poems aloud with expression — record on phone!",dur:10,sess:"s2"}]},{day:"Tuesday",short:"Tue",emoji:"🌞",note:"Magnolia Part A today. Part B continues Wednesday — same unit, two days.",slots:[{time:"6:30",end:"7:10",subj:"english_lit",topic:"Story reading + Comprehension A & B in notebook",dur:40,sess:"s1",key:true},{brk:true,time:"7:10",end:"7:15"},{time:"7:15",end:"7:45",subj:"hindi_vaideeka",topic:"1 lesson — read aloud + answer all questions",dur:30,sess:"s1"},{brk:true,time:"7:45",end:"7:50"},{time:"7:50",end:"8:10",subj:"gk",topic:"1 chapter — all labels, matches, activities completed",dur:20,sess:"s2"},{time:"8:10",end:"8:30",subj:"mental_maths",topic:"Call Out drill — tables + quick sums, parent times it",dur:20,sess:"s2"}]},{day:"Wednesday",short:"Wed",emoji:"⭐",note:"Magnolia Part B (same unit as Tuesday). English Grammar in last slot — do not skip.",slots:[{time:"6:30",end:"7:10",subj:"english_lit",topic:"Think & Answer + Grammar + Vocabulary + Writing (same unit)",dur:40,sess:"s1",key:true},{brk:true,time:"7:10",end:"7:15"},{time:"7:15",end:"7:55",subj:"maths",topic:"Roman Numerals I–X + Addition / Subtraction revision",dur:40,sess:"s1"},{brk:true,time:"7:55",end:"8:00"},{time:"8:00",end:"8:15",subj:"hindi_gram",topic:"1 Meru lesson — oral first, then written",dur:15,sess:"s2"},{time:"8:15",end:"8:30",subj:"english_gram",topic:"1 chapter — Sentence / Subject & Predicate / Noun etc.",dur:15,sess:"s2",key:true}]},{day:"Thursday",short:"Thu",emoji:"🌈",note:"EVS: use Let's Recall mind map + fill Check Points as you read. Hindi essays last.",slots:[{time:"6:30",end:"7:10",subj:"english_lang",topic:"Next chapter — read aloud → all exercises",dur:40,sess:"s1",key:true},{brk:true,time:"7:10",end:"7:15"},{time:"7:15",end:"7:50",subj:"evs",topic:"1 chapter: read concept → Check Point → oral Q&A with parent",dur:35,sess:"s1",key:true},{brk:true,time:"7:50",end:"7:55"},{time:"7:55",end:"8:10",subj:"moral",topic:"1 chapter — read + discuss values",dur:15,sess:"s2"},{time:"8:10",end:"8:30",subj:"hindi_writing",topic:"Essay / Paragraph writing (Golhar / Ganga / Grishma Ritu)",dur:20,sess:"s2"}]},{day:"Friday",short:"Fri",emoji:"🎉",note:"EVS full Exercise section (all written answers) + Maths. Spelling closes the week.",slots:[{time:"6:30",end:"7:10",subj:"evs",topic:"Next chapter: full Exercise section — write every answer",dur:40,sess:"s1",key:true},{brk:true,time:"7:10",end:"7:15"},{time:"7:15",end:"7:55",subj:"maths",topic:"Subtraction + mixed addition-subtraction practice",dur:40,sess:"s1"},{brk:true,time:"7:55",end:"8:00"},{time:"8:00",end:"8:15",subj:"hindi_gram",topic:"Matras / Sanyukt Vyanjan / Ginti 1–50 oral drill",dur:15,sess:"s2"},{time:"8:15",end:"8:30",subj:"spelling",topic:"Homophones · Compound words · Prefixes & Suffixes",dur:15,sess:"s2"}]},{day:"Saturday",short:"Sat",emoji:"🔁",note:"No school! Morning: revision + Shrutilekh + Grammar. Afternoon: Maths + GK + All 5 Poems.",slots:[{time:"9:00",end:"9:40",subj:"english_lang",topic:"Revision of week's chapters — oral first, then written",dur:40,sess:"morning",key:true},{brk:true,time:"9:40",end:"9:45"},{time:"9:45",end:"10:15",subj:"hindi_vaideeka",topic:"⭐ SHRUTILEKH — parent reads aloud, child writes, correct immediately",dur:30,sess:"morning",key:true},{brk:true,time:"10:15",end:"10:20"},{time:"10:20",end:"10:45",subj:"english_gram",topic:"1 chapter + Essay writing practice",dur:25,sess:"morning"},{time:"10:45",end:"11:00",subj:"spelling",topic:"Spelling list revision + Vocabulary topics",dur:15,sess:"morning"},{time:"3:30",end:"4:00",subj:"maths",topic:"Maths revision + Chapter Test practice",dur:30,sess:"afternoon"},{time:"4:00",end:"4:15",subj:"mental_maths",topic:"Speed drill — timed sums, parent times every table",dur:15,sess:"afternoon"},{time:"4:15",end:"4:35",subj:"gk",topic:"1 chapter — activity-based",dur:20,sess:"afternoon"},{time:"4:35",end:"5:00",subj:"poem",topic:"⭐ All 5 poems — full run-through with expression every Saturday",dur:25,sess:"afternoon",key:true}]},{day:"Sunday",short:"Sun",emoji:"🌻",note:"Light revision 9–10:45 AM only. Afternoon FULLY FREE every week without exception.",slots:[{time:"9:00",end:"9:30",subj:"evs",topic:"Oral revision — 2 chapters using Let's Recall mind map",dur:30,sess:"morning"},{brk:true,time:"9:30",end:"9:35"},{time:"9:35",end:"10:05",subj:"hindi_vaideeka",topic:"Oral re-reading + Q&A — 1 lesson",dur:30,sess:"morning"},{brk:true,time:"10:05",end:"10:10"},{time:"10:10",end:"10:30",subj:"english_gram",topic:"Chapter revision / Essay draft",dur:20,sess:"morning"},{time:"10:30",end:"10:45",subj:"poem",topic:"Any 2 poems — recitation with full expression",dur:15,sess:"morning"}]}];
+const SUMMER_SLOTS=[{time:"8:00 AM",end:"8:30 AM",icon:"🥣",label:"Breakfast + Morning routine",color:"#22C55E",type:"routine"},{time:"8:30 AM",end:"9:10 AM",icon:"📘",label:"Active English / Magnolia revision",color:"#3B82F6",type:"study",note:"40 min — read chapters aloud, answer exercises without looking at notes"},{time:"9:10 AM",end:"9:50 AM",icon:"🔢",label:"Mathematics",color:"#14B8A6",type:"study",note:"40 min — Chapter Test practice + HOTS questions, time every set of sums"},{time:"9:50 AM",end:"10:20 AM",icon:"⚽",label:"Snack + Free play",color:"#10B981",type:"play"},{time:"10:20 AM",end:"11:00 AM",icon:"🌿",label:"EVS revision",color:"#22C55E",type:"study",note:"40 min — full Q&A using Let's Recall mind maps"},{time:"11:00 AM",end:"11:05 AM",icon:"☕",label:"Water break",color:"#9CA3AF",type:"break"},{time:"11:05 AM",end:"11:35 AM",icon:"📕",label:"Hindi Vaideeka + Shrutilekh",color:"#F97316",type:"study",note:"30 min — oral Mon/Wed/Fri · Shrutilekh Tue/Thu/Sat"},{time:"11:35 AM",end:"12:05 PM",icon:"✏️",label:"English Grammar + Essays",color:"#6366F1",type:"study",note:"30 min — chapter revision + essays"},{time:"12:05 PM",end:"1:30 PM",icon:"⚽",label:"Outdoor play",color:"#0369A1",type:"play",note:"1.5 hrs — cricket, cycling, park"},{time:"1:30 PM",end:"2:15 PM",icon:"🍽️",label:"Lunch + Rest",color:"#22C55E",type:"routine"},{time:"2:15 PM",end:"3:45 PM",icon:"😴",label:"Nap / Rest",color:"#EAB308",type:"rest",note:"Mandatory — brain consolidates morning learning during rest"},{time:"3:45 PM",end:"4:15 PM",icon:"🌍",label:"General Knowledge",color:"#EF4444",type:"study",note:"30 min — rapid quiz all 7 chapters"},{time:"4:15 PM",end:"4:20 PM",icon:"☕",label:"Break",color:"#9CA3AF",type:"break"},{time:"4:20 PM",end:"4:45 PM",icon:"📝",label:"Hindi Grammar (Meru) + Writing",color:"#DC2626",type:"study",note:"25 min — Meru lessons + essay writing"},{time:"4:45 PM",end:"4:55 PM",icon:"🎤",label:"Poem recitation",color:"#EC4899",type:"study",note:"10 min — all 5 poems with expression. Record on phone."},{time:"4:55 PM",end:"6:30 PM",icon:"⚽",label:"Outdoor play + Free time",color:"#0369A1",type:"play"},{time:"6:30 PM",end:"7:00 PM",icon:"🧠",label:"Mental Maths oral drill",color:"#10B981",type:"study",note:"30 min — tables 2–15, call-out, mixed sums"},{time:"7:00 PM",end:"8:30 PM",icon:"📺",label:"Family time + Dinner",color:"#22C55E",type:"routine"},{time:"9:30 PM",end:"Bedtime",icon:"😴",label:"Sleep — 8–9 hrs essential",color:"#1a1a2e",type:"rest"}];
+const PHASES=[{phase:"Phase 1",label:"School Term",dates:"Apr 13 – May 16",color:"#1a1a2e",icon:"🏫",note:"Weekday study: 6:30–8:30 PM  ·  Sat & Sun as per weekend schedule",weeks:[{week:"Week 1  (Apr 13–19)",color:"#2563EB",tag:"New Content",focus:"Establish the routine. Complete Magnolia Unit 1 and EVS Ch 1 & 2.",rows:[["📘 Active English","Ch 1 (shall/like) — Mon  |  Ch 2 (same as/different from) — Thu"],["📖 Magnolia","Unit 1 – Betty's Flower Shop  (Tue: Story+Comp  →  Wed: Think&Answer+Writing)"],["✏️ Eng Grammar","Ch 1 – Sentence (Wed eve)  |  Ch 2 – Subject & Predicate (Sat AM)"],["🔢 Maths","Ch 1 – 3 & 4-digit numbers, Place Value, Comparing, Roman Numerals I–X"],["📕 Hindi","Vaideeka Lesson 1 + Meru Lessons 1 & 2  |  Sat: Shrutilekh"],["🌿 EVS","Ch 1 – Parts of Our Body (Thu)  |  Ch 2 – Keeping Safe & Healthy (Fri)"],["🌍 GK","Ch 3 – Mountain Ranges  (Ch 1 & 2 already done ✓)"],["🎤 Poems","Matilda Jane (Rhyme 2)  |  Spellings: Synonyms, Antonyms"]]},{week:"Week 2  (Apr 20–26)",color:"#9333EA",tag:"New Content",focus:"Magnolia Unit 2 complete. Addition chapter — all exercises written.",rows:[["📘 Active English","Ch 3 (may) — Mon  |  Ch 4 (often/never) — Thu"],["📖 Magnolia","Unit 2 – Tenali Rama  (Tue: Story+Comp  →  Wed: Grammar+Vocab+Writing)"],["✏️ Eng Grammar","Ch 3 – Noun  |  Ch 4 – Noun: Number (Sat AM)"],["🔢 Maths","Ch 2 – Addition: 3-digit carry + 4-digit + story problems"],["📕 Hindi","Vaideeka Lesson 2 + Meru Lessons 3 & 4  |  Sat: Shrutilekh"],["🌿 EVS","Ch 3 – The Food We Eat (Thu)  |  Ch 4 – Home Sweet Home (Fri)"],["🌍 GK","Ch 4 – Unusual Animals  |  Ch 5 – Technology in Everyday Life"],["🎤 Poems","The Cupboard (Rhyme 4)  |  Spellings: Rhyming words, Analogies"]]},{week:"Week 3  (Apr 27 – May 3)",color:"#DC2626",tag:"New Content",focus:"⚠️ Complete ALL new chapters this week. Zero new chapters from Week 4 onward.",rows:[["📘 Active English","Ch 5 (since/for/ago) — Mon  |  Ch 6 (have to/has to/had to) — Thu"],["📖 Magnolia","Unit 3 – Mr Jeremy Fisher (Tue+Wed)  |  Poem 'Parrots' comprehension"],["✏️ Eng Grammar","Ch 5 – Noun: Gender  |  Essay: Earth Day WITH clues (Sat AM)"],["🔢 Maths","Ch 3 – Subtraction: with/without borrowing + 4-digit + story problems"],["📕 Hindi","Vaideeka Lessons 3 & 4 + Meru Lesson 13 + Ginti 1–50"],["🌿 EVS","Ch 5 – Clothes We Wear (Thu)  |  Ch 6 – Family (Fri)"],["🌍 GK","Ch 6 – Amazing Trees (Tue)  |  Ch 7 – Things with Wings (Sat PM)"],["🎤 Poems","I Met A Toad + The Duck + Parrots — all memorised"]]},{week:"Week 4  (May 4–10)",color:"#EA580C",tag:"1st Revision",focus:"First full revision pass. Every subject reviewed. Chapter Tests started.",rows:[["📘 Active English","Revision pages 7–14 — timed oral mock, 1 chapter/day"],["📖 Magnolia","Re-read all 3 units. Parent Q&A. Re-do Think & Answer answers."],["✏️ Eng Grammar","Revise all 5 chapters  |  Essay: India of My Dreams (NO clues)"],["🔢 Maths","Ch 1+2+3 Chapter Test pages. HOTS questions. Mental Maths speed tests."],["📕 Hindi","All 4 lessons oral + written  |  Shrutilekh for Lessons 2, 3, 4 (Sat)"],["🌿 EVS","All 6 chapters oral Q&A  |  Use Let's Recall mind maps"],["🌍 GK","All 7 chapters rapid oral quiz — 1 minute per chapter"],["🎤 Poems","All 5 poems polished with expression  |  Full spelling review"]]},{week:"Week 5  (May 11–16)",color:"#0891B2",tag:"Deep Revision",focus:"Identify and fix weak areas before summer vacation begins.",rows:[["📘 Active English","Written answers to all exercise sections — timed, no help"],["📖 Magnolia","Write all comprehension answers from memory. Check against book."],["✏️ Eng Grammar","Both essays written under time. Passage exercise. MCQ speed practice."],["🔢 Maths","Timed 20-sum test daily. Story problems. Redo any chapter with errors."],["📕 Hindi","Focus on weak lessons. Shrutilekh every day this week."],["🌿 EVS","Write full Exercise section for 3 chapters — no book. Then check."],["🌍 GK","Make a cheat-sheet of key facts per chapter. Test from the sheet."],["🎤 Poems","Record all 5 poems. Note expression gaps. Fix before vacation."]]}]},{phase:"Phase 2",label:"Summer Vacation",dates:"May 17 – Jun 21",color:"#EA580C",icon:"☀️",note:"Full day at home · Morning + Afternoon study blocks · Long free time midday",weeks:[{week:"Week 6  (May 17–23)",color:"#F97316",tag:"Vacation Wk 1",focus:"Fresh start after school. Relaxed pace — rebuild momentum gently.",rows:[["📘 Active English","Oral revision of all 6 chapters. Focus on Ch 5 & 6 (most complex)."],["📖 Magnolia","Full re-read of all 3 units aloud. Parent asks comprehension orally."],["✏️ Eng Grammar","Revise all 5 chapters. Begin both essays again from scratch."],["🔢 Maths","20-sum timed test daily. Target: all 3 chapters without errors."],["📕 Hindi","Shrutilekh every Tue/Thu/Sat. Re-read all 4 Vaideeka lessons."],["🌿 EVS","Ch 1–3 thorough oral Q&A. Draw Let's Recall mind maps from memory."],["🌍 GK","Chapters 3–7 oral revision. Make one fact card per chapter."],["🎤 Poems","Daily 10-min recitation. Record and compare week-on-week."]]},{week:"Week 7  (May 24–30)",color:"#EF4444",tag:"Vacation Wk 2",focus:"Written practice round — everything written, nothing oral-only.",rows:[["📘 Active English","Write answers to ALL exercise sections — timed, closed book."],["📖 Magnolia","Write all Think & Answer + Vocabulary. Check every answer."],["✏️ Eng Grammar","Full written test of all 5 chapters. Both essays under 20-min time."],["🔢 Maths","Chapter Tests as full exam papers. HOTS questions. Verify every answer."],["📕 Hindi","Written answers to all Vaideeka questions. Ginti 1–50 written."],["🌿 EVS","Write full Exercise section for all 6 chapters — no book."],["🌍 GK","Written answers to all GK chapter questions."],["🎤 Poems","Write out notes for Rhymes 5 & 6 from Rhythm Book from memory."]]},{week:"Week 8  (May 31 – Jun 6)",color:"#9333EA",tag:"Vacation Wk 3",focus:"Error correction week — fix every mistake found in Week 7.",rows:[["📘 Active English","Re-do any exercises with errors. Revision pages timed oral mock."],["📖 Magnolia","Re-do all incorrect answers. Act out the stories!"],["✏️ Eng Grammar","Re-do all incorrect questions. Passage fill-in-blank practice daily."],["🔢 Maths","Target weak chapter. Story problems — 5 per day, show full working."],["📕 Hindi","Fix Shrutilekh errors. Re-write Meru Lesson 13 exercises."],["🌿 EVS","Case Studies: Helen Keller (Ch 1), Feeding India (Ch 3)."],["🌍 GK","Re-read Ch 3–7 once more. Answer all Thinking questions."],["🎤 Poems","Video-record all 5 poems. Watch together. Improve expression."]]},{week:"Week 9  (Jun 7–13)",color:"#16A34A",tag:"Vacation Wk 4",focus:"Mock test week — simulate exam conditions every day.",rows:[["📘 Active English","Daily: pick 1 chapter, answer all questions in 25 min from memory."],["📖 Magnolia","Daily: pick 1 unit, write full comprehension in 30 min — closed book."],["✏️ Eng Grammar","Daily grammar test: 10 MCQ + 5 fill blanks + 1 essay."],["🔢 Maths","Daily: 25-sum mixed test (Ch 1+2+3). All story problems."],["📕 Hindi","Alternate: Shrutilekh day / Written answers day."],["🌿 EVS","Daily: pick 2 chapters, answer all Exercise questions."],["🌍 GK","Rapid fire quiz: parent asks random questions from all 7 chapters."],["🎤 Poems","Full 5-poem recitation daily — treat it like a performance."]]},{week:"Week 10  (Jun 14–21)",color:"#0891B2",tag:"Vacation Wk 5",focus:"Final vacation week — consolidate confidence. No new topics, only polish.",rows:[["📘 Active English","Revision pages 7–14 as full timed mock — 3 times this week."],["📖 Magnolia","Full paper: all 3 units comprehension written, 90-min timed."],["✏️ Eng Grammar","Full grammar paper daily: all 5 chapters + both essays. Self-mark."],["🔢 Maths","Full Maths paper daily: Ch 1+2+3 mixed. 40 sums in 40 min target."],["📕 Hindi","Full Hindi sitting: Shrutilekh + written Q&A + essay + Ginti."],["🌿 EVS","Full EVS paper: all 6 chapters written Q&A from memory."],["🌍 GK","Rapid oral quiz — all 7 chapters under 7 minutes total."],["🎤 Poems","Record final polished recitation of all 5 poems. Keep it!"]]}]},{phase:"Phase 3",label:"Pre-Assessment",dates:"Jun 22 – Jun 30",color:"#DC2626",icon:"🎯",note:"School resumes · Back to 6:30–8:30 PM weekday study · Final sprint",weeks:[{week:"Week 11  (Jun 22–30)",color:"#DC2626",tag:"Final Sprint",focus:"⭐ Assessment is July 1. This week is pure exam simulation — every day.",rows:[["📘 Active English","Timed written test daily. Revision pages as mock paper. No help."],["📖 Magnolia","Write all comprehension + vocab + writing — closed book timed."],["✏️ Eng Grammar","Full timed Grammar paper every alternate day. Both essays. Passage."],["🔢 Maths","Full timed Maths paper daily. All Chapter Tests. Mental Maths call-out."],["📕 Hindi","Full Shrutilekh + written Q&A + essay under time. Ginti speed oral."],["🌿 EVS","Full written paper all 6 chapters under 45 min. Self-mark."],["🌍 GK","All 7 chapters rapid oral review — 1 min per chapter — daily."],["🎤 Poems","Final recitation in front of family on Jun 29. Spellings dictation Jun 30."]]}]}];
+const INSIGHTS=[{emoji:"📅",color:"#2563EB",title:"Revised Timeline — Assessment Is July 1",body:"The original plan assumed a May assessment. With July 1 confirmed, there are 11 full weeks. Phase 1 (school term Apr 13–May 16): complete all new chapters + first revision. Phase 2 (summer vacation May 17–Jun 21): deep revision + mock tests with full-day schedule. Phase 3 (Jun 22–30): final sprint. This is a very comfortable runway — no need to rush."},{emoji:"☀️",color:"#EA580C",title:"Summer Vacation: Full-Day Schedule Kicks In",body:"From May 17, children are home all day. The vacation daily plan: morning study 8:30 AM–12:05 PM, long midday break with lunch and nap 12:05–3:45 PM, afternoon study 3:45–4:55 PM, extended outdoor play, and 30-min Mental Maths drill at 6:30 PM. Total ~4.5 hrs/day — never more than 40 min per sitting."},{emoji:"🎯",color:"#DC2626",title:"Don't Waste the Vacation — It's Your Biggest Advantage",body:"5.5 weeks of full days at home is a rare gift. If the vacation plan is followed, your child will have done 4–5 full rounds of revision of every subject before school reopens on June 22. Week 11 then becomes calm confidence-building — not a panic session."},{emoji:"⚠️",color:"#EF4444",title:"Active English: 40 Min Per Chapter",body:"Each chapter has 10–19 exercises. The Revision section (pp. 7–14) covers all 6 chapters — use as a timed oral mock in Weeks 4, 6, and 10. Ch 5 (since/for/ago) and Ch 6 (have to/has to/had to) are the most complex — always give the full 40 min."},{emoji:"📖",color:"#A855F7",title:"Magnolia: 2 Days Per Unit During School Term",body:"Tuesday: Story + Comp A & B. Wednesday: Think & Answer + Grammar + Vocab + Writing. During vacation: re-read each unit in one sitting (60–70 min), then answer everything. 'Parrots' poem needs both comprehension answers AND recitation with expression."},{emoji:"✏️",color:"#6366F1",title:"English Grammar: Scheduled Every Week",body:"5 chapters covered Wed evening + Sat morning + Sun morning during school term. During vacation: 30-min daily grammar session. Earth Day essay first (with clues), India of My Dreams second (no clues, timed). Passage fill-in-blank practice from Week 7 onwards."},{emoji:"🌿",color:"#22C55E",title:"EVS: 4 Mini-Tests Built Into Each Chapter",body:"Planet Pals 3 has Check Points, Activities, Oral Questions, and full Exercise section. During vacation, target one full chapter written from memory per day from Week 7. Case Studies — Helen Keller (Ch 1), Feeding India (Ch 3), Green Buildings (Ch 4)."},{emoji:"🔢",color:"#14B8A6",title:"Maths: Daily Timed Tests From Week 4",body:"Chapter Tests at end of Ch 1, 2, 3 are ready-made exam papers — use from Week 4. During vacation, target 25–40 mixed sums daily under time. HOTS questions from Week 4. Mental Maths should be oral and timed every single day of vacation."},{emoji:"📕",color:"#F97316",title:"Hindi: Shrutilekh 3× Per Week During Vacation",body:"During school term: Shrutilekh every Saturday. During vacation: parent dictates on Tue, Thu, Sat — 10 words each time. Meru Lesson 13 needs the Thursday writing slot and daily vacation morning. Ginti 1–50 oral drill — target 2 minutes for all 50 by Week 9."},{emoji:"🎤",color:"#EC4899",title:"Poems: Record Weekly — Track Improvement",body:"5 required: Matilda Jane (Rhyme 2), The Cupboard (Rhyme 4), I Met A Toad (Rhyme 5), The Duck (Rhyme 6), Parrots (Magnolia). Record on phone every Saturday. Compare Week 1 to Week 10 — the improvement will be dramatic and motivating."},{emoji:"✅",color:"#22C55E",title:"GK Ch 1 & 2 Already Done!",body:"BrainBytes Ch 1 (Solar System) and Ch 2 (Eating Healthy) completed on 6/4/26. Only Ch 3–7 remain — 5 chapters × 20 min. During vacation, make one fact card per chapter and do rapid-fire quizzes. All 7 should be answerable in under 7 minutes total."}];
+const TIPS=[["6:30 PM start — every school day","Same time daily builds the habit faster than any reward system."],["Don't skip vacation study","5.5 weeks of full-day revision is the biggest advantage. Even 3 hrs/day changes everything."],["Active English — oral then write","Read exercises aloud together. Child answers orally first, then writes."],["Magnolia — close the book","You ask the questions. Child answers without looking at the text."],["Shrutilekh — 3× per week in vacation","Tue/Thu/Sat — dictate 10 words, child writes, correct immediately together."],["EVS — use the mind map","Cover one branch at a time. Child fills it from memory. Do this weekly."],["Maths — time every sitting","10 sums in 5 min to start. Target 40 sums in 40 min by Week 10."],["Record poems every Saturday","Hearing themselves week-over-week improves expression fast and motivates."],["Week 11 is calm, not panic","If vacation plan is followed, Jun 22–30 is revision — not catching up."]];
 
+// ═══════════════════════════════════════════════════════
+// FIREBASE — init, auth, firestore
+// ═══════════════════════════════════════════════════════
+firebase.initializeApp({
+  apiKey:"AIzaSyC1v0aZWOyHpY8DwrEGByl0X8LTjhFfU1c",
+  authDomain:"study-planner-dbps.firebaseapp.com",
+  projectId:"study-planner-dbps",
+  storageBucket:"study-planner-dbps.firebasestorage.app",
+  messagingSenderId:"104812027441",
+  appId:"1:104812027441:web:6aa07d8013e8a1bf19ff10"
+});
+const _auth = firebase.auth();
+const _db   = firebase.firestore();
+// NO enablePersistence — removed per reviewer recommendation
+
+let _user=null, _progress={}, _notes={}, _authCb=null, _authDone=false;
+
+function _progRef()  { return _db.doc(`users/${_user.uid}/data/progress`); }
+function _notesRef() { return _db.doc(`users/${_user.uid}/data/notes`); }
+
+async function _loadData(uid) {
+  try {
+    const [p,n] = await Promise.all([
+      _db.doc(`users/${uid}/data/progress`).get(),
+      _db.doc(`users/${uid}/data/notes`).get()
+    ]);
+    _progress = p.exists ? (p.data()||{}) : {};
+    _notes    = n.exists ? (n.data()||{}) : {};
+    console.log('[FB] loaded progress:',Object.keys(_progress).length,'notes:',Object.keys(_notes).length);
+  } catch(e) {
+    console.error('[FB] load error:',e.code||e.message);
+    _progress={}; _notes={};
+  }
+}
+
+_auth.onAuthStateChanged(async user => {
+  console.log('[FB] auth state:',user?'signed in':'signed out');
+  _user = user;
+  if (user) await _loadData(user.uid);
+  else { _progress={}; _notes={}; }
+  _authDone = true;
+  if (_authCb) _authCb(user);
+});
+
+const FB = {
+  get currentUser(){ return _user; },
+  onAuthChange(cb){ _authCb=cb; if(_authDone) cb(_user); },
+  signIn(){ const p=new firebase.auth.GoogleAuthProvider(); p.setCustomParameters({prompt:'select_account'}); return _auth.signInWithPopup(p); },
+  signOut(){ return _auth.signOut(); },
+  isSlotDone(k){ return _progress[k]===true; },
+  toggleSlot(k){ if(_progress[k]){ delete _progress[k]; _progRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } else { _progress[k]=true; _progRef().set({[k]:true},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } },
+  getNote(k){ return _notes[k]||''; },
+  saveNote(k,t){ const v=(t||'').trim(); if(v){_notes[k]=v;_notesRef().set({[k]:v},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));}else{delete _notes[k];_notesRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));} },
+  calculateStreak(){ let s=0; const now=new Date(); for(let b=0;b<30;b++){const d=new Date(now);d.setDate(d.getDate()-b);const ds=d.toISOString().slice(0,10);const any=Object.keys(_progress).some(k=>k.startsWith(ds+'_')&&_progress[k]===true);if(any)s++;else if(b>0)break;} return s; },
+  weeklyStats(){ let dm=0,tm=0,sd={}; const now=new Date(),ti=[6,0,1,2,3,4,5][now.getDay()]; DAYS.forEach((day,di)=>{const d=new Date(now);d.setDate(d.getDate()+(di-ti));const ds=d.toISOString().slice(0,10);let si=0;day.slots.forEach(sl=>{if(sl.brk)return;tm+=sl.dur;if(_progress[`${ds}_${di}_${si}`]===true){dm+=sl.dur;sd[sl.subj]=(sd[sl.subj]||0)+sl.dur;}si++;});}); return{doneMins:dm,totalMins:tm,subjectDone:sd}; }
+};
+
+// ═══════════════════════════════════════════════════════
+// APP LOGIC
+// ═══════════════════════════════════════════════════════
+let activeTab='schedule', activeDay=[6,0,1,2,3,4,5][new Date().getDay()]??0;
+let openInsight=-1, activePhase=0, showSummer=false;
+let darkMode=localStorage.getItem('theme')||'auto';
+
+function todayIdx(){ return [6,0,1,2,3,4,5][new Date().getDay()]??0; }
+function dateKey(off=0){ const d=new Date();d.setDate(d.getDate()+off);return d.toISOString().slice(0,10); }
+function curWeekNum(){ return Math.min(Math.max(Math.floor((new Date()-new Date('2026-04-13'))/604800000)+1,1),11); }
+function curPhaseIdx(){ const w=curWeekNum();return w<=5?0:w<=10?1:2; }
+function todayMotiv(){ const doy=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/86400000);return MOTIV_TIPS[doy%MOTIV_TIPS.length]; }
+function progKey(di,si){ return `${dateKey(di-todayIdx())}_${di}_${si}`; }
+function noteKey(di,si){ return `${di}_${si}`; }
+function dayProg(di){ const slots=DAYS[di].slots.filter(s=>!s.brk);return{done:slots.filter((_,si)=>FB.isSlotDone(progKey(di,si))).length,total:slots.length}; }
+
+function applyTheme(){
+  document.body.classList.remove('theme-dark','theme-light');
+  if(darkMode==='dark')document.body.classList.add('theme-dark');
+  if(darkMode==='light')document.body.classList.add('theme-light');
+  const b=document.getElementById('theme-btn');
+  if(b)b.textContent={dark:'☀️',light:'🌙',auto:'🌗'}[darkMode]||'🌗';
+}
+
+function el(tag,a={},...ch){
+  const e=document.createElement(tag);
+  for(const[k,v]of Object.entries(a)){
+    if(k==='style'&&typeof v==='object')Object.assign(e.style,v);
+    else if(k==='onclick')e.addEventListener('click',v);
+    else if(k==='onchange')e.addEventListener('change',v);
+    else if(k==='html')e.innerHTML=v;
+    else e.setAttribute(k,v);
+  }
+  for(const c of ch.flat()){if(c==null)continue;e.appendChild(typeof c==='string'?document.createTextNode(c):c);}
+  return e;
+}
+const div=(a,...c)=>el('div',a,...c);
+const span=(a,...c)=>el('span',a,...c);
+const btn=(a,...c)=>el('button',a,...c);
+
+function openNoteDialog(di,si,lbl){
+  document.getElementById('note-dialog')?.remove();
+  const existing=FB.getNote(noteKey(di,si));
+  const ov=el('div',{id:'note-dialog',class:'dialog-overlay',onclick:(e)=>{if(e.target.id==='note-dialog')ov.remove();}},
+    div({class:'dialog-card'},
+      div({class:'dialog-title'},`📝 Note — ${lbl}`),
+      el('textarea',{id:'note-ta',class:'note-ta',rows:'4',placeholder:'Add a note…',html:existing}),
+      div({class:'dialog-actions'},
+        btn({class:'dbtn dbtn-cancel',onclick:()=>ov.remove()},'Cancel'),
+        btn({class:'dbtn dbtn-clear',onclick:()=>{FB.saveNote(noteKey(di,si),'');ov.remove();render();}},'Clear'),
+        btn({class:'dbtn dbtn-save',onclick:()=>{FB.saveNote(noteKey(di,si),document.getElementById('note-ta')?.value||'');ov.remove();render();}},'Save ✓')
+      )
+    )
+  );
+  document.body.appendChild(ov);
+  setTimeout(()=>document.getElementById('note-ta')?.focus(),50);
+}
+
+function exportIcal(){
+  const uid=()=>Math.random().toString(36).slice(2).toUpperCase();
+  const events=[{date:'20260413',title:'Study Plan Phase 1 Starts – School Term',desc:'Weekday 6:30–8:30 PM.'},{date:'20260517',title:'Summer Vacation Study Plan Starts',desc:'Full-day schedule.'},{date:'20260622',title:'School Reopens – Phase 3 Begins',desc:'Final sprint begins.'},{date:'20260701',title:'FIRST ASSESSMENT – STD 3 – DBPS',desc:'All the best!'}];
+  const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//StudyPlanner Std3//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH',...events.flatMap(ev=>['BEGIN:VEVENT',`UID:${uid()}@sp`,`DTSTART;VALUE=DATE:${ev.date}`,`DTEND;VALUE=DATE:${ev.date}`,`SUMMARY:${ev.title}`,`DESCRIPTION:${ev.desc}`,'END:VEVENT']),'END:VCALENDAR'];
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([lines.join('\r\n')],{type:'text/calendar'}));a.download='StudyPlan_Std3_2026.ics';a.click();URL.revokeObjectURL(a.href);
+}
+
+// ── Schedule ──────────────────────────────────────────────
+function renderSchedule(){
+  const day=DAYS[activeDay],dc=DAY_COLOR[day.day],ti=todayIdx(),prog=dayProg(activeDay),streak=FB.calculateStreak();
+  let si=0;
+  const streakBanner=streak>=2?div({class:'streak-banner'},span({style:{fontSize:'22px'}},'🔥'),div({},div({class:'streak-num'},streak+' day streak!'),div({class:'streak-sub'},'Consistency is everything — keep going!'))):null;
+  const dayScroll=div({class:'day-scroll'},
+    ...DAYS.map((d,i)=>{const p=dayProg(i),pct=p.total?Math.round((p.done/p.total)*100):0;return div({class:'day-btn'+(i===activeDay?' active':'')+(i===ti?' is-today':''),style:i===activeDay?{background:DAY_COLOR[d.day],color:'#fff'}:{},onclick:()=>{activeDay=i;render();},role:'tab','aria-selected':i===activeDay?'true':'false','data-day-idx':String(i)},span({style:{fontSize:'15px'}},d.emoji),span({},d.short),p.total>0?div({class:'day-prog',style:{background:pct===100?'#22C55E':i===activeDay?'rgba(255,255,255,.25)':'#e5e7eb'}},pct===100?'✓':`${p.done}/${p.total}`):null,i===ti?span({class:'today-dot'}):null);}),
+    div({class:'today-btn',onclick:()=>{activeDay=ti;render();}},'Today')
+  );
+  const header=div({class:'day-header',style:{background:dc}},
+    div({class:'day-header-top'},div({style:{fontSize:'24px'}},day.emoji),div({class:'day-header-info'},div({class:'day-name'},day.day),div({class:'day-note-text'},'📌 '+day.note))),
+    div({class:'day-badges'},prog.total>0?div({class:'day-badge'},prog.done===prog.total?'✅ All done!':`📋 ${prog.done}/${prog.total} completed`):null,activeDay<5?div({class:'day-badge'},'⚽ Free till 6:30 PM'):null),
+    prog.total>0?div({class:'day-pb-wrap'},div({class:'day-pb',style:{width:Math.round((prog.done/prog.total)*100)+'%',background:prog.done===prog.total?'#22C55E':'rgba(255,255,255,.75)'}})):null
+  );
+  const slots=div({class:'slots-list'},...day.slots.map(slot=>{
+    if(slot.brk)return div({class:'slot-break'},span({},'☕'),span({style:{fontSize:'12px',color:'#9CA3AF'}},`${slot.time} – ${slot.end}  ·  Break`));
+    const idx=si++,done=FB.isSlotDone(progKey(activeDay,idx)),note=FB.getNote(noteKey(activeDay,idx)),c=COLORS[slot.subj];
+    return div({class:'slot-card'+(slot.key?' slot-key':'')+(done?' slot-done':'')},
+      div({class:'slot-card-head',style:{background:done?'#6b7280':c}},
+        div({class:'slot-head-left'},span({class:'slot-emoji'},EMOJI[slot.subj]),span({class:'slot-time-lbl'},`${slot.time} – ${slot.end}`)),
+        div({class:'slot-head-right'},slot.key&&!done?span({class:'slot-pill key-pill'},'★ Key'):null,done?span({class:'slot-pill done-pill'},'✓ Done'):null,span({class:'slot-pill dur-pill'},`⏱ ${slot.dur}m`))
+      ),
+      div({class:'slot-card-body'},
+        div({class:'slot-subj-name',style:{color:done?'#9CA3AF':'var(--text)'}},LABELS[slot.subj]),
+        div({class:'slot-topic',style:{textDecoration:done?'line-through':'none',color:done?'#9CA3AF':'var(--text2)'}},slot.topic),
+        note?div({class:'slot-note-display'},span({style:{fontSize:'12px',flexShrink:0}},'📝'),span({class:'slot-note-text'},note)):null,
+        div({class:'slot-footer'},
+          div({class:'slot-sess',style:{color:done?'#9CA3AF':c}},SESS[slot.sess]||slot.sess),
+          div({class:'slot-footer-actions'},
+            btn({class:'note-btn'+(note?' active':''),onclick:(e)=>{e.stopPropagation();openNoteDialog(activeDay,idx,LABELS[slot.subj]);},title:'Note'},note?'📝':'＋📝'),
+            el('label',{class:'done-label'},
+              el('input',{type:'checkbox',class:'done-check',...(done?{checked:''}:{}),onchange:(e)=>{e.stopPropagation();FB.toggleSlot(progKey(activeDay,idx));render();}}),
+              span({class:'done-check-lbl'},done?'✓ Done':'Mark done')
+            )
+          )
+        )
+      )
+    );
+  }));
+  const flowRows=activeDay===5?[{t:'9:00–11:00 AM',l:'📚 Morning: revision+Shrutilekh+Grammar',bold:true},{t:'11 AM–3:30 PM',l:'⚽ Free time'},{t:'3:30–5:00 PM',l:'📚 Afternoon: Maths+GK+All 5 Poems',bold:true},{t:'5:00 PM+',l:'⚽ Fully free'}]:activeDay===6?[{t:'9:00–10:45 AM',l:'📚 Light revision: EVS+Hindi+Grammar+Poem',bold:true},{t:'10:45 AM+',l:'⚽ FULLY FREE — no study',bold:true}]:[{t:'2:30 PM',l:'🏠 Home from school'},{t:'2:30–6:30 PM',l:'⚽ FREE TIME — play, rest, outdoor',bold:true},{t:'6:30–7:10 PM',l:'📚 Study Slot 1 — 40 min',bold:true},{t:'7:10–7:15 PM',l:'☕ Break'},{t:'7:15–7:55 PM',l:'📚 Study Slot 2 — 40 min',bold:true},{t:'7:55–8:00 PM',l:'☕ Break'},{t:'8:00–8:30 PM',l:'📚 Study Slot 3 — 30 min',bold:true},{t:'8:30 PM',l:'🍽️ Dinner'},{t:'9:30 PM',l:'😴 Sleep — 8–9 hrs essential',bold:true}];
+  const flowCard=div({class:'flow-card'},div({class:'flow-card-title'},'🕐 '+(activeDay<5?'Weekday Flow':activeDay===5?'Saturday Flow':'Sunday Flow')),...flowRows.map(r=>div({class:'flow-row'},div({class:'flow-dot',style:{background:r.bold?dc:'#9CA3AF'}}),div({},div({class:'flow-time',style:{color:r.bold?dc:'#9CA3AF'}},r.t),div({class:'flow-lbl'+(r.bold?' bold':'')},r.l)))));
+  const summerCard=div({class:'summer-card'},
+    div({class:'summer-head',onclick:()=>{showSummer=!showSummer;render();},role:'button','aria-expanded':showSummer?'true':'false'},span({style:{fontSize:'18px'}},'☀️'),div({style:{flex:1}},div({style:{fontWeight:900,fontSize:'13px',color:'#EA580C'}},'Summer Vacation Schedule  (May 17 – Jun 21)'),div({style:{fontSize:'11px',color:'#9CA3AF',marginTop:'2px'}},'Full-day study plan · tap to '+(showSummer?'hide':'view'))),span({class:'insight-arrow'},showSummer?'▲':'▼')),
+    showSummer?div({class:'summer-slots'},...SUMMER_SLOTS.map(s=>{if(s.type==='break')return div({class:'slot-break',style:{margin:'3px 0'}},span({},'☕'),span({style:{fontSize:'11px',color:'#9CA3AF'}},s.time+' · Break'));const bg={study:'#EFF6FF',play:'#E0F2FE',rest:'#FEFCE8',routine:'#F8FAFC'};return div({class:'summer-slot',style:{background:bg[s.type]||'#F8FAFC'}},div({class:'summer-slot-icon',style:{background:s.color}},s.icon),div({},div({style:{display:'flex',justifyContent:'space-between',alignItems:'center',gap:'6px'}},span({class:'summer-slot-lbl'},s.label),span({class:'summer-slot-time',style:{color:s.color}},s.time)),s.note?div({class:'summer-slot-note'},s.note):null));})):null
+  );
+  return div({class:'tab-content'},streakBanner,dayScroll,header,slots,flowCard,summerCard);
+}
+
+// ── Roadmap ───────────────────────────────────────────────
+function renderRoadmap(){
+  const ph=PHASES[activePhase],cw=curWeekNum(),cp=curPhaseIdx(),wo=activePhase===0?0:activePhase===1?5:10,pct=Math.min(Math.round(((cw-1)/11)*100),100);
+  const phaseToggle=div({class:'phase-toggle'},...PHASES.map((p,i)=>btn({class:'phase-btn'+(i===activePhase?' active':'')+(i===cp?' cur-phase':''),style:i===activePhase?{background:p.color,color:'#fff',borderColor:p.color}:{},onclick:()=>{activePhase=i;render();}},p.icon+'  '+p.label+(i===cp?' 📍':''))));
+  const overallCard=div({class:'overall-card'},div({class:'overall-title'},`📍 Currently in Week ${cw} of 11`),div({class:'overall-track'},div({class:'overall-fill',style:{width:pct+'%'}})),div({class:'overall-labels'},span({},'Apr 13'),span({style:{fontWeight:800,color:'#2563EB'}},`Wk ${cw}`),span({},'Jul 1 🎯')),div({class:'ical-row'},btn({class:'ical-btn',onclick:exportIcal},'📅 Export key dates to calendar (.ics)')));
+  const phaseHeader=div({class:'phase-header',style:{background:ph.color}},div({class:'phase-header-top'},span({style:{fontSize:'28px'}},ph.icon),div({},div({class:'phase-title'},ph.phase+': '+ph.label),div({class:'phase-dates'},ph.dates))),div({class:'phase-note'},'📌 '+ph.note));
+  const weekCards=ph.weeks.map((wk,wi)=>{const gn=wo+wi+1,isCur=gn===cw,isPast=gn<cw;return div({class:'week-card'+(isCur?' week-current':'')+(isPast?' week-past':''),...(isCur?{id:'cur-week-card'}:{})},div({class:'week-head',style:{background:isPast?'#6b7280':wk.color}},span({class:'week-title'},(isCur?'📍 ':'')+(isPast?'✓ ':'')+wk.week),span({class:'week-tag'},isCur?'← This Week':isPast?'Done':wk.tag)),div({class:'week-focus',style:{borderColor:isPast?'#9CA3AF':wk.color,color:isPast?'#9CA3AF':wk.color}},'★  '+wk.focus),div({class:'week-rows'},...wk.rows.map(([l,v])=>div({class:'week-row'},span({class:'week-row-lbl'},l),span({class:'week-row-val'},v)))));});
+  const summaryCard=div({class:'summary-card'},div({class:'summary-title'},'📊 Full Timeline at a Glance'),...PHASES.map(p=>div({class:'sum-row'},div({class:'sum-dot',style:{background:p.color}}),span({class:'sum-lbl'},p.icon+' '+p.phase+': '+p.label+' — '+p.dates),span({class:'sum-time',style:{color:p.color}},p.weeks.length+' wk'+(p.weeks.length>1?'s':'')))),div({class:'sum-total'},span({},'Total weeks until assessment'),span({style:{color:'#DC2626',fontWeight:'900'}},'11 weeks')),div({class:'sum-note'},'Assessment: July 1, 2026 · Plenty of time if plan is followed!'));
+  return div({class:'tab-content'},div({class:'roadmap-intro'},div({class:'roadmap-intro-title'},'🗺️ 3-Phase · 11-Week Roadmap'),div({class:'roadmap-intro-sub'},'Phase 1: School term · Phase 2: Summer vacation · Phase 3: Pre-assessment')),overallCard,phaseToggle,phaseHeader,...weekCards,summaryCard);
+}
+
+// ── Insights ──────────────────────────────────────────────
+function renderStats(){
+  const{doneMins,totalMins,subjectDone}=FB.weeklyStats(),streak=FB.calculateStreak(),pct=totalMins?Math.round((doneMins/totalMins)*100):0,top=Object.entries(subjectDone).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  return div({class:'stats-card'},div({class:'stats-title'},'📊 This Week\'s Progress'),div({class:'stats-grid'},div({class:'stats-box'},div({class:'stats-num',style:{color:'#3B82F6'}},doneMins+'m'),div({class:'stats-lbl'},'Study done')),div({class:'stats-box'},div({class:'stats-num',style:{color:'#9CA3AF'}},(totalMins-doneMins)+'m'),div({class:'stats-lbl'},'Remaining')),div({class:'stats-box'},div({class:'stats-num',style:{color:streak>=3?'#F97316':'#22C55E'}},streak===0?'–':streak+'🔥'),div({class:'stats-lbl'},'Day streak')),div({class:'stats-box'},div({class:'stats-num',style:{color:pct===100?'#22C55E':'#14B8A6'}},pct+'%'),div({class:'stats-lbl'},'Completion'))),div({class:'stats-bar-track'},div({class:'stats-bar-fill',style:{width:pct+'%',background:pct===100?'#22C55E':'linear-gradient(90deg,#3B82F6,#14B8A6)'}})),top.length>0?div({class:'stats-top'},div({class:'stats-top-lbl'},'Most studied this week:'),div({},...top.map(([s,m])=>div({class:'stats-top-item'},span({style:{fontSize:'14px'}},EMOJI[s]),span({style:{fontWeight:800,fontSize:'11px',color:COLORS[s]}},LABELS[s]),span({style:{fontSize:'10px',color:'var(--text3)'}},m+'m'))))):null,div({class:'motiv-tip'},span({class:'motiv-icon'},'💬'),span({class:'motiv-text'},todayMotiv())));
+}
+function renderInsights(){
+  const cards=INSIGHTS.map((ins,i)=>div({class:'insight-card'},div({class:'insight-head',style:{background:ins.color},onclick:()=>{openInsight=openInsight===i?-1:i;render();},role:'button','aria-expanded':openInsight===i?'true':'false'},div({class:'insight-head-left'},span({style:{fontSize:'20px'}},ins.emoji),span({class:'insight-title-text'},ins.title)),span({class:'insight-arrow'},openInsight===i?'▲':'▼')),openInsight===i?div({class:'insight-body'},ins.body):null));
+  const tipsCard=div({class:'tips-card'},div({class:'tips-title'},'👨‍👩‍👧 Parent Action Points'),...TIPS.map(([h,d],i)=>div({class:'tip-row'},span({class:'tip-num'},`${i+1}.`),div({class:'tip-text'},el('strong',{},h+' — '),d))));
+  const feedbackCard=div({class:'feedback-card'},div({class:'feedback-title'},'💬 Account & Feedback'),div({class:'feedback-body'},'Signed in as ',el('strong',{},FB.currentUser?.email||'—'),'. Progress syncs across all devices.'),div({class:'feedback-actions'},el('a',{href:'https://github.com/santosh6785/DBPS-Study-Planner-Std-3/issues/new',target:'_blank',rel:'noopener',class:'feedback-link'},'🐛 Report / Suggest'),btn({class:'ical-btn',onclick:exportIcal},'📅 Export key dates (.ics)')));
+  return div({class:'tab-content'},div({class:'insights-intro'},div({class:'insights-intro-title'},'💡 Insights & Stats'),div({class:'insights-intro-sub'},'Cloud-synced · Live progress · Textbook guidance')),renderStats(),...cards,tipsCard,feedbackCard);
+}
+
+// ── Onboarding ────────────────────────────────────────────
+function showOnboarding(){
+  if(localStorage.getItem('onboardingDone_'+(FB.uid||'g')))return;
+  const steps=[['☁️ Cloud sync','All progress and notes save to Firebase — open on any device.'],['📅 Schedule','See daily slots. Tick ✓ when done. Add 📝 notes to any slot.'],['🔥 Streak','Build consecutive study days — streak shown at top.'],['🗺️ Roadmap','11-week plan. Current week highlighted with a gold border 📍'],['💡 Insights','Live stats, streak, daily tips, and textbook guidance.'],['📅 iCal','Export key dates to Google/Apple Calendar in one tap.']];
+  const ov=el('div',{id:'onboard-overlay',onclick:(e)=>{if(e.target.id==='onboard-overlay')closeOnboarding();}},div({class:'onboard-card'},div({class:'onboard-icon'},'🎒'),div({class:'onboard-title'},'Welcome to Study Planner!'),div({class:'onboard-steps'},...steps.map(([t,d])=>div({class:'onboard-step'},div({class:'onboard-step-title'},t),div({class:'onboard-step-desc'},d)))),btn({class:'onboard-btn',onclick:closeOnboarding},'Got it! Let\'s start 🚀')));
+  document.body.appendChild(ov);
+}
+function closeOnboarding(){document.getElementById('onboard-overlay')?.remove();localStorage.setItem('onboardingDone_'+(FB.uid||'g'),'1');}
+
+// ── Header user ───────────────────────────────────────────
+function updateHeaderUser(user){
+  const sec=document.getElementById('user-section');
+  if(!sec)return;
+  sec.innerHTML='';
+  if(!user)return;
+  const chip=div({class:'user-chip'},
+    user.photoURL?el('img',{src:user.photoURL,alt:'',referrerpolicy:'no-referrer'}):div({class:'user-avatar-init'},(user.displayName||user.email||'?').charAt(0).toUpperCase()),
+    span({class:'user-name'},(user.displayName||'').split(' ')[0]||user.email||''),
+    btn({class:'signout-btn',onclick:()=>FB.signOut(),title:'Sign out'},'↩')
+  );
+  sec.appendChild(chip);
+}
+
+// ── Render ────────────────────────────────────────────────
+function render(){
+  updateHeaderUser(FB.currentUser);
+  const main=document.getElementById('main');
+  if(!main)return;
+  main.innerHTML='';
+  main.style.opacity='0';
+  const content=activeTab==='schedule'?renderSchedule():activeTab==='roadmap'?renderRoadmap():renderInsights();
+  main.appendChild(content);
+  requestAnimationFrame(()=>{main.style.transition='opacity .15s';main.style.opacity='1';});
+  if(activeTab==='roadmap')setTimeout(()=>document.getElementById('cur-week-card')?.scrollIntoView({behavior:'smooth',block:'nearest'}),250);
+  document.querySelectorAll('.nav-btn,.tab-btn').forEach(b=>{const a=b.dataset.tab===activeTab;b.classList.toggle('active',a);b.setAttribute('aria-selected',a?'true':'false');});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── Init ──────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  applyTheme();
+  activePhase=curPhaseIdx();
+
+  // Tab nav
+  document.querySelectorAll('.tab-btn,.nav-btn').forEach(b=>b.addEventListener('click',()=>{activeTab=b.dataset.tab;render();}));
+  document.getElementById('theme-btn')?.addEventListener('click',()=>{darkMode={auto:'dark',dark:'light',light:'auto'}[darkMode]||'auto';localStorage.setItem('theme',darkMode);applyTheme();});
+  document.getElementById('help-btn')?.addEventListener('click',()=>{localStorage.removeItem('onboardingDone_'+(FB.uid||'g'));document.getElementById('onboard-overlay')?.remove();showOnboarding();});
+
+  // Google sign-in button
+  document.getElementById('google-btn')?.addEventListener('click',async()=>{
+    const gbtn=document.getElementById('google-btn'),err=document.getElementById('signin-error');
+    gbtn.disabled=true; gbtn.innerHTML='<span class="spinner"></span> Signing in…'; if(err)err.textContent='';
+    try{ await FB.signIn(); }
+    catch(e){
+      gbtn.disabled=false;
+      gbtn.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" style="flex-shrink:0"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66 2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg> Sign in with Google';
+      if(err&&e.code!=='auth/popup-closed-by-user')err.textContent=e.code==='auth/popup-blocked'?'Popups blocked — please allow popups and try again.':'Sign-in failed. Please try again.';
+    }
+  });
+
+  // Install banner
+  let dp; const banner=document.getElementById('install-banner'),da=parseInt(localStorage.getItem('installDismissed')||'0',10);
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;if(Date.now()-da>7*864e5&&banner)banner.style.display='flex';});
+  document.getElementById('install-btn')?.addEventListener('click',async()=>{if(!dp)return;dp.prompt();await dp.userChoice;dp=null;if(banner)banner.style.display='none';});
+  document.getElementById('dismiss-install')?.addEventListener('click',()=>{if(banner)banner.style.display='none';localStorage.setItem('installDismissed',Date.now().toString());});
+
+  // Auth drives the whole UI
+  FB.onAuthChange(user=>{
+    document.getElementById('skeleton').style.display='none';
+    if(user){
+      document.getElementById('login-screen').style.display='none';
+      document.getElementById('app').style.display='flex';
+      render();
+      setTimeout(showOnboarding,500);
+    } else {
+      document.getElementById('app').style.display='none';
+      document.getElementById('login-screen').style.display='flex';
+    }
+  });
+});
+
+// Service worker
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('./sw.js')
+      .then(r=>console.log('SW:',r.scope))
+      .catch(e=>console.warn('SW error:',e));
+  });
+}
+</script>
 </body>
 </html>
