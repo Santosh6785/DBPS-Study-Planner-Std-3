@@ -670,7 +670,7 @@ const FB = {
   toggleSlot(k){ if(_progress[k]){ delete _progress[k]; _progRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } else { _progress[k]=true; _progRef().set({[k]:true},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } },  getNote(k){ return _notes[k]||''; },
   saveNote(k,t){ const v=(t||'').trim(); if(v){_notes[k]=v;_notesRef().set({[k]:v},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));}else{delete _notes[k];_notesRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));} },
   calculateStreak(){ let s=0; const now=new Date(); for(let b=0;b<30;b++){const d=new Date(now);d.setDate(d.getDate()-b);const ds=d.toISOString().slice(0,10);const anyReg=Object.keys(_progress).some(k=>k.startsWith(ds+'_')&&_progress[k]===true);const anySv=Object.keys(_progress).some(k=>k.startsWith('sv_'+ds+'_')&&_progress[k]===true);if(anyReg||anySv)s++;else if(b>0)break;} return s; },
-  weeklyStats(){ let dm=0,tm=0,sd={}; const now=new Date(),ti=[6,0,1,2,3,4,5][now.getDay()]; DAYS.forEach((day,di)=>{const d=new Date(now);d.setDate(d.getDate()+(di-ti));const ds=d.toISOString().slice(0,10);let si=0;day.slots.forEach(sl=>{if(sl.brk)return;tm+=sl.dur;if(_progress[`${ds}_${di}_${si}`]===true){dm+=sl.dur;sd[sl.subj]=(sd[sl.subj]||0)+sl.dur;}si++;});}); return{doneMins:dm,totalMins:tm,subjectDone:sd}; },
+  weeklyStats(){ let dm=0,tm=0,sd={}; const now=new Date(),ti=[6,0,1,2,3,4,5][now.getDay()]; DAYS.forEach((day,di)=>{const d=new Date(now);d.setDate(d.getDate()+(di-ti));const ds=d.toISOString().slice(0,10);let si=0;day.slots.forEach(sl=>{if(sl.brk){si++;return;}tm+=sl.dur;if(_progress[`${ds}_${di}_${si}`]===true){dm+=sl.dur;sd[sl.subj]=(sd[sl.subj]||0)+sl.dur;}si++;});}); return{doneMins:dm,totalMins:tm,subjectDone:sd}; },
   async saveMockResult(subj,score,total){
     if(!_user) return;
     const rec={subj,score,total,date:new Date().toISOString(),class:_currentClass};
@@ -1012,7 +1012,11 @@ function curPhaseIdx(){ const w=curWeekNum();return w<=5?0:w<=10?1:2; }
 function todayMotiv(){ const doy=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/86400000);return MOTIV_TIPS[doy%MOTIV_TIPS.length]; }
 function progKey(di,si){ return `${dateKey(di-todayIdx())}_${di}_${si}`; }
 function noteKey(di,si){ return `${di}_${si}`; }
-function dayProg(di){ const slots=DAYS[di].slots.filter(s=>!s.brk);return{done:slots.filter((_,si)=>FB.isSlotDone(progKey(di,si))).length,total:slots.length}; }
+function dayProg(di){
+  let done=0,total=0;
+  DAYS[di].slots.forEach((s,si)=>{ if(s.brk)return; total++; if(FB.isSlotDone(progKey(di,si)))done++; });
+  return{done,total};
+}
 // Summer vacation checklist keys: sv_YYYY-MM-DD_slotIndex
 function svKey(date,si){ return `sv_${date}_${si}`; }
 function summerProg(date){
