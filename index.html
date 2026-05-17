@@ -270,6 +270,37 @@ body.theme-dark .summary-card{background:#052e16;}
   .slot-card-head,.week-head,.day-header{print-color-adjust:exact;-webkit-print-color-adjust:exact;}
   @page{margin:12mm;}
 }
+/* ── Google Calendar Sync card ────────────────────────── */
+.gcal-card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+.gcal-card-head{background:linear-gradient(135deg,#1a73e8,#4285f4);padding:12px 14px;display:flex;align-items:center;gap:10px;}
+.gcal-card-icon{font-size:20px;flex-shrink:0;}
+.gcal-card-title{font-size:14px;font-weight:900;color:#fff;line-height:1.2;}
+.gcal-card-sub{font-size:11px;color:rgba(255,255,255,.75);margin-top:2px;}
+.gcal-card-body{padding:12px 14px;display:flex;flex-direction:column;gap:8px;}
+.gcal-status-idle{font-size:12px;color:var(--text3);font-weight:600;padding:4px 0 2px;line-height:1.4;}
+.gcal-status-loading{font-size:12px;color:#2563EB;font-weight:700;padding:4px 0 2px;line-height:1.4;}
+.gcal-status-success{font-size:12px;color:#16A34A;font-weight:700;padding:4px 0 2px;line-height:1.4;}
+.gcal-status-error{font-size:12px;color:#DC2626;font-weight:700;padding:4px 0 2px;line-height:1.5;}
+.gcal-action-btn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:9px 12px;background:var(--border2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;font-family:'Nunito',sans-serif;text-align:left;transition:background .15s,opacity .15s;}
+.gcal-action-btn:hover:not(:disabled){background:var(--border);}
+.gcal-action-btn:disabled{opacity:.4;cursor:not-allowed;}
+.gcal-action-btn.gcal-btn-primary{background:linear-gradient(135deg,#1a73e8,#4285f4);border-color:transparent;}
+.gcal-action-btn.gcal-btn-primary .gcal-btn-title{color:#fff;}
+.gcal-action-btn.gcal-btn-primary .gcal-btn-sub{color:rgba(255,255,255,.8);}
+.gcal-action-btn.gcal-btn-primary .gcal-btn-arrow{color:rgba(255,255,255,.8);}
+.gcal-btn-left{display:flex;align-items:center;gap:10px;min-width:0;}
+.gcal-btn-icon{font-size:17px;flex-shrink:0;}
+.gcal-btn-title{font-size:13px;font-weight:800;color:var(--text);line-height:1.2;}
+.gcal-btn-sub{font-size:11px;color:var(--text3);margin-top:1px;line-height:1.3;}
+.gcal-btn-arrow{font-size:15px;color:var(--text3);flex-shrink:0;margin-left:6px;}
+.gcal-divider{height:1px;background:var(--border2);margin:2px 0;}
+.gcal-help-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:5px 0;user-select:none;}
+.gcal-help-title{font-size:12px;font-weight:800;color:var(--text3);}
+.gcal-help-body{background:var(--border2);border-radius:12px;padding:10px 12px;margin-top:2px;display:flex;flex-direction:column;gap:6px;}
+.gcal-help-step{font-size:11px;color:var(--text2);line-height:1.6;}
+.gcal-help-step a{color:#2563EB;font-weight:700;}
+.gcal-help-code{font-family:'Courier New',monospace;background:var(--border);border-radius:5px;padding:1px 5px;font-size:10.5px;color:var(--text);word-break:break-all;}
+.gcal-fallback{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 </style>
 </head>
 <body>
@@ -564,6 +595,7 @@ const FB = {
 let activeTab='schedule', activeDay=[6,0,1,2,3,4,5][new Date().getDay()]??0;
 let openInsight=-1, activePhase=0, showSummer=false;
 let darkMode=localStorage.getItem('theme')||'auto';
+let _gcalHelpOpen=false;
 
 function todayIdx(){ return [6,0,1,2,3,4,5][new Date().getDay()]??0; }
 function dateKey(off=0){ const d=new Date();d.setDate(d.getDate()+off);return d.toISOString().slice(0,10); }
@@ -627,6 +659,379 @@ function exportIcal(){
   ];
   const lines=['BEGIN:VCALENDAR','VERSION:2.0',`PRODID:-//StudyPlanner ${classLabel}//EN`,'CALSCALE:GREGORIAN','METHOD:PUBLISH',...events.flatMap(ev=>['BEGIN:VEVENT',`UID:${uid()}@sp`,`DTSTART;VALUE=DATE:${ev.date}`,`DTEND;VALUE=DATE:${ev.date}`,`SUMMARY:${ev.title}`,`DESCRIPTION:${ev.desc}`,'END:VEVENT']),'END:VCALENDAR'];
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([lines.join('\r\n')],{type:'text/calendar'}));a.download=`StudyPlan_${_currentClass.toUpperCase()}_2026.ics`;a.click();URL.revokeObjectURL(a.href);
+}
+
+// ═══════════════════════════════════════════════════════
+// GOOGLE CALENDAR INTEGRATION
+// ═══════════════════════════════════════════════════════
+//
+// SETUP INSTRUCTIONS (one-time, ~5 min):
+//  1. Go to https://console.cloud.google.com/
+//     → APIs & Services → Library → search "Google Calendar API" → Enable it.
+//
+//  2. Go to APIs & Services → Credentials → "+ Create Credentials"
+//     → OAuth 2.0 Client ID → Application type: Web application
+//     → Authorised JavaScript origins: https://santosh6785.github.io
+//     (also add http://localhost for local testing)
+//
+//  3. Copy the generated Client ID and paste it below, replacing
+//     'YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com'
+//
+//  4. Commit & push index.html — GitHub Pages redeploys automatically.
+//
+// The .ics export button still works as a fallback without any setup.
+
+const GCAL = {
+
+  // ┌──────────────────────────────────────────────────────────┐
+  // │  REPLACE this with your actual OAuth 2.0 Client ID       │
+  CLIENT_ID: 'YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com',
+  // └──────────────────────────────────────────────────────────┘
+
+  SCOPE:        'https://www.googleapis.com/auth/calendar.events',
+  CALENDAR_API: 'https://www.googleapis.com/calendar/v3/calendars/primary/events',
+  TZ:           'Asia/Kolkata',
+
+  _tokenClient:    null,
+  _pendingResolve: null,
+  _pendingReject:  null,
+
+  // Std 2 → colorId 6 = Tangerine (orange, matches #EA580C brand)
+  // Std 3 → colorId 9 = Blueberry (dark blue, matches #1a1a2e brand)
+  colorId() { return _currentClass === 'std2' ? '6' : '9'; },
+
+  isConfigured() {
+    return (
+      typeof this.CLIENT_ID === 'string' &&
+      this.CLIENT_ID !== 'YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com' &&
+      this.CLIENT_ID.endsWith('.apps.googleusercontent.com')
+    );
+  },
+
+  // Dynamically load Google Identity Services script (only once)
+  async _loadGIS() {
+    if (window.google?.accounts?.oauth2) return;
+    await new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = 'https://accounts.google.com/gsi/client';
+      s.async = true; s.defer = true;
+      s.onload = res;
+      s.onerror = () => rej(new Error('Could not load Google Identity Services. Check your internet connection.'));
+      document.head.appendChild(s);
+    });
+  },
+
+  // Return a valid access token — uses localStorage cache, or triggers OAuth flow
+  async getToken() {
+    // Try cached token first (skip if expiring within 60 s)
+    try {
+      const cached = JSON.parse(localStorage.getItem('gcal_token') || 'null');
+      if (cached && typeof cached.token === 'string' && cached.expires_at > Date.now() + 60000) {
+        return cached.token;
+      }
+    } catch { localStorage.removeItem('gcal_token'); }
+
+    if (!this.isConfigured()) {
+      throw new Error('Client ID not configured — follow the setup guide below to enable Google Calendar sync.');
+    }
+
+    await this._loadGIS();
+
+    // Build token client once per session
+    if (!this._tokenClient) {
+      this._tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: this.CLIENT_ID,
+        scope: this.SCOPE,
+        callback: (resp) => {
+          if (resp.error) {
+            const map = {
+              access_denied:          'Calendar access was denied. Please tap "Allow" when Google asks for permission.',
+              popup_closed_by_user:   'The sign-in popup was closed. Please try again.',
+              popup_blocked_by_browser: 'Popup blocked — allow popups for this page and try again.'
+            };
+            const err = new Error(map[resp.error] || 'Google sign-in failed: ' + resp.error);
+            if (this._pendingReject) { this._pendingReject(err); }
+            this._pendingResolve = this._pendingReject = null;
+          } else {
+            const expiresAt = Date.now() + (parseInt(resp.expires_in, 10) || 3600) * 1000;
+            localStorage.setItem('gcal_token', JSON.stringify({ token: resp.access_token, expires_at: expiresAt }));
+            if (this._pendingResolve) { this._pendingResolve(resp.access_token); }
+            this._pendingResolve = this._pendingReject = null;
+          }
+        }
+      });
+    }
+
+    return new Promise((res, rej) => {
+      this._pendingResolve = res;
+      this._pendingReject  = rej;
+      // prompt:'' = silent if user already granted, shows picker only if needed
+      this._tokenClient.requestAccessToken({ prompt: '' });
+    });
+  },
+
+  // Clear cached token (forces fresh OAuth on next use)
+  revokeToken() {
+    try {
+      const cached = JSON.parse(localStorage.getItem('gcal_token') || 'null');
+      if (cached?.token && window.google?.accounts?.oauth2) {
+        google.accounts.oauth2.revoke(cached.token, () => {});
+      }
+    } catch {}
+    localStorage.removeItem('gcal_token');
+    this._tokenClient = null;
+  },
+
+  // Parse "8:00 AM" / "12:30 PM" → {hour, minute} in 24-h
+  _parseTime(str) {
+    const m = (str || '').match(/(\d+):(\d+)\s*(AM|PM)/i);
+    if (!m) return null;
+    let h = parseInt(m[1], 10), min = parseInt(m[2], 10);
+    const pm = m[3].toUpperCase() === 'PM';
+    if (pm && h !== 12) h += 12;
+    if (!pm && h === 12) h = 0;
+    return { hour: h, minute: min };
+  },
+
+  // Zero-pad number to 2 digits
+  _pad(n) { return String(n).padStart(2, '0'); },
+
+  // "2026-05-17" + {hour,minute} → "2026-05-17T08:00:00"
+  _dt(date, t) { return `${date}T${this._pad(t.hour)}:${this._pad(t.minute)}:00`; },
+
+  // POST one event to the Google Calendar REST API
+  async _createEvent(eventBody) {
+    const token = await this.getToken();
+    const resp = await fetch(this.CALENDAR_API, {
+      method:  'POST',
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body:    JSON.stringify(eventBody)
+    });
+    if (!resp.ok) {
+      const body = await resp.json().catch(() => ({}));
+      const msg  = body?.error?.message || resp.statusText;
+      if (resp.status === 401) {
+        localStorage.removeItem('gcal_token'); // force re-auth next time
+        throw new Error('Session expired — please try again.');
+      }
+      if (resp.status === 403) {
+        throw new Error('Google Calendar API is not enabled or quota exceeded. Check Google Cloud Console (step 1 of setup guide).');
+      }
+      throw new Error('Calendar API: ' + msg);
+    }
+    return resp.json();
+  },
+
+  // ── 1. Key dates (5 all-day events) ─────────────────────
+  async syncKeyDates() {
+    const lbl = CLASS_DATA[_currentClass].label;
+    const cid = this.colorId();
+    const dates = [
+      { date: '2026-04-13', title: `🏫 ${lbl} – Phase 1 Starts`,           desc: 'School term begins. Weekday study 6:30–8:30 PM.' },
+      { date: '2026-05-17', title: `☀️ ${lbl} – Summer Vacation Starts`,    desc: 'Full-day study schedule begins. Morning + afternoon blocks. ~4 hrs/day.' },
+      { date: '2026-06-21', title: `☀️ ${lbl} – Last Day of Summer Vacation`,desc: 'Final day of vacation schedule. School reopens tomorrow.' },
+      { date: '2026-06-22', title: `🎯 ${lbl} – School Reopens · Final Sprint`,desc: 'Phase 3 begins. Back to 6:30–8:30 PM weekday study. Assessment in 9 days!' },
+      { date: '2026-07-01', title: `⭐ ${lbl} – ASSESSMENT DAY · DBPS`,     desc: 'First assessment of 2026–27. All subjects. You\'ve got this! 🌟' }
+    ];
+    for (const d of dates) {
+      await this._createEvent({
+        summary:     d.title,
+        description: d.desc,
+        start: { date: d.date },
+        end:   { date: d.date },
+        colorId:   cid,
+        reminders: { useDefault: false, overrides: [{ method: 'popup', minutes: 60 }] }
+      });
+    }
+    return dates.length; // 5
+  },
+
+  // ── 2. Daily 6:25 PM reminders — school days only ────────
+  //    Two recurring series: Phase 1 (Apr 13–May 16) and Phase 3 (Jun 22–Jun 30)
+  //    Summer vacation (May 17–Jun 21) is excluded — it has its own blocks below.
+  async syncDailyReminders() {
+    const lbl = CLASS_DATA[_currentClass].label;
+    const cid = this.colorId();
+    const phases = [
+      { start: '2026-04-13', until: '20260516T235959Z', label: 'Phase 1 · School Term' },
+      { start: '2026-06-22', until: '20260701T235959Z', label: 'Phase 3 · Final Sprint' }
+    ];
+    for (const ph of phases) {
+      await this._createEvent({
+        summary:     `📚 Study time starts in 5 minutes – ${lbl}`,
+        description: `Study session begins at 6:30 PM. Sit down, settle, be ready! 📖\n(${ph.label})`,
+        start: { dateTime: `${ph.start}T18:25:00`, timeZone: this.TZ },
+        end:   { dateTime: `${ph.start}T18:30:00`, timeZone: this.TZ },
+        colorId:    cid,
+        recurrence: [`RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;UNTIL=${ph.until}`],
+        reminders:  { useDefault: false, overrides: [{ method: 'popup', minutes: 0 }] }
+      });
+    }
+    return phases.length; // 2 recurring series
+  },
+
+  // ── 3. Summer vacation study blocks (Mon–Fri, May 17 – Jun 21) ─
+  //    One recurring event per study slot in CLASS_DATA[_currentClass].summer
+  async syncSummerBlocks() {
+    const lbl   = CLASS_DATA[_currentClass].label;
+    const cid   = this.colorId();
+    const slots = (CLASS_DATA[_currentClass].summer || []).filter(s => s.type === 'study');
+    let count = 0;
+    for (const slot of slots) {
+      const startT = this._parseTime(slot.time);
+      const endT   = this._parseTime(slot.end);
+      if (!startT || !endT) continue; // skip unparseable (e.g. "Bedtime")
+      await this._createEvent({
+        summary:     `${slot.icon} ${lbl} – ${slot.label}`,
+        description: (slot.note || `Summer vacation study block · ${slot.time}–${slot.end}`),
+        start: { dateTime: this._dt('2026-05-17', startT), timeZone: this.TZ },
+        end:   { dateTime: this._dt('2026-05-17', endT),   timeZone: this.TZ },
+        colorId:    cid,
+        recurrence: ['RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;UNTIL=20260621T235959Z'],
+        reminders:  { useDefault: false, overrides: [{ method: 'popup', minutes: 5 }] }
+      });
+      count++;
+    }
+    return count;
+  },
+
+  // ── 4. Run all three ──────────────────────────────────────
+  async syncAll() {
+    const keyDates    = await this.syncKeyDates();
+    const reminders   = await this.syncDailyReminders();
+    const summerBlocks= await this.syncSummerBlocks();
+    return { keyDates, reminders, summerBlocks };
+  }
+};
+
+// Shared action runner — handles loading state, errors, re-enabling buttons
+async function gcalRunAction(actionFn, successFn) {
+  const statusEl = document.getElementById('gcal-status');
+  const allBtns  = document.querySelectorAll('.gcal-action-btn');
+  if (statusEl) { statusEl.className = 'gcal-status-loading'; statusEl.textContent = '⏳ Connecting to Google Calendar…'; }
+  allBtns.forEach(b => { b.disabled = true; });
+  try {
+    const result = await actionFn();
+    if (statusEl) { statusEl.className = 'gcal-status-success'; statusEl.textContent = successFn(result); }
+  } catch (err) {
+    console.error('[GCal]', err);
+    if (statusEl) { statusEl.className = 'gcal-status-error'; statusEl.textContent = '❌ ' + (err.message || 'Unknown error'); }
+  } finally {
+    // Re-enable buttons, but keep disabled if CLIENT_ID not yet configured
+    allBtns.forEach(b => { b.disabled = !GCAL.isConfigured(); });
+  }
+}
+
+// Build the Calendar Sync card (called from renderInsights)
+function renderCalSyncCard() {
+  const configured = GCAL.isConfigured();
+  const lbl        = CLASS_DATA[_currentClass].label;
+
+  // Factory for action buttons
+  function makeActionBtn(icon, title, sub, isPrimary, actionFn, successFn) {
+    const b = btn({ class: 'gcal-action-btn' + (isPrimary ? ' gcal-btn-primary' : '') },
+      div({ class: 'gcal-btn-left' },
+        span({ class: 'gcal-btn-icon' }, icon),
+        div({},
+          div({ class: 'gcal-btn-title' }, title),
+          div({ class: 'gcal-btn-sub'   }, sub)
+        )
+      ),
+      span({ class: 'gcal-btn-arrow' }, '→')
+    );
+    if (!configured) {
+      b.disabled = true;
+    } else {
+      b.addEventListener('click', () => gcalRunAction(actionFn, successFn));
+    }
+    return b;
+  }
+
+  // Status line
+  const statusText = configured
+    ? 'Ready · Tap a button to sync ' + lbl + ' events to Google Calendar.'
+    : '⚠️ Client ID not configured — follow the setup guide below to get started.';
+  const statusEl = div({ id: 'gcal-status', class: configured ? 'gcal-status-idle' : 'gcal-status-error' }, statusText);
+
+  // Collapsible setup help
+  const helpBody = _gcalHelpOpen ? div({ class: 'gcal-help-body' },
+    div({ class: 'gcal-help-step' },
+      el('strong', {}, '1. Enable API: '),
+      'Go to ',
+      el('a', { href: 'https://console.cloud.google.com/apis/library/calendar-json.googleapis.com', target: '_blank', rel: 'noopener' }, 'Google Cloud Console'),
+      ' → Library → search "Google Calendar API" → ', el('strong', {}, 'Enable'), '.'
+    ),
+    div({ class: 'gcal-help-step' },
+      el('strong', {}, '2. Create credentials: '),
+      'APIs & Services → Credentials → Create Credentials → OAuth 2.0 Client ID.',
+      ' Application type: ', el('strong', {}, 'Web application'), '.',
+      ' Authorised JavaScript origin: ',
+      el('span', { class: 'gcal-help-code' }, 'https://santosh6785.github.io'),
+      ' (add ', el('span', { class: 'gcal-help-code' }, 'http://localhost'), ' for local testing too).'
+    ),
+    div({ class: 'gcal-help-step' },
+      el('strong', {}, '3. Paste Client ID: '),
+      'Copy your Client ID and replace ', el('span', { class: 'gcal-help-code' }, 'YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com'),
+      ' in the ', el('span', { class: 'gcal-help-code' }, 'GCAL.CLIENT_ID'), ' line of this file. Commit & push.'
+    ),
+    div({ class: 'gcal-help-step', style: { color: 'var(--text3)', marginTop: '2px' } },
+      '💡 The .ics export below works without any setup — use it as a fallback anytime.'
+    )
+  ) : null;
+
+  return div({ class: 'gcal-card' },
+    // Header
+    div({ class: 'gcal-card-head' },
+      span({ class: 'gcal-card-icon' }, '📅'),
+      div({},
+        div({ class: 'gcal-card-title' }, 'Calendar Sync — ' + lbl),
+        div({ class: 'gcal-card-sub'   }, 'Push events directly to Google Calendar')
+      )
+    ),
+    // Body
+    div({ class: 'gcal-card-body' },
+      statusEl,
+
+      // Individual action buttons
+      makeActionBtn('🗓️', 'Sync key dates', 'Phase 1 start · Summer start/end · School reopens · Assessment Jul 1', false,
+        () => GCAL.syncKeyDates(),
+        (n) => `✅ Added ${n} key date events to your Google Calendar.`
+      ),
+      makeActionBtn('⏰', 'Add daily reminders', '6:25 PM Mon–Fri · School days only · 5-min heads-up popup', false,
+        () => GCAL.syncDailyReminders(),
+        () => '✅ Added recurring 6:25 PM reminders for Phase 1 and Phase 3 school days.'
+      ),
+      makeActionBtn('☀️', 'Add summer study blocks', 'May 17–Jun 21 · Mon–Fri recurring events for each study slot', false,
+        () => GCAL.syncSummerBlocks(),
+        (n) => `✅ Added ${n} recurring summer study blocks to Google Calendar (Mon–Fri, May 17–Jun 21).`
+      ),
+
+      div({ class: 'gcal-divider' }),
+
+      // Primary "Set up all" button
+      makeActionBtn('⚡', 'Set up all', 'One-time Google sign-in · Runs all three actions above', true,
+        () => GCAL.syncAll(),
+        (r) => `✅ Done! ${r.keyDates} key dates · 2 daily reminder series · ${r.summerBlocks} summer blocks added.`
+      ),
+
+      div({ class: 'gcal-divider' }),
+
+      // Collapsible setup guide
+      div({ class: 'gcal-help-toggle', onclick: () => { _gcalHelpOpen = !_gcalHelpOpen; render(); } },
+        span({ class: 'gcal-help-title' }, '⚙️ Setup guide — how to enable Google Calendar API'),
+        span({ class: 'gcal-btn-arrow'  }, _gcalHelpOpen ? '▲' : '▼')
+      ),
+      helpBody,
+
+      // Fallback .ics export
+      div({ class: 'gcal-fallback' },
+        '💡 No Google setup needed for iCal:',
+        btn({ class: 'ical-btn', style: { display: 'inline-flex', padding: '4px 10px', fontSize: '11px', marginLeft: '4px' }, onclick: exportIcal },
+          '📅 Export .ics instead'
+        )
+      )
+    )
+  );
 }
 
 // ── Schedule ──────────────────────────────────────────────
@@ -698,7 +1103,7 @@ function renderInsights(){
   const cards=INSIGHTS.map((ins,i)=>div({class:'insight-card'},div({class:'insight-head',style:{background:ins.color},onclick:()=>{openInsight=openInsight===i?-1:i;render();},role:'button','aria-expanded':openInsight===i?'true':'false'},div({class:'insight-head-left'},span({style:{fontSize:'20px'}},ins.emoji),span({class:'insight-title-text'},ins.title)),span({class:'insight-arrow'},openInsight===i?'▲':'▼')),openInsight===i?div({class:'insight-body'},ins.body):null));
   const tipsCard=div({class:'tips-card'},div({class:'tips-title'},'👨‍👩‍👧 Parent Action Points'),...TIPS.map(([h,d],i)=>div({class:'tip-row'},span({class:'tip-num'},`${i+1}.`),div({class:'tip-text'},el('strong',{},h+' — '),d))));
   const feedbackCard=div({class:'feedback-card'},div({class:'feedback-title'},'💬 Account & Feedback'),div({class:'feedback-body'},'Signed in as ',el('strong',{},FB.currentUser?.email||'—'),'. Progress syncs across all devices — separately for each child.'),div({class:'feedback-actions'},el('a',{href:'https://github.com/santosh6785/DBPS-Study-Planner/issues/new',target:'_blank',rel:'noopener',class:'feedback-link'},'🐛 Report / Suggest'),btn({class:'ical-btn',onclick:exportIcal},'📅 Export key dates (.ics)')));
-  return div({class:'tab-content'},div({class:'insights-intro'},div({class:'insights-intro-title'},'💡 Insights & Stats'),div({class:'insights-intro-sub'},'Cloud-synced · Live progress · Textbook guidance')),renderStats(),...cards,tipsCard,feedbackCard);
+  return div({class:'tab-content'},div({class:'insights-intro'},div({class:'insights-intro-title'},'💡 Insights & Stats'),div({class:'insights-intro-sub'},'Cloud-synced · Live progress · Textbook guidance')),renderStats(),...cards,tipsCard,renderCalSyncCard(),feedbackCard);
 }
 
 // ── Onboarding ────────────────────────────────────────────
