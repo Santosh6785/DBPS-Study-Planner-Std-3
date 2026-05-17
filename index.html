@@ -612,7 +612,9 @@ let openInsight=-1, activePhase=0, showSummer=false;
 let darkMode=localStorage.getItem('theme')||'auto';
 let _gcalHelpOpen=false;
 // Summer vacation checklist — date navigator
-let _summerDate=new Date().toISOString().slice(0,10); // e.g. "2026-05-18"
+// Use local date string to avoid UTC/IST timezone shift
+function _localDateStr(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+let _summerDate=_localDateStr(new Date()); // today in local time, e.g. "2026-05-17"
 
 function todayIdx(){ return [6,0,1,2,3,4,5][new Date().getDay()]??0; }
 function dateKey(off=0){ const d=new Date();d.setDate(d.getDate()+off);return d.toISOString().slice(0,10); }
@@ -629,22 +631,15 @@ function summerProg(date){
   const done=studySlots.filter(({i})=>FB.isSlotDone(svKey(date,i))).length;
   return{done,total:studySlots.length};
 }
-// Is a given date string a school day (Mon–Fri) within summer vacation?
-function isSummerSchoolDay(dateStr){
-  const d=new Date(dateStr+'T00:00:00');
-  const dow=d.getDay(); // 0=Sun,6=Sat
-  if(dow===0||dow===6) return false;
-  const start=new Date('2026-05-17T00:00:00'),end=new Date('2026-06-21T00:00:00');
-  return d>=start&&d<=end;
-}
 // Navigate summer date by offset days, staying within May 17 – Jun 21
 function moveSummerDate(offset){
-  const d=new Date(_summerDate+'T00:00:00');
+  const d=new Date(_summerDate+'T12:00:00'); // noon avoids any DST/timezone edge case
   d.setDate(d.getDate()+offset);
-  const s=new Date('2026-05-17T00:00:00'),e=new Date('2026-06-21T00:00:00');
-  if(d<s)d.setTime(s.getTime());
-  if(d>e)d.setTime(e.getTime());
-  _summerDate=d.toISOString().slice(0,10);
+  const minDate='2026-05-17', maxDate='2026-06-21';
+  const result=_localDateStr(d);
+  if(result<minDate) _summerDate=minDate;
+  else if(result>maxDate) _summerDate=maxDate;
+  else _summerDate=result;
   render();
 }
 
@@ -1123,11 +1118,10 @@ function renderSchedule(){
     showSummer?(()=>{
       // Date navigator
       const atStart=_summerDate<='2026-05-17', atEnd=_summerDate>='2026-06-21';
-      const dispDate=new Date(_summerDate+'T00:00:00');
+      const dispDate=new Date(_summerDate+'T12:00:00');
       const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
       const monthNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
       const dateLbl=`${dayNames[dispDate.getDay()]}, ${dispDate.getDate()} ${monthNames[dispDate.getMonth()]}`;
-      const isSchoolDay=isSummerSchoolDay(_summerDate);
       const prog=summerProg(_summerDate);
       const pct=prog.total?Math.round((prog.done/prog.total)*100):0;
       const bg={study:'#EFF6FF',play:'#E0F2FE',rest:'#FEFCE8',routine:'#F8FAFC'};
@@ -1136,17 +1130,16 @@ function renderSchedule(){
         span({class:'summer-date-lbl'},dateLbl),
         btn({class:'summer-nav-btn',...(atEnd?{disabled:''}:{}),onclick:(e)=>{e.stopPropagation();moveSummerDate(1);}}, '▶')
       );
-      const progRow=isSchoolDay?div({class:'summer-prog-row'},
+      const progRow=div({class:'summer-prog-row'},
         span({},prog.done===prog.total&&prog.total>0?'✅ All done!':'☀️ '+prog.done+' / '+prog.total+' study slots done'),
         span({style:{color:prog.done===prog.total&&prog.total>0?'#16A34A':'#9CA3AF'}},pct+'%')
-      ):null;
-      const progBar=isSchoolDay&&prog.total>0?div({class:'summer-progress-bar-wrap'},div({class:'summer-progress-bar-fill',style:{width:pct+'%'}})):null;
-      const slotsEl=isSchoolDay
-        ? div({class:'summer-slots'},...SUMMER_SLOTS.map((s,i)=>{
+      );
+      const progBar=prog.total>0?div({class:'summer-progress-bar-wrap'},div({class:'summer-progress-bar-fill',style:{width:pct+'%'}})):null;
+      const slotsEl=div({class:'summer-slots'},...SUMMER_SLOTS.map((s,i)=>{
             if(s.type==='break') return div({class:'slot-break',style:{margin:'3px 0'}},span({},'☕'),span({style:{fontSize:'11px',color:'#9CA3AF'}},s.time+' · Break'));
             const isStudy=s.type==='study';
             const done=isStudy&&FB.isSlotDone(svKey(_summerDate,i));
-            const slotEl=div({class:'summer-slot'+(done?' sv-done':''),style:{background:bg[s.type]||'#F8FAFC'}},
+            return div({class:'summer-slot'+(done?' sv-done':''),style:{background:bg[s.type]||'#F8FAFC'}},
               div({class:'summer-slot-icon',style:{background:done?'#9CA3AF':s.color}},s.icon),
               div({style:{flex:1,minWidth:0}},
                 div({style:{display:'flex',justifyContent:'space-between',alignItems:'center',gap:'6px'}},
@@ -1162,9 +1155,7 @@ function renderSchedule(){
                 ):null
               )
             );
-            return slotEl;
-          }))
-        : div({class:'summer-nonschool-note'},'📅 '+dateLbl+' is a '+(['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][dispDate.getDay()])+' — checklist is for Mon–Fri school days only.\nWeekend is free time! 🎉');
+          }));
       return [dateNav, progRow, progBar, slotsEl];
     })()
     :null
