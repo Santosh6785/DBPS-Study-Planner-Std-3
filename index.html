@@ -670,7 +670,7 @@ const FB = {
   toggleSlot(k){ if(_progress[k]){ delete _progress[k]; _progRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } else { _progress[k]=true; _progRef().set({[k]:true},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } },  getNote(k){ return _notes[k]||''; },
   saveNote(k,t){ const v=(t||'').trim(); if(v){_notes[k]=v;_notesRef().set({[k]:v},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));}else{delete _notes[k];_notesRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));} },
   calculateStreak(){ let s=0; const now=new Date(); for(let b=0;b<30;b++){const d=new Date(now);d.setDate(d.getDate()-b);const ds=d.toISOString().slice(0,10);const anyReg=Object.keys(_progress).some(k=>k.startsWith(ds+'_')&&_progress[k]===true);const anySv=Object.keys(_progress).some(k=>k.startsWith('sv_'+ds+'_')&&_progress[k]===true);if(anyReg||anySv)s++;else if(b>0)break;} return s; },
-  weeklyStats(){ let dm=0,tm=0,sd={}; const now=new Date(),ti=[6,0,1,2,3,4,5][now.getDay()]; DAYS.forEach((day,di)=>{const d=new Date(now);d.setDate(d.getDate()+(di-ti));const ds=d.toISOString().slice(0,10);let si=0;day.slots.forEach(sl=>{if(sl.brk){si++;return;}tm+=sl.dur;if(_progress[`${ds}_${di}_${si}`]===true){dm+=sl.dur;sd[sl.subj]=(sd[sl.subj]||0)+sl.dur;}si++;});}); return{doneMins:dm,totalMins:tm,subjectDone:sd}; },
+  weeklyStats(){ let dm=0,tm=0,sd={}; const now=new Date(),ti=[6,0,1,2,3,4,5][now.getDay()]; DAYS.forEach((day,di)=>{const d=new Date(now);d.setDate(d.getDate()+(di-ti));const ds=d.toISOString().slice(0,10);let si=0;day.slots.forEach(sl=>{if(sl.brk)return;const idx=si++;tm+=sl.dur;if(_progress[`${ds}_${di}_${idx}`]===true){dm+=sl.dur;sd[sl.subj]=(sd[sl.subj]||0)+sl.dur;}});}); return{doneMins:dm,totalMins:tm,subjectDone:sd}; },
   async saveMockResult(subj,score,total){
     if(!_user) return;
     const rec={subj,score,total,date:new Date().toISOString(),class:_currentClass};
@@ -1013,8 +1013,8 @@ function todayMotiv(){ const doy=Math.floor((new Date()-new Date(new Date().getF
 function progKey(di,si){ return `${dateKey(di-todayIdx())}_${di}_${si}`; }
 function noteKey(di,si){ return `${di}_${si}`; }
 function dayProg(di){
-  let done=0,total=0;
-  DAYS[di].slots.forEach((s,si)=>{ if(s.brk)return; total++; if(FB.isSlotDone(progKey(di,si)))done++; });
+  let done=0,total=0,si=0;
+  DAYS[di].slots.forEach(s=>{ if(s.brk)return; const idx=si++; total++; if(FB.isSlotDone(progKey(di,idx)))done++; });
   return{done,total};
 }
 // Summer vacation checklist keys: sv_YYYY-MM-DD_slotIndex
@@ -1761,8 +1761,42 @@ function renderRoadmap(){
 
 // ── Insights ──────────────────────────────────────────────
 function renderStats(){
-  const{doneMins,totalMins,subjectDone}=FB.weeklyStats(),streak=FB.calculateStreak(),pct=totalMins?Math.round((doneMins/totalMins)*100):0,top=Object.entries(subjectDone).sort((a,b)=>b[1]-a[1]).slice(0,3);
-  return div({class:'stats-card'},div({class:'stats-title'},'📊 This Week\'s Progress'),div({class:'stats-grid'},div({class:'stats-box'},div({class:'stats-num',style:{color:'#3B82F6'}},doneMins+'m'),div({class:'stats-lbl'},'Study done')),div({class:'stats-box'},div({class:'stats-num',style:{color:'#9CA3AF'}},(totalMins-doneMins)+'m'),div({class:'stats-lbl'},'Remaining')),div({class:'stats-box'},div({class:'stats-num',style:{color:streak>=3?'#F97316':'#22C55E'}},streak===0?'–':streak+'🔥'),div({class:'stats-lbl'},'Day streak')),div({class:'stats-box'},div({class:'stats-num',style:{color:pct===100?'#22C55E':'#14B8A6'}},pct+'%'),div({class:'stats-lbl'},'Completion'))),div({class:'stats-bar-track'},div({class:'stats-bar-fill',style:{width:pct+'%',background:pct===100?'#22C55E':'linear-gradient(90deg,#3B82F6,#14B8A6)'}})),top.length>0?div({class:'stats-top'},div({class:'stats-top-lbl'},'Most studied this week:'),div({},...top.map(([s,m])=>div({class:'stats-top-item'},span({style:{fontSize:'14px'}},EMOJI[s]),span({style:{fontWeight:800,fontSize:'11px',color:COLORS[s]}},LABELS[s]),span({style:{fontSize:'10px',color:'var(--text3)'}},m+'m'))))):null,div({class:'motiv-tip'},span({class:'motiv-icon'},'💬'),span({class:'motiv-text'},todayMotiv())));
+  const streak=FB.calculateStreak();
+  const inSummer=isSummerVacation();
+
+  if(inSummer){
+    const today=new Date();
+    const todayDow=today.getDay();
+    const weekDates=[];
+    for(let i=0;i<7;i++){const d=new Date(today);d.setDate(today.getDate()-todayDow+i);weekDates.push(_localDateStr(d));}
+    const studySlotCount=SUMMER_SLOTS.filter(s=>s.type==='study').length;
+    let weekDone=0,weekTotal=0;
+    weekDates.forEach(ds=>{
+      if(ds>='2026-05-17'&&ds<='2026-06-21'){
+        weekTotal+=studySlotCount;
+        SUMMER_SLOTS.forEach((s,i)=>{if(s.type==='study'&&FB.isSlotDone(svKey(ds,i)))weekDone++;});
+      }
+    });
+    const todayProg=summerProg(_localDateStr(today));
+    const todayPct=todayProg.total?Math.round((todayProg.done/todayProg.total)*100):0;
+    const weekPct=weekTotal?Math.round((weekDone/weekTotal)*100):0;
+    return div({class:'stats-card'},
+      div({class:'stats-title'},'📊 Summer Progress — '+CLASS_DATA[_currentClass].label),
+      div({class:'stats-grid'},
+        div({class:'stats-box'},div({class:'stats-num',style:{color:'#EA580C'}},todayProg.done+'/'+todayProg.total),div({class:'stats-lbl'},'Today done')),
+        div({class:'stats-box'},div({class:'stats-num',style:{color:'#3B82F6'}},weekDone+''),div({class:'stats-lbl'},'This week')),
+        div({class:'stats-box'},div({class:'stats-num',style:{color:streak>=3?'#F97316':'#22C55E'}},streak===0?'–':streak+'🔥'),div({class:'stats-lbl'},'Day streak')),
+        div({class:'stats-box'},div({class:'stats-num',style:{color:todayPct===100?'#22C55E':'#14B8A6'}},todayPct+'%'),div({class:'stats-lbl'},'Today %'))
+      ),
+      div({class:'stats-bar-track'},div({class:'stats-bar-fill',style:{width:weekPct+'%',background:weekPct===100?'#22C55E':'linear-gradient(90deg,#EA580C,#F97316)'}})),
+      div({style:{fontSize:'11px',color:'var(--text3)',fontWeight:700,marginTop:'4px'}},`Week: ${weekDone} of ${weekTotal} slots done (${weekPct}%)`),
+      div({class:'motiv-tip'},span({class:'motiv-icon'},'💬'),span({class:'motiv-text'},todayMotiv()))
+    );
+  }
+
+  // School-term mode
+  const{doneMins,totalMins,subjectDone}=FB.weeklyStats(),pct=totalMins?Math.round((doneMins/totalMins)*100):0,top=Object.entries(subjectDone).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  return div({class:'stats-card'},div({class:'stats-title'},'📊 This Week\'s Progress — '+CLASS_DATA[_currentClass].label),div({class:'stats-grid'},div({class:'stats-box'},div({class:'stats-num',style:{color:'#3B82F6'}},doneMins+'m'),div({class:'stats-lbl'},'Study done')),div({class:'stats-box'},div({class:'stats-num',style:{color:'#9CA3AF'}},(totalMins-doneMins)+'m'),div({class:'stats-lbl'},'Remaining')),div({class:'stats-box'},div({class:'stats-num',style:{color:streak>=3?'#F97316':'#22C55E'}},streak===0?'–':streak+'🔥'),div({class:'stats-lbl'},'Day streak')),div({class:'stats-box'},div({class:'stats-num',style:{color:pct===100?'#22C55E':'#14B8A6'}},pct+'%'),div({class:'stats-lbl'},'Completion'))),div({class:'stats-bar-track'},div({class:'stats-bar-fill',style:{width:pct+'%',background:pct===100?'#22C55E':'linear-gradient(90deg,#3B82F6,#14B8A6)'}})),top.length>0?div({class:'stats-top'},div({class:'stats-top-lbl'},'Most studied this week:'),div({},...top.map(([s,m])=>div({class:'stats-top-item'},span({style:{fontSize:'14px'}},EMOJI[s]),span({style:{fontWeight:800,fontSize:'11px',color:COLORS[s]}},LABELS[s]),span({style:{fontSize:'10px',color:'var(--text3)'}},m+'m'))))):null,div({class:'motiv-tip'},span({class:'motiv-icon'},'💬'),span({class:'motiv-text'},todayMotiv())));
 }
 function renderInsights(){
   const cards=INSIGHTS.map((ins,i)=>div({class:'insight-card'},div({class:'insight-head',style:{background:ins.color},onclick:()=>{openInsight=openInsight===i?-1:i;render();},role:'button','aria-expanded':openInsight===i?'true':'false'},div({class:'insight-head-left'},span({style:{fontSize:'20px'}},ins.emoji),span({class:'insight-title-text'},ins.title)),span({class:'insight-arrow'},openInsight===i?'▲':'▼')),openInsight===i?div({class:'insight-body'},ins.body):null));
