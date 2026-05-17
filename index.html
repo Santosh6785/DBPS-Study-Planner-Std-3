@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#1a1a2e">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="StudyPlan">
-<meta name="description" content="Dual-class cloud-synced study planner for Std 2 & Std 3. Assessment: July 1, 2026.">
-<title>Study Planner – Std 2 & 3 – DBPS 2026-27</title>
+<meta name="description" content="Dual-class cloud-synced study planner for Sanrachna (Std 2) & Saarthak (Std 3). Assessment: July 1, 2026.">
+<title>Study Planner – Sanrachna & Saarthak – DBPS 2026-27</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.svg" type="image/svg+xml">
@@ -391,10 +391,10 @@ body.theme-dark .yt-subj-tab.active{background:#2d0606;border-color:#7f1d1d;colo
   <div class="login-card">
     <span class="login-logo">🎒</span>
     <h1 class="login-title">Study Planner</h1>
-    <p class="login-sub">Std 2 &amp; Std 3 · DBPS 2026–27</p>
+    <p class="login-sub">Sanrachna &amp; Saarthak · DBPS 2026–27</p>
     <div class="login-badge">🎯 First Assessment: July 1, 2026</div>
     <div class="login-features">
-      <div class="login-feature"><span class="login-feature-icon">👧👦</span><span>One app, both children — switch between Std 2 &amp; Std 3 anytime</span></div>
+      <div class="login-feature"><span class="login-feature-icon">👧👦</span><span>One app, both children — switch between Sanrachna &amp; Saarthak anytime</span></div>
       <div class="login-feature"><span class="login-feature-icon">📅</span><span>Daily slots with checkboxes, notes &amp; streak tracking</span></div>
       <div class="login-feature"><span class="login-feature-icon">🗺️</span><span>11-week roadmap — current week always highlighted</span></div>
       <div class="login-feature"><span class="login-feature-icon">☁️</span><span>Separate cloud progress per child — works on every device</span></div>
@@ -413,13 +413,13 @@ body.theme-dark .yt-subj-tab.active{background:#2d0606;border-color:#7f1d1d;colo
     <div class="header-top">
       <div class="header-icon">🎒</div>
       <div class="header-titles">
-        <div class="header-main" id="header-main-title">Study Planner — Std 3</div>
+        <div class="header-main" id="header-main-title">Study Planner — Saarthak</div>
         <div class="header-sub">DBPS 2026–27 · ☁️ Cloud synced</div>
       </div>
       <div class="header-actions">
         <select id="class-selector" class="class-selector" title="Switch child">
-          <option value="std2">Std 2</option>
-          <option value="std3">Std 3</option>
+          <option value="std2">Sanrachna (Std 2)</option>
+          <option value="std3">Saarthak (Std 3)</option>
         </select>
         <div id="user-section"></div>
         <button id="help-btn" class="hbtn" title="Help">❓</button>
@@ -528,12 +528,12 @@ const ST2_TIPS=[
 // CLASS REGISTRY + ACTIVE-CLASS STATE
 // ═══════════════════════════════════════════════════════
 const CLASS_DATA={
-  std2:{label:"Std 2",headerTitle:"Study Planner — Std 2",days:ST2_DAYS,summer:ST2_SUMMER,phases:ST2_PHASES,insights:ST2_INSIGHTS,tips:ST2_TIPS,
+  std2:{label:"Sanrachna",headerTitle:"Study Planner — Sanrachna",days:ST2_DAYS,summer:ST2_SUMMER,phases:ST2_PHASES,insights:ST2_INSIGHTS,tips:ST2_TIPS,
     summerLabel:"Summer Vacation Schedule  (May 17 – Jun 21)",summerSub:"Full-day study plan · tap to ",
     weekdayFlow:[{t:"2:30 PM",l:"🏠 Home from school"},{t:"2:30–4:00 PM",l:"🍽️ Lunch · Rest / Nap"},{t:"4:00–6:00 PM",l:"⚽ Outdoor play & free time — non-negotiable!",bold:true},{t:"6:00–6:30 PM",l:"🧼 Freshen up · Light snack · Settle down"},{t:"6:30–7:10 PM",l:"📚 Study Session 1 — Major Subject (40 min)",bold:true},{t:"7:10–7:15 PM",l:"☕ Short break — water / stretch"},{t:"7:15–7:45 PM",l:"📚 Study Session 2 — Second Subject (30 min)",bold:true},{t:"7:45–8:15 PM",l:"📚 Study Session 3 — Spelling / Poem / Grammar (2×15 min)",bold:true},{t:"8:15–8:30 PM",l:"🔢 Tables 2–15 oral drill + wind down",bold:true},{t:"8:30 PM",l:"🍽️ Dinner"},{t:"9:00 PM",l:"😴 Sleep — 9–10 hrs essential for Std 2",bold:true}],
     satFlow:[{t:"9:00–11:00 AM",l:"📚 Morning: Active English + Shrutlekh + Grammar + Maths",bold:true},{t:"11 AM–6:30 PM",l:"⚽ Free time, lunch, rest, play"},{t:"6:30–7:30 PM",l:"📚 Evening: GK + Maths + All 5 Poems",bold:true},{t:"7:30 PM+",l:"⚽ Fully free"}],
     sunFlow:[{t:"9:00–9:45 AM",l:"📚 Light revision only — read aloud + poems + tables",bold:true},{t:"9:45 AM+",l:"⚽ COMPLETE HOLIDAY — no structured study",bold:true}]},
-  std3:{label:"Std 3",headerTitle:"Study Planner — Std 3",days:ST3_DAYS,summer:ST3_SUMMER,phases:ST3_PHASES,insights:ST3_INSIGHTS,tips:ST3_TIPS,
+  std3:{label:"Saarthak",headerTitle:"Study Planner — Saarthak",days:ST3_DAYS,summer:ST3_SUMMER,phases:ST3_PHASES,insights:ST3_INSIGHTS,tips:ST3_TIPS,
     summerLabel:"Summer Vacation Schedule  (May 17 – Jun 21)",summerSub:"Full-day study plan · tap to ",
     weekdayFlow:[{t:"2:30 PM",l:"🏠 Home from school"},{t:"2:30–6:30 PM",l:"⚽ FREE TIME — play, rest, outdoor",bold:true},{t:"6:30–7:10 PM",l:"📚 Study Slot 1 — 40 min",bold:true},{t:"7:10–7:15 PM",l:"☕ Break"},{t:"7:15–7:55 PM",l:"📚 Study Slot 2 — 40 min",bold:true},{t:"7:55–8:00 PM",l:"☕ Break"},{t:"8:00–8:30 PM",l:"📚 Study Slot 3 — 30 min",bold:true},{t:"8:30 PM",l:"🍽️ Dinner"},{t:"9:30 PM",l:"😴 Sleep — 8–9 hrs essential",bold:true}],
     satFlow:[{t:"9:00–11:00 AM",l:"📚 Morning: revision + Shrutilekh + Grammar",bold:true},{t:"11 AM–3:30 PM",l:"⚽ Free time"},{t:"3:30–5:00 PM",l:"📚 Afternoon: Maths + GK + All 5 Poems",bold:true},{t:"5:00 PM+",l:"⚽ Fully free"}],
