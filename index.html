@@ -1100,10 +1100,18 @@ function renderSchedule(){
     }),
     div({class:'today-btn',onclick:()=>{activeDay=ti;render();}},'Today')
   );
+  // Summer day notes — one per day of week, vacation-relevant
+  const SUMMER_DAY_NOTES=['☀️ Full study day — morning blocks start at 8:00 AM. Outdoor play after 11:10 AM!','☀️ Shrutlekh day for Hindi — dictate 10 words after the Hindi slot. Keep it fun!','☀️ Wednesday — halfway through the week! Focus on written practice today.','☀️ Thursday — Tables drill target: all 15 tables in under 3 minutes oral.','☀️ Friday — wrap up the week strong. Review any slot you skipped earlier.','🌅 Saturday — lighter day is fine. Poems + Spelling are the priority today.','🌿 Sunday — light revision only, 9:00–9:45 AM. Afternoon is completely free!'];
+  const headerNote=inSummer?SUMMER_DAY_NOTES[new Date().getDay()]:day.note;
   const header=div({class:'day-header',style:{background:dc}},
-    div({class:'day-header-top'},div({style:{fontSize:'24px'}},day.emoji),div({class:'day-header-info'},div({class:'day-name'},day.day),div({class:'day-note-text'},'📌 '+day.note))),
-    div({class:'day-badges'},prog.total>0?div({class:'day-badge'},prog.done===prog.total?'✅ All done!':`📋 ${prog.done}/${prog.total} completed`):null,activeDay<5?div({class:'day-badge'},'⚽ Free till 6:30 PM'):null),
-    prog.total>0?div({class:'day-pb-wrap'},div({class:'day-pb',style:{width:Math.round((prog.done/prog.total)*100)+'%',background:prog.done===prog.total?'#22C55E':'rgba(255,255,255,.75)'}})):null
+    div({class:'day-header-top'},div({style:{fontSize:'24px'}},day.emoji),div({class:'day-header-info'},div({class:'day-name'},day.day),div({class:'day-note-text'},'📌 '+headerNote))),
+    div({class:'day-badges'},
+      inSummer
+        ? div({class:'day-badge'},'☀️ Summer vacation · Full-day schedule')
+        : prog.total>0?div({class:'day-badge'},prog.done===prog.total?'✅ All done!':`📋 ${prog.done}/${prog.total} completed`):null,
+      !inSummer&&activeDay<5?div({class:'day-badge'},'⚽ Free till 6:30 PM'):null
+    ),
+    !inSummer&&prog.total>0?div({class:'day-pb-wrap'},div({class:'day-pb',style:{width:Math.round((prog.done/prog.total)*100)+'%',background:prog.done===prog.total?'#22C55E':'rgba(255,255,255,.75)'}})):null
   );
   const slots=div({class:'slots-list'},...day.slots.map(slot=>{
     if(slot.brk)return div({class:'slot-break'},span({},'☕'),span({style:{fontSize:'12px',color:'#9CA3AF'}},`${slot.time} – ${slot.end}  ·  Break`));
@@ -1132,7 +1140,8 @@ function renderSchedule(){
   }));
   const cd=CLASS_DATA[_currentClass];
   const flowRows=activeDay===5?cd.satFlow:activeDay===6?cd.sunFlow:cd.weekdayFlow;
-  const flowCard=div({class:'flow-card'},div({class:'flow-card-title'},'🕐 '+(activeDay<5?'Weekday Flow':activeDay===5?'Saturday Flow':'Sunday Flow')),...flowRows.map(r=>div({class:'flow-row'},div({class:'flow-dot',style:{background:r.bold?dc:'#9CA3AF'}}),div({},div({class:'flow-time',style:{color:r.bold?dc:'#9CA3AF'}},r.t),div({class:'flow-lbl'+(r.bold?' bold':'')},r.l)))));
+  // Flow card is school-term specific — hide during summer vacation
+  const flowCard=inSummer?null:div({class:'flow-card'},div({class:'flow-card-title'},'🕐 '+(activeDay<5?'Weekday Flow':activeDay===5?'Saturday Flow':'Sunday Flow')),...flowRows.map(r=>div({class:'flow-row'},div({class:'flow-dot',style:{background:r.bold?dc:'#9CA3AF'}}),div({},div({class:'flow-time',style:{color:r.bold?dc:'#9CA3AF'}},r.t),div({class:'flow-lbl'+(r.bold?' bold':'')},r.l)))));
   const summerCard=div({class:'summer-card'},
     div({class:'summer-head',onclick:()=>{showSummer=!showSummer;render();},role:'button','aria-expanded':showSummer?'true':'false'},span({style:{fontSize:'18px'}},'☀️'),div({style:{flex:1}},div({style:{fontWeight:900,fontSize:'13px',color:'#EA580C'}},'Summer Vacation Schedule  (May 17 – Jun 21)'),div({style:{fontSize:'11px',color:'#9CA3AF',marginTop:'2px'}},'Full-day study plan · tap to '+(showSummer?'hide':'view'))),span({class:'insight-arrow'},showSummer?'▲':'▼')),
     showSummer?(()=>{
@@ -1218,7 +1227,50 @@ function renderRoadmap(){
 
 // ── Insights ──────────────────────────────────────────────
 function renderStats(){
-  const{doneMins,totalMins,subjectDone}=FB.weeklyStats(),streak=FB.calculateStreak(),pct=totalMins?Math.round((doneMins/totalMins)*100):0,top=Object.entries(subjectDone).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  const streak=FB.calculateStreak();
+  const inSummer=isSummerVacation();
+
+  if(inSummer){
+    // Summer mode: count sv_ keys for current week (Mon–Sun)
+    const today=new Date();
+    const todayDow=today.getDay(); // 0=Sun
+    const weekDates=[];
+    for(let i=0;i<7;i++){
+      const d=new Date(today);
+      d.setDate(today.getDate()-todayDow+i);
+      weekDates.push(_localDateStr(d));
+    }
+    const studySlotCount=SUMMER_SLOTS.filter(s=>s.type==='study').length;
+    let weekDone=0,weekTotal=0;
+    // Count only dates within summer vacation window
+    weekDates.forEach(ds=>{
+      if(ds>='2026-05-17'&&ds<='2026-06-21'){
+        weekTotal+=studySlotCount;
+        SUMMER_SLOTS.forEach((s,i)=>{
+          if(s.type==='study'&&FB.isSlotDone(svKey(ds,i))) weekDone++;
+        });
+      }
+    });
+    // Today's summer progress
+    const todayProg=summerProg(_localDateStr(today));
+    const todayPct=todayProg.total?Math.round((todayProg.done/todayProg.total)*100):0;
+    const weekPct=weekTotal?Math.round((weekDone/weekTotal)*100):0;
+    return div({class:'stats-card'},
+      div({class:'stats-title'},'📊 Summer Progress'),
+      div({class:'stats-grid'},
+        div({class:'stats-box'},div({class:'stats-num',style:{color:'#EA580C'}},todayProg.done+'/'+todayProg.total),div({class:'stats-lbl'},'Today done')),
+        div({class:'stats-box'},div({class:'stats-num',style:{color:'#3B82F6'}},weekDone+''),div({class:'stats-lbl'},'This week')),
+        div({class:'stats-box'},div({class:'stats-num',style:{color:streak>=3?'#F97316':'#22C55E'}},streak===0?'–':streak+'🔥'),div({class:'stats-lbl'},'Day streak')),
+        div({class:'stats-box'},div({class:'stats-num',style:{color:todayPct===100?'#22C55E':'#14B8A6'}},todayPct+'%'),div({class:'stats-lbl'},'Today %'))
+      ),
+      div({class:'stats-bar-track'},div({class:'stats-bar-fill',style:{width:weekPct+'%',background:weekPct===100?'#22C55E':'linear-gradient(90deg,#EA580C,#F97316)'}})),
+      div({style:{fontSize:'11px',color:'var(--text3)',fontWeight:700,marginTop:'4px'}},`Week: ${weekDone} of ${weekTotal} slots done (${weekPct}%)`),
+      div({class:'motiv-tip'},span({class:'motiv-icon'},'💬'),span({class:'motiv-text'},todayMotiv()))
+    );
+  }
+
+  // School-term mode (original)
+  const{doneMins,totalMins,subjectDone}=FB.weeklyStats(),pct=totalMins?Math.round((doneMins/totalMins)*100):0,top=Object.entries(subjectDone).sort((a,b)=>b[1]-a[1]).slice(0,3);
   return div({class:'stats-card'},div({class:'stats-title'},'📊 This Week\'s Progress'),div({class:'stats-grid'},div({class:'stats-box'},div({class:'stats-num',style:{color:'#3B82F6'}},doneMins+'m'),div({class:'stats-lbl'},'Study done')),div({class:'stats-box'},div({class:'stats-num',style:{color:'#9CA3AF'}},(totalMins-doneMins)+'m'),div({class:'stats-lbl'},'Remaining')),div({class:'stats-box'},div({class:'stats-num',style:{color:streak>=3?'#F97316':'#22C55E'}},streak===0?'–':streak+'🔥'),div({class:'stats-lbl'},'Day streak')),div({class:'stats-box'},div({class:'stats-num',style:{color:pct===100?'#22C55E':'#14B8A6'}},pct+'%'),div({class:'stats-lbl'},'Completion'))),div({class:'stats-bar-track'},div({class:'stats-bar-fill',style:{width:pct+'%',background:pct===100?'#22C55E':'linear-gradient(90deg,#3B82F6,#14B8A6)'}})),top.length>0?div({class:'stats-top'},div({class:'stats-top-lbl'},'Most studied this week:'),div({},...top.map(([s,m])=>div({class:'stats-top-item'},span({style:{fontSize:'14px'}},EMOJI[s]),span({style:{fontWeight:800,fontSize:'11px',color:COLORS[s]}},LABELS[s]),span({style:{fontSize:'10px',color:'var(--text3)'}},m+'m'))))):null,div({class:'motiv-tip'},span({class:'motiv-icon'},'💬'),span({class:'motiv-text'},todayMotiv())));
 }
 function renderInsights(){
