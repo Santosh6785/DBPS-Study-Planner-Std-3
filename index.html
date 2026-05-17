@@ -60,12 +60,31 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .header-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
 .header-icon{font-size:24px;flex-shrink:0;}
 .header-titles{flex:1;min-width:0;}
-.header-main{font-size:16px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.header-sub{font-size:10px;color:rgba(255,255,255,.6);font-weight:600;}
+.header-main{font-size:18px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.header-sub{font-size:10px;color:rgba(255,255,255,.6);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .header-actions{display:flex;gap:6px;align-items:center;flex-shrink:0;}
-.header-row2{display:flex;align-items:center;margin-bottom:8px;}
-.class-selector{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:5px 12px;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;color:#fff;cursor:pointer;-webkit-appearance:none;appearance:none;width:100%;}
+.class-selector{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:6px 14px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;color:#fff;cursor:pointer;-webkit-appearance:none;appearance:none;width:100%;}
 .class-selector option{background:var(--navy);color:#fff;}
+/* Child name modal */
+.name-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;}
+.name-modal{background:var(--surface);border-radius:20px;padding:22px 18px;width:100%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.25);}
+.name-modal-title{font-size:16px;font-weight:900;color:var(--text);margin-bottom:4px;}
+.name-modal-sub{font-size:12px;color:var(--text3);margin-bottom:16px;line-height:1.5;font-weight:600;}
+.name-count-row{display:flex;gap:8px;margin-bottom:16px;}
+.name-count-btn{flex:1;padding:10px;border-radius:12px;border:2px solid var(--border);background:var(--border2);font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:var(--text);cursor:pointer;transition:all .15s;}
+.name-count-btn.active{border-color:#3B82F6;background:#EFF6FF;color:#1D4ED8;}
+body.theme-dark .name-count-btn.active{background:#1e3a5f;color:#93C5FD;}
+.name-modal-field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.name-modal-label{font-size:12px;font-weight:800;color:var(--text2);}
+.name-modal-input{padding:9px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--border2);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--text);outline:none;}
+.name-modal-input:focus{border-color:#3B82F6;}
+.name-class-row{display:flex;gap:8px;margin-bottom:14px;}
+.name-class-btn{flex:1;padding:8px;border-radius:10px;border:2px solid var(--border);background:var(--border2);font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;color:var(--text);cursor:pointer;transition:all .15s;}
+.name-class-btn.active{border-color:#EA580C;background:#FFF7ED;color:#C2410C;}
+body.theme-dark .name-class-btn.active{background:#2a1500;color:#FB923C;}
+.name-modal-actions{display:flex;gap:8px;margin-top:6px;}
+.name-modal-save{flex:1;background:linear-gradient(135deg,#1a1a2e,#3B82F6);color:#fff;border:none;border-radius:12px;padding:11px;font-size:13px;font-weight:900;font-family:'Nunito',sans-serif;cursor:pointer;}
+.name-modal-skip{background:var(--border2);border:1.5px solid var(--border);border-radius:12px;padding:11px 14px;font-size:12px;font-weight:800;color:var(--text3);font-family:'Nunito',sans-serif;cursor:pointer;}
 .hbtn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:5px 7px;font-size:15px;cursor:pointer;color:#fff;line-height:1;}
 .user-chip{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);border-radius:99px;padding:3px 8px 3px 3px;border:1px solid rgba(255,255,255,.15);}
 .user-chip img,.user-avatar-init{width:24px;height:24px;border-radius:50%;object-fit:cover;flex-shrink:0;}
@@ -382,26 +401,6 @@ body.theme-dark .yt-subj-tab.active{background:#2d0606;border-color:#7f1d1d;colo
 .yt-lang-en{background:#DBEAFE;color:#1D4ED8;}
 .yt-lang-hi{background:#FEF3C7;color:#92400E;}
 .yt-link-arrow{font-size:14px;color:var(--text3);flex-shrink:0;}
-/* Child name setup modal */
-.name-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;}
-.name-modal{background:var(--surface);border-radius:20px;padding:22px 18px;width:100%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.25);}
-.name-modal-title{font-size:16px;font-weight:900;color:var(--text);margin-bottom:4px;}
-.name-modal-sub{font-size:12px;color:var(--text3);margin-bottom:16px;line-height:1.5;font-weight:600;}
-.name-count-row{display:flex;gap:8px;margin-bottom:16px;}
-.name-count-btn{flex:1;padding:10px;border-radius:12px;border:2px solid var(--border);background:var(--border2);font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:var(--text);cursor:pointer;transition:all .15s;}
-.name-count-btn.active{border-color:#3B82F6;background:#EFF6FF;color:#1D4ED8;}
-body.theme-dark .name-count-btn.active{background:#1e3a5f;color:#93C5FD;}
-.name-modal-field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
-.name-modal-label{font-size:12px;font-weight:800;color:var(--text2);}
-.name-modal-input{padding:9px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--border2);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--text);outline:none;}
-.name-modal-input:focus{border-color:#3B82F6;}
-.name-class-row{display:flex;gap:8px;margin-bottom:14px;}
-.name-class-btn{flex:1;padding:8px;border-radius:10px;border:2px solid var(--border);background:var(--border2);font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;color:var(--text);cursor:pointer;transition:all .15s;}
-.name-class-btn.active{border-color:#EA580C;background:#FFF7ED;color:#C2410C;}
-body.theme-dark .name-class-btn.active{background:#2a1500;color:#FB923C;}
-.name-modal-actions{display:flex;gap:8px;margin-top:6px;}
-.name-modal-save{flex:1;background:linear-gradient(135deg,#1a1a2e,#3B82F6);color:#fff;border:none;border-radius:12px;padding:11px;font-size:13px;font-weight:900;font-family:'Nunito',sans-serif;cursor:pointer;}
-.name-modal-skip{background:var(--border2);border:1.5px solid var(--border);border-radius:12px;padding:11px 14px;font-size:12px;font-weight:800;color:var(--text3);font-family:'Nunito',sans-serif;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -434,20 +433,16 @@ body.theme-dark .name-class-btn.active{background:#2a1500;color:#FB923C;}
     <div class="header-top">
       <div class="header-icon">🎒</div>
       <div class="header-titles">
-        <div class="header-main" id="header-main-title">Study Planner — Saarthak</div>
-        <div class="header-sub">DBPS 2026–27 · ☁️ Cloud synced</div>
+        <div class="header-main" id="header-main-title">Saarthak</div>
+        <div class="header-sub">Study Planner · DBPS 2026–27 · ☁️ Cloud synced</div>
       </div>
       <div class="header-actions">
-        <select id="class-selector" class="class-selector" title="Switch child">
-          <option value="std2">Sanrachna (Std 2)</option>
-          <option value="std3">Saarthak (Std 3)</option>
-        </select>
         <div id="user-section"></div>
         <button id="help-btn" class="hbtn" title="Help">❓</button>
         <button id="theme-btn" class="hbtn" title="Theme">🌗</button>
       </div>
     </div>
-    <div id="class-selector-row" class="header-row2">
+    <div id="class-selector-row" style="margin-bottom:8px;">
       <select id="class-selector" class="class-selector" title="Switch child">
         <option value="std2">Sanrachna (Std 2)</option>
         <option value="std3">Saarthak (Std 3)</option>
@@ -474,13 +469,13 @@ body.theme-dark .name-class-btn.active{background:#2a1500;color:#FB923C;}
     <div class="name-modal">
       <div class="name-modal-title">👶 Set up your children</div>
       <div class="name-modal-sub">Personalise the app. You can change this anytime from Insights → Account.</div>
-      <div class="name-modal-label" style="margin-bottom:8px;">How many children?</div>
+      <div class="name-modal-label" style="margin-bottom:8px;font-size:12px;font-weight:800;color:var(--text2);">How many children?</div>
       <div class="name-count-row">
         <button class="name-count-btn active" id="count-btn-1" onclick="selectChildCount(1)">1 Child</button>
         <button class="name-count-btn" id="count-btn-2" onclick="selectChildCount(2)">2 Children</button>
       </div>
       <div id="name-fields-1">
-        <div class="name-modal-label" style="margin-bottom:8px;">Which class?</div>
+        <div style="font-size:12px;font-weight:800;color:var(--text2);margin-bottom:8px;">Which class?</div>
         <div class="name-class-row">
           <button class="name-class-btn active" id="class-btn-std2" onclick="selectSingleClass('std2')">Std 2</button>
           <button class="name-class-btn" id="class-btn-std3" onclick="selectSingleClass('std3')">Std 3</button>
@@ -615,35 +610,6 @@ function applyClassData(){
   const c=CLASS_DATA[_currentClass];
   DAYS=c.days; SUMMER_SLOTS=c.summer; PHASES=c.phases; INSIGHTS=c.insights; TIPS=c.tips;
 }
-
-// Apply custom names + single/dual child mode to all UI elements
-function applyChildNames(){
-  // Update CLASS_DATA labels
-  CLASS_DATA.std2.label=_childNames.std2||'Child (Std 2)';
-  CLASS_DATA.std2.headerTitle='Study Planner — '+CLASS_DATA.std2.label;
-  CLASS_DATA.std3.label=_childNames.std3||'Child (Std 3)';
-  CLASS_DATA.std3.headerTitle='Study Planner — '+CLASS_DATA.std3.label;
-  // Update header title
-  const ht=document.getElementById('header-main-title');
-  if(ht)ht.textContent=CLASS_DATA[_currentClass].headerTitle;
-  // Show/hide class selector row based on child count
-  const selectorRow=document.getElementById('class-selector-row');
-  if(selectorRow)selectorRow.style.display=_childCount===1?'none':'flex';
-  // Update selector option labels
-  const sel=document.getElementById('class-selector');
-  if(sel){
-    sel.options[0].text=CLASS_DATA.std2.label+' (Std 2)';
-    sel.options[1].text=CLASS_DATA.std3.label+' (Std 3)';
-  }
-  // If single child — lock to their class
-  if(_childCount===1){
-    if(_currentClass!==_singleClass){
-      _currentClass=_singleClass;
-      applyClassData();
-      if(ht)ht.textContent=CLASS_DATA[_currentClass].headerTitle;
-    }
-  }
-}
 async function setClass(cls){
   if(!CLASS_DATA[cls]||cls===_currentClass)return;
   _currentClass=cls;
@@ -656,7 +622,7 @@ async function setClass(cls){
   // reset mock test state for new class
   _mockSubject=null; _mockAnswers=[]; _mockRevealed=[]; _mockDone=false;
   const ht=document.getElementById('header-main-title');
-  if(ht)ht.textContent=CLASS_DATA[_currentClass].headerTitle;
+  if(ht)ht.textContent=CLASS_DATA[_currentClass].label;
   const sel=document.getElementById('class-selector');
   if(sel)sel.value=_currentClass;
   // load the newly-selected child's saved progress + notes + mock history
@@ -760,7 +726,7 @@ const FB = {
   signOut(){ return _auth.signOut(); },
   async reloadForClass(){ if(_user)await _loadData(_user.uid); else {_progress={};_notes={};} },
   async saveSettings(data){ if(!_user)return; try{ await _db.doc(`users/${_user.uid}/data/settings`).set(data,{merge:true}); }catch(e){console.warn('[FB] settings:',e.code);} },
-  async loadSettings(){ if(!_user)return null; try{ const s=await _db.doc(`users/${_user.uid}/data/settings`).get(); return s.exists?s.data():null; }catch(e){console.warn('[FB] settings:',e.code);return null;} },
+  async loadSettings(){ if(!_user)return null; try{ const s=await _db.doc(`users/${_user.uid}/data/settings`).get(); return s.exists?s.data():null; }catch(e){return null;} },
   isSlotDone(k){ return _progress[k]===true; },
   toggleSlot(k){ if(_progress[k]){ delete _progress[k]; _progRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } else { _progress[k]=true; _progRef().set({[k]:true},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } },  getNote(k){ return _notes[k]||''; },
   saveNote(k,t){ const v=(t||'').trim(); if(v){_notes[k]=v;_notesRef().set({[k]:v},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));}else{delete _notes[k];_notesRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));} },
@@ -792,11 +758,105 @@ let openInsight=-1, activePhase=0, showSummer=false;
 let darkMode=localStorage.getItem('theme')||'auto';
 let _gcalHelpOpen=false;
 
-// Child personalisation state
+// Child personalisation
 let _childNames={std2:'Sanrachna',std3:'Saarthak'};
-let _childCount=2;        // 1 or 2
-let _singleClass='std3';  // which class the single child is in (only used when _childCount===1)
-let _nameModalSingleClass='std2'; // tracks selection inside the modal
+let _childCount=2;
+let _singleClass='std3';
+let _nameModalSingleClass='std2';
+
+function applyChildNames(){
+  // Update labels — header shows JUST the child name (short, never truncates)
+  CLASS_DATA.std2.label=_childNames.std2||'Sanrachna';
+  CLASS_DATA.std3.label=_childNames.std3||'Saarthak';
+  // Header shows just the name, subtitle shows "Study Planner · DBPS..."
+  const ht=document.getElementById('header-main-title');
+  if(ht)ht.textContent=CLASS_DATA[_currentClass].label;
+  // Show/hide class selector row for single-child users
+  const row=document.getElementById('class-selector-row');
+  if(row)row.style.display=_childCount===1?'none':'block';
+  // Update selector option labels
+  const sel=document.getElementById('class-selector');
+  if(sel){
+    sel.options[0].text=CLASS_DATA.std2.label+' (Std 2)';
+    sel.options[1].text=CLASS_DATA.std3.label+' (Std 3)';
+  }
+  // Lock single-child user to their class
+  if(_childCount===1&&_currentClass!==_singleClass){
+    _currentClass=_singleClass;
+    applyClassData();
+    if(ht)ht.textContent=CLASS_DATA[_currentClass].label;
+  }
+}
+
+// Modal interaction
+function selectChildCount(n){
+  document.getElementById('count-btn-1').classList.toggle('active',n===1);
+  document.getElementById('count-btn-2').classList.toggle('active',n===2);
+  document.getElementById('name-fields-1').style.display=n===1?'block':'none';
+  document.getElementById('name-fields-2').style.display=n===2?'block':'none';
+}
+function selectSingleClass(cls){
+  _nameModalSingleClass=cls;
+  document.getElementById('class-btn-std2').classList.toggle('active',cls==='std2');
+  document.getElementById('class-btn-std3').classList.toggle('active',cls==='std3');
+}
+function showNameModal(prefill){
+  const ov=document.getElementById('name-modal-overlay');
+  if(!ov)return;
+  selectChildCount(prefill?_childCount:2);
+  selectSingleClass(prefill?_singleClass:'std2');
+  if(prefill){
+    const si=document.getElementById('name-input-single');
+    if(si)si.value=_childNames[_singleClass]||'';
+    const i2=document.getElementById('name-input-std2');
+    const i3=document.getElementById('name-input-std3');
+    if(i2)i2.value=_childNames.std2||'';
+    if(i3)i3.value=_childNames.std3||'';
+  }
+  ov.style.display='flex';
+  setTimeout(()=>{
+    const f=document.getElementById(_childCount===1?'name-input-single':'name-input-std2');
+    if(f)f.focus();
+  },100);
+}
+function dismissNameModal(){
+  const ov=document.getElementById('name-modal-overlay');
+  if(ov)ov.style.display='none';
+  if(_user)localStorage.setItem('nameSetupDone_'+_user.uid,'1');
+}
+async function saveChildNames(){
+  const is1=document.getElementById('count-btn-1').classList.contains('active');
+  if(is1){
+    const name=(document.getElementById('name-input-single')?.value||'').trim()||'My Child';
+    _childCount=1;
+    _singleClass=_nameModalSingleClass||'std2';
+    _childNames={std2:'Child (Std 2)',std3:'Child (Std 3)'};
+    _childNames[_singleClass]=name;
+  } else {
+    _childCount=2;
+    _childNames={
+      std2:(document.getElementById('name-input-std2')?.value||'').trim()||'Sanrachna',
+      std3:(document.getElementById('name-input-std3')?.value||'').trim()||'Saarthak'
+    };
+  }
+  dismissNameModal();
+  applyChildNames();
+  await FB.saveSettings({childCount:_childCount,singleClass:_singleClass,childNames:_childNames});
+  render();
+}
+async function checkNameSetup(){
+  const s=await FB.loadSettings();
+  if(s?.childNames){
+    _childNames=Object.assign({std2:'Sanrachna',std3:'Saarthak'},s.childNames);
+    _childCount=s.childCount||2;
+    _singleClass=s.singleClass||'std3';
+    applyChildNames();
+    render();
+  } else {
+    if(!localStorage.getItem('nameSetupDone_'+(_user?.uid||'')))
+      showNameModal(false);
+  }
+}
 // Mock test state
 let _mockSubject=null, _mockAnswers=[], _mockRevealed=[], _mockDone=false, _mockHistory=[], _mockYtSubject=localStorage.getItem('ytSubject')||'english';
 
@@ -1173,79 +1233,6 @@ function openNoteDialog(di,si,lbl){
   );
   document.body.appendChild(ov);
   setTimeout(()=>document.getElementById('note-ta')?.focus(),50);
-}
-
-// ── Child name / count modal ──────────────────────────────
-function selectChildCount(n){
-  _nameModalSingleClass=_nameModalSingleClass||'std2';
-  document.getElementById('count-btn-1').classList.toggle('active',n===1);
-  document.getElementById('count-btn-2').classList.toggle('active',n===2);
-  document.getElementById('name-fields-1').style.display=n===1?'block':'none';
-  document.getElementById('name-fields-2').style.display=n===2?'block':'none';
-}
-function selectSingleClass(cls){
-  _nameModalSingleClass=cls;
-  document.getElementById('class-btn-std2').classList.toggle('active',cls==='std2');
-  document.getElementById('class-btn-std3').classList.toggle('active',cls==='std3');
-}
-function showNameModal(prefill){
-  const ov=document.getElementById('name-modal-overlay');
-  if(!ov)return;
-  const count=prefill?_childCount:2;
-  selectChildCount(count);
-  if(prefill){
-    selectSingleClass(_singleClass);
-    const si=document.getElementById('name-input-single');
-    if(si)si.value=_childNames[_singleClass]||'';
-    const i2=document.getElementById('name-input-std2');
-    const i3=document.getElementById('name-input-std3');
-    if(i2)i2.value=_childNames.std2||'';
-    if(i3)i3.value=_childNames.std3||'';
-  } else {
-    selectSingleClass('std2');
-  }
-  ov.style.display='flex';
-  setTimeout(()=>{
-    const f=count===1?document.getElementById('name-input-single'):document.getElementById('name-input-std2');
-    if(f)f.focus();
-  },100);
-}
-function dismissNameModal(){
-  const ov=document.getElementById('name-modal-overlay');
-  if(ov)ov.style.display='none';
-  if(_user)localStorage.setItem('nameSetupDone_'+_user.uid,'1');
-}
-async function saveChildNames(){
-  const countIs1=document.getElementById('count-btn-1').classList.contains('active');
-  if(countIs1){
-    const singleName=(document.getElementById('name-input-single')?.value||'').trim()||'My Child';
-    _childCount=1;
-    _singleClass=_nameModalSingleClass||'std2';
-    _childNames={std2:'Child (Std 2)',std3:'Child (Std 3)'};
-    _childNames[_singleClass]=singleName;
-  } else {
-    const n2=(document.getElementById('name-input-std2')?.value||'').trim()||'Sanrachna';
-    const n3=(document.getElementById('name-input-std3')?.value||'').trim()||'Saarthak';
-    _childCount=2;
-    _childNames={std2:n2,std3:n3};
-  }
-  dismissNameModal();
-  applyChildNames();
-  await FB.saveSettings({childCount:_childCount,singleClass:_singleClass,childNames:_childNames});
-  render();
-}
-async function checkNameSetup(){
-  const settings=await FB.loadSettings();
-  if(settings?.childNames){
-    _childNames=Object.assign({std2:'Sanrachna',std3:'Saarthak'},settings.childNames);
-    _childCount=settings.childCount||2;
-    _singleClass=settings.singleClass||'std3';
-    applyChildNames();
-    render();
-  } else {
-    const done=localStorage.getItem('nameSetupDone_'+(_user?.uid||''));
-    if(!done) showNameModal(false);
-  }
 }
 
 function exportIcal(){
@@ -1938,8 +1925,8 @@ function renderInsights(){
   const cards=INSIGHTS.map((ins,i)=>div({class:'insight-card'},div({class:'insight-head',style:{background:ins.color},onclick:()=>{openInsight=openInsight===i?-1:i;render();},role:'button','aria-expanded':openInsight===i?'true':'false'},div({class:'insight-head-left'},span({style:{fontSize:'20px'}},ins.emoji),span({class:'insight-title-text'},ins.title)),span({class:'insight-arrow'},openInsight===i?'▲':'▼')),openInsight===i?div({class:'insight-body'},ins.body):null));
   const tipsCard=div({class:'tips-card'},div({class:'tips-title'},'👨‍👩‍👧 Parent Action Points'),...TIPS.map(([h,d],i)=>div({class:'tip-row'},span({class:'tip-num'},`${i+1}.`),div({class:'tip-text'},el('strong',{},h+' — '),d))));
   const childInfo=_childCount===1
-    ? 'Child: '+_childNames[_singleClass]+' (Std '+(_singleClass==='std2'?'2':'3')+')'
-    : 'Children: '+_childNames.std2+' (Std 2) · '+_childNames.std3+' (Std 3)';
+    ?'Child: '+_childNames[_singleClass]+' (Std '+(_singleClass==='std2'?'2':'3')+')'
+    :'Children: '+_childNames.std2+' (Std 2) · '+_childNames.std3+' (Std 3)';
   const feedbackCard=div({class:'feedback-card'},
     div({class:'feedback-title'},'💬 Account & Feedback'),
     div({class:'feedback-body'},'Signed in as ',el('strong',{},FB.currentUser?.email||'—'),'. Progress syncs across all devices — separately for each child.'),
@@ -1998,17 +1985,16 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   // Seed initial header title + class-selector value from persisted choice
   const headerTitleEl=document.getElementById('header-main-title');
-  if(headerTitleEl)headerTitleEl.textContent=CLASS_DATA[_currentClass].headerTitle;
+  if(headerTitleEl)headerTitleEl.textContent=CLASS_DATA[_currentClass].label;
   const classSel=document.getElementById('class-selector');
   if(classSel){
     classSel.value=_currentClass;
     classSel.addEventListener('change',e=>{
-      if(_childCount===1)return; // single-child users cannot switch class
+      if(_childCount===1)return;
       setClass(e.target.value);
     });
   }
-  // Apply default child names immediately (Firestore will override after load)
-  applyChildNames();
+  applyChildNames(); // apply defaults immediately; Firestore overrides after checkNameSetup()
 
   // Tab nav
   document.querySelectorAll('.tab-btn,.nav-btn').forEach(b=>b.addEventListener('click',()=>{activeTab=b.dataset.tab;render();}));
@@ -2039,9 +2025,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(user){
       document.getElementById('login-screen').style.display='none';
       document.getElementById('app').style.display='flex';
-      // Load mock history + child name settings from Firestore
       FB.loadMockHistory().then(h=>{ _mockHistory=h; render(); });
-      checkNameSetup(); // applies saved names or shows setup modal for new users
+      checkNameSetup(); // load saved names or show setup modal for new users
       render();
       setTimeout(showOnboarding,500);
     } else {
