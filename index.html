@@ -493,7 +493,7 @@ async function setClass(cls){
   // reset transient view state so we don't point at a stale day/phase/insight
   activeDay=todayIdx();
   activePhase=curPhaseIdx();
-  openInsight=-1; showSummer=false;
+  openInsight=-1; showSummer=false; _showSchoolSchedule=true;
   const ht=document.getElementById('header-main-title');
   if(ht)ht.textContent=CLASS_DATA[_currentClass].headerTitle;
   const sel=document.getElementById('class-selector');
@@ -615,6 +615,13 @@ let _gcalHelpOpen=false;
 // Use local date string to avoid UTC/IST timezone shift
 function _localDateStr(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 let _summerDate=_localDateStr(new Date()); // today in local time, e.g. "2026-05-17"
+let _showSchoolSchedule=true; // collapsible during summer vacation
+
+// True if today's date falls within the summer vacation window
+function isSummerVacation(){
+  const today=_localDateStr(new Date());
+  return today>='2026-05-17'&&today<='2026-06-21';
+}
 
 function todayIdx(){ return [6,0,1,2,3,4,5][new Date().getDay()]??0; }
 function dateKey(off=0){ const d=new Date();d.setDate(d.getDate()+off);return d.toISOString().slice(0,10); }
@@ -1160,7 +1167,34 @@ function renderSchedule(){
     })()
     :null
   );
-  return div({class:'tab-content'},streakBanner,dayScroll,header,slots,flowCard,summerCard);
+  // During summer vacation: school schedule is collapsible, summer card auto-expands
+  const inSummer=isSummerVacation();
+  if(inSummer&&showSummer===false&&_showSchoolSchedule===true){
+    // On first render during vacation, auto-collapse school and expand summer
+    showSummer=true; _showSchoolSchedule=false;
+  }
+  let schoolSection;
+  if(inSummer){
+    const schoolToggle=div({
+      style:{display:'flex',alignItems:'center',gap:'8px',padding:'10px 14px',background:'var(--border2)',borderRadius:'12px',cursor:'pointer',userSelect:'none'},
+      onclick:()=>{_showSchoolSchedule=!_showSchoolSchedule;render();}
+    },
+      span({style:{fontSize:'16px'}},'🏫'),
+      div({style:{flex:1}},
+        div({style:{fontSize:'12px',fontWeight:900,color:'var(--text)'}}, 'School Day Schedule'),
+        div({style:{fontSize:'11px',color:'#9CA3AF',marginTop:'1px'}}, _showSchoolSchedule?'tap to collapse':'Vacation mode — tap to view school timetable')
+      ),
+      span({style:{fontSize:'13px',color:'var(--text3)',fontWeight:900}}, _showSchoolSchedule?'▲':'▼')
+    );
+    schoolSection=div({style:{display:'flex',flexDirection:'column',gap:'8px'}},
+      schoolToggle,
+      _showSchoolSchedule?slots:null,
+      _showSchoolSchedule?flowCard:null
+    );
+  } else {
+    schoolSection=div({style:{display:'contents'}},slots,flowCard);
+  }
+  return div({class:'tab-content'},streakBanner,dayScroll,header,schoolSection,summerCard);
 }
 
 // ── Roadmap ───────────────────────────────────────────────
