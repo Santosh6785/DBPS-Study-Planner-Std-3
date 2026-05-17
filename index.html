@@ -1080,11 +1080,24 @@ function renderCalSyncCard() {
 
 // ── Schedule ──────────────────────────────────────────────
 function renderSchedule(){
-  const day=DAYS[activeDay],dc=DAY_COLOR[day.day],ti=todayIdx(),prog=dayProg(activeDay),streak=FB.calculateStreak();
+  // ── Determine vacation state FIRST, before building any UI ──
+  const inSummer=isSummerVacation();
+  // Auto-expand summer card + collapse school on first render during vacation
+  if(inSummer&&!showSummer){ showSummer=true; _showSchoolSchedule=false; }
+
+  const day=DAYS[activeDay],dc=DAY_COLOR[day.day],ti=todayIdx();
+  // During summer vacation, suppress school-day progress so header doesn't show "0/2"
+  const prog=inSummer?{done:0,total:0}:dayProg(activeDay);
+  const streak=FB.calculateStreak();
   let si=0;
   const streakBanner=streak>=2?div({class:'streak-banner'},span({style:{fontSize:'22px'}},'🔥'),div({},div({class:'streak-num'},streak+' day streak!'),div({class:'streak-sub'},'Consistency is everything — keep going!'))):null;
   const dayScroll=div({class:'day-scroll'},
-    ...DAYS.map((d,i)=>{const p=dayProg(i),pct=p.total?Math.round((p.done/p.total)*100):0;return div({class:'day-btn'+(i===activeDay?' active':'')+(i===ti?' is-today':''),style:i===activeDay?{background:DAY_COLOR[d.day],color:'#fff'}:{},onclick:()=>{activeDay=i;render();},role:'tab','aria-selected':i===activeDay?'true':'false','data-day-idx':String(i)},span({style:{fontSize:'15px'}},d.emoji),span({},d.short),p.total>0?div({class:'day-prog',style:{background:pct===100?'#22C55E':i===activeDay?'rgba(255,255,255,.25)':'#e5e7eb'}},pct===100?'✓':`${p.done}/${p.total}`):null,i===ti?span({class:'today-dot'}):null);}),
+    ...DAYS.map((d,i)=>{
+      // During summer, hide school progress counters on day buttons
+      const p=inSummer?{done:0,total:0}:dayProg(i);
+      const pct=p.total?Math.round((p.done/p.total)*100):0;
+      return div({class:'day-btn'+(i===activeDay?' active':'')+(i===ti?' is-today':''),style:i===activeDay?{background:DAY_COLOR[d.day],color:'#fff'}:{},onclick:()=>{activeDay=i;render();},role:'tab','aria-selected':i===activeDay?'true':'false','data-day-idx':String(i)},span({style:{fontSize:'15px'}},d.emoji),span({},d.short),p.total>0?div({class:'day-prog',style:{background:pct===100?'#22C55E':i===activeDay?'rgba(255,255,255,.25)':'#e5e7eb'}},pct===100?'✓':`${p.done}/${p.total}`):null,i===ti?span({class:'today-dot'}):null);
+    }),
     div({class:'today-btn',onclick:()=>{activeDay=ti;render();}},'Today')
   );
   const header=div({class:'day-header',style:{background:dc}},
@@ -1167,12 +1180,7 @@ function renderSchedule(){
     })()
     :null
   );
-  // During summer vacation: school schedule is collapsible, summer card auto-expands
-  const inSummer=isSummerVacation();
-  if(inSummer&&showSummer===false&&_showSchoolSchedule===true){
-    // On first render during vacation, auto-collapse school and expand summer
-    showSummer=true; _showSchoolSchedule=false;
-  }
+  // School schedule section — collapsible during summer vacation
   let schoolSection;
   if(inSummer){
     const schoolToggle=div({
