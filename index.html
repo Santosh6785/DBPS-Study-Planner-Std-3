@@ -317,6 +317,70 @@ body.theme-dark .summary-card{background:#052e16;}
 .gcal-help-step a{color:#2563EB;font-weight:700;}
 .gcal-help-code{font-family:'Courier New',monospace;background:var(--border);border-radius:5px;padding:1px 5px;font-size:10.5px;color:var(--text);word-break:break-all;}
 .gcal-fallback{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+/* ── Mock Tests ─────────────────────────────────────────── */
+.mock-intro{background:linear-gradient(135deg,#7C3AED,#A855F7);border-radius:16px;padding:14px 16px;color:#fff;}
+.mock-intro-title{font-size:16px;font-weight:900;margin-bottom:2px;}
+.mock-intro-sub{font-size:11px;color:rgba(255,255,255,.8);}
+.mock-subj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.mock-subj-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:11px 10px;cursor:pointer;font-family:'Nunito',sans-serif;text-align:left;transition:background .15s,border-color .15s;}
+.mock-subj-btn:hover{background:var(--border2);}
+.mock-subj-btn.active{border-color:#7C3AED;background:#F5F3FF;}
+body.theme-dark .mock-subj-btn.active{background:#1e1033;}
+.mock-subj-icon{font-size:20px;margin-bottom:4px;}
+.mock-subj-name{font-size:12px;font-weight:900;color:var(--text);line-height:1.2;}
+.mock-subj-count{font-size:10px;color:var(--text3);margin-top:2px;font-weight:700;}
+.mock-session-card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+.mock-session-head{background:linear-gradient(135deg,#7C3AED,#A855F7);padding:12px 14px;display:flex;align-items:center;justify-content:space-between;}
+.mock-session-title{font-size:14px;font-weight:900;color:#fff;}
+.mock-session-score{font-size:13px;font-weight:900;color:rgba(255,255,255,.9);background:rgba(255,255,255,.2);border-radius:8px;padding:3px 10px;}
+.mock-q-list{display:flex;flex-direction:column;gap:0;}
+.mock-q-row{padding:12px 14px;border-bottom:1px solid var(--border2);}
+.mock-q-row:last-child{border-bottom:none;}
+.mock-q-num{font-size:10px;font-weight:900;color:#7C3AED;margin-bottom:3px;}
+.mock-q-text{font-size:13px;font-weight:800;color:var(--text);line-height:1.5;margin-bottom:6px;}
+.mock-q-ans{font-size:11px;color:var(--text3);background:var(--border2);border-radius:8px;padding:5px 9px;margin-bottom:8px;line-height:1.5;display:none;}
+.mock-q-ans.revealed{display:block;}
+.mock-q-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.mock-reveal-btn{font-size:11px;font-weight:800;color:#7C3AED;background:none;border:1.5px solid #C4B5FD;border-radius:8px;padding:4px 10px;cursor:pointer;font-family:'Nunito',sans-serif;}
+.mock-correct-btn{font-size:12px;font-weight:900;background:#DCFCE7;border:1.5px solid #86EFAC;border-radius:10px;padding:5px 14px;cursor:pointer;color:#16A34A;font-family:'Nunito',sans-serif;transition:background .15s;}
+.mock-wrong-btn{font-size:12px;font-weight:900;background:#FEE2E2;border:1.5px solid #FCA5A5;border-radius:10px;padding:5px 14px;cursor:pointer;color:#DC2626;font-family:'Nunito',sans-serif;transition:background .15s;}
+.mock-q-row.answered-correct{background:#F0FDF4;}
+.mock-q-row.answered-wrong{background:#FFF5F5;}
+body.theme-dark .mock-q-row.answered-correct{background:#052e16;}
+body.theme-dark .mock-q-row.answered-wrong{background:#2d0606;}
+.mock-result-card{background:var(--surface);border-radius:16px;padding:18px 16px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+.mock-result-score{font-size:36px;font-weight:900;color:#7C3AED;line-height:1;}
+.mock-result-label{font-size:13px;color:var(--text2);margin:4px 0 12px;font-weight:700;}
+.mock-result-msg{font-size:13px;color:var(--text);font-weight:800;line-height:1.5;margin-bottom:14px;}
+.mock-restart-btn{background:linear-gradient(135deg,#7C3AED,#A855F7);color:#fff;border:none;border-radius:12px;padding:10px 24px;font-size:13px;font-weight:900;font-family:'Nunito',sans-serif;cursor:pointer;}
+.mock-history-card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+.mock-history-head{background:var(--border2);padding:10px 14px;font-size:13px;font-weight:900;color:var(--text);}
+.mock-history-row{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--border2);}
+.mock-history-row:last-child{border-bottom:none;}
+.mock-history-subj{font-size:12px;font-weight:800;color:var(--text);}
+.mock-history-date{font-size:10px;color:var(--text3);margin-top:1px;}
+.mock-history-score{font-size:13px;font-weight:900;color:#7C3AED;}
+.mock-history-empty{padding:14px;text-align:center;font-size:12px;color:var(--text3);font-weight:700;}
+/* ── YouTube / Resources ────────────────────────────────── */
+.yt-card{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+.yt-card-head{background:linear-gradient(135deg,#DC2626,#EF4444);padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.yt-card-icon{font-size:20px;}
+.yt-card-title{font-size:14px;font-weight:900;color:#fff;flex:1;}
+.yt-subj-tabs{display:flex;gap:6px;padding:10px 12px 0;flex-wrap:wrap;}
+.yt-subj-tab{font-size:11px;font-weight:800;padding:4px 10px;border-radius:8px;border:1.5px solid var(--border);background:var(--border2);color:var(--text2);cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s;}
+.yt-subj-tab.active{background:#FEE2E2;border-color:#FCA5A5;color:#DC2626;}
+body.theme-dark .yt-subj-tab.active{background:#2d0606;border-color:#7f1d1d;color:#FCA5A5;}
+.yt-links-list{padding:8px 12px 12px;display:flex;flex-direction:column;gap:7px;}
+.yt-link-row{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--border2);border-radius:12px;text-decoration:none;border:1px solid var(--border);transition:background .15s;}
+.yt-link-row:hover{background:var(--border);}
+.yt-link-thumb{width:36px;height:36px;border-radius:9px;background:#DC2626;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.yt-link-info{flex:1;min-width:0;}
+.yt-link-title{font-size:12px;font-weight:900;color:var(--text);line-height:1.3;}
+.yt-link-channel{font-size:10px;color:var(--text3);margin-top:2px;font-weight:700;}
+.yt-lang-badge{font-size:9px;font-weight:900;padding:2px 6px;border-radius:5px;flex-shrink:0;}
+.yt-lang-en{background:#DBEAFE;color:#1D4ED8;}
+.yt-lang-hi{background:#FEF3C7;color:#92400E;}
+.yt-link-arrow{font-size:14px;color:var(--text3);flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -369,12 +433,14 @@ body.theme-dark .summary-card{background:#052e16;}
     <button class="tab-btn active" data-tab="schedule">📅 Schedule</button>
     <button class="tab-btn" data-tab="roadmap">🗺️ Roadmap</button>
     <button class="tab-btn" data-tab="insights">💡 Insights</button>
+    <button class="tab-btn" data-tab="mock">📝 Tests</button>
   </div>
   <main id="main"></main>
   <nav class="bottom-nav">
     <button class="nav-btn active" data-tab="schedule"><span class="nav-icon">📅</span><span class="nav-lbl">Schedule</span></button>
     <button class="nav-btn" data-tab="roadmap"><span class="nav-icon">🗺️</span><span class="nav-lbl">Roadmap</span></button>
     <button class="nav-btn" data-tab="insights"><span class="nav-icon">💡</span><span class="nav-lbl">Insights</span></button>
+    <button class="nav-btn" data-tab="mock"><span class="nav-icon">📝</span><span class="nav-lbl">Tests</span></button>
   </nav>
 </div>
 
@@ -494,12 +560,15 @@ async function setClass(cls){
   activeDay=todayIdx();
   activePhase=curPhaseIdx();
   openInsight=-1; showSummer=false; _showSchoolSchedule=true;
+  // reset mock test state for new class
+  _mockSubject=null; _mockAnswers=[]; _mockRevealed=[]; _mockDone=false;
   const ht=document.getElementById('header-main-title');
   if(ht)ht.textContent=CLASS_DATA[_currentClass].headerTitle;
   const sel=document.getElementById('class-selector');
   if(sel)sel.value=_currentClass;
-  // load the newly-selected child's saved progress + notes
+  // load the newly-selected child's saved progress + notes + mock history
   await FB.reloadForClass();
+  _mockHistory=await FB.loadMockHistory();
   render();
 }
 
@@ -601,7 +670,23 @@ const FB = {
   toggleSlot(k){ if(_progress[k]){ delete _progress[k]; _progRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } else { _progress[k]=true; _progRef().set({[k]:true},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } },  getNote(k){ return _notes[k]||''; },
   saveNote(k,t){ const v=(t||'').trim(); if(v){_notes[k]=v;_notesRef().set({[k]:v},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));}else{delete _notes[k];_notesRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));} },
   calculateStreak(){ let s=0; const now=new Date(); for(let b=0;b<30;b++){const d=new Date(now);d.setDate(d.getDate()-b);const ds=d.toISOString().slice(0,10);const anyReg=Object.keys(_progress).some(k=>k.startsWith(ds+'_')&&_progress[k]===true);const anySv=Object.keys(_progress).some(k=>k.startsWith('sv_'+ds+'_')&&_progress[k]===true);if(anyReg||anySv)s++;else if(b>0)break;} return s; },
-  weeklyStats(){ let dm=0,tm=0,sd={}; const now=new Date(),ti=[6,0,1,2,3,4,5][now.getDay()]; DAYS.forEach((day,di)=>{const d=new Date(now);d.setDate(d.getDate()+(di-ti));const ds=d.toISOString().slice(0,10);let si=0;day.slots.forEach(sl=>{if(sl.brk)return;tm+=sl.dur;if(_progress[`${ds}_${di}_${si}`]===true){dm+=sl.dur;sd[sl.subj]=(sd[sl.subj]||0)+sl.dur;}si++;});}); return{doneMins:dm,totalMins:tm,subjectDone:sd}; }
+  weeklyStats(){ let dm=0,tm=0,sd={}; const now=new Date(),ti=[6,0,1,2,3,4,5][now.getDay()]; DAYS.forEach((day,di)=>{const d=new Date(now);d.setDate(d.getDate()+(di-ti));const ds=d.toISOString().slice(0,10);let si=0;day.slots.forEach(sl=>{if(sl.brk)return;tm+=sl.dur;if(_progress[`${ds}_${di}_${si}`]===true){dm+=sl.dur;sd[sl.subj]=(sd[sl.subj]||0)+sl.dur;}si++;});}); return{doneMins:dm,totalMins:tm,subjectDone:sd}; },
+  async saveMockResult(subj,score,total){
+    if(!_user) return;
+    const rec={subj,score,total,date:new Date().toISOString(),class:_currentClass};
+    try{
+      await _db.collection('users').doc(_user.uid).collection('mock_history').add(rec);
+    }catch(e){console.warn('[FB] mock save:',e.code);}
+  },
+  async loadMockHistory(){
+    if(!_user) return [];
+    try{
+      const snap=await _db.collection('users').doc(_user.uid).collection('mock_history')
+        .where('class','==',_currentClass)
+        .orderBy('date','desc').limit(20).get();
+      return snap.docs.map(d=>d.data());
+    }catch(e){console.warn('[FB] mock load:',e.code);return[];}
+  }
 };
 
 // ═══════════════════════════════════════════════════════
@@ -611,10 +696,307 @@ let activeTab='schedule', activeDay=[6,0,1,2,3,4,5][new Date().getDay()]??0;
 let openInsight=-1, activePhase=0, showSummer=false;
 let darkMode=localStorage.getItem('theme')||'auto';
 let _gcalHelpOpen=false;
+// Mock test state
+let _mockSubject=null, _mockAnswers=[], _mockRevealed=[], _mockDone=false, _mockHistory=[], _mockYtSubject=localStorage.getItem('ytSubject')||'english';
+
+// ── Mock Test Questions (ICSE Class 2 & 3) ───────────────
+const MOCK_Q={
+  std2:{
+    english:{name:'Active English',icon:'📘',color:'#3B82F6',questions:[
+      {q:'Use "shall" to make a sentence about tomorrow.',a:'I shall go to school tomorrow. (any correct future sentence with shall)'},
+      {q:'What is the opposite of "happy"?',a:'Sad / Unhappy'},
+      {q:'Use "may" to ask for permission.',a:'May I come in? / May I go out? / May I have a biscuit?'},
+      {q:'Make a sentence using "often".',a:'I often read books. / She often sings. (any correct sentence)'},
+      {q:'Fill in the blank: I have been waiting ___ two hours.',a:'for'},
+      {q:'Fill in the blank: She has been sick ___ Monday.',a:'since'},
+      {q:'What does "have to" mean? Use it in a sentence.',a:'It means something is necessary/compulsory. E.g., I have to do my homework.'},
+      {q:'Use "never" in a sentence.',a:'I never tell lies. / She never wastes food. (any correct sentence)'},
+      {q:'What is the difference between "same as" and "different from"?',a:'"Same as" shows similarity; "different from" shows contrast. E.g., My bag is the same as yours.'},
+      {q:'Use "like" to show similarity in a sentence.',a:'She sings like a bird. / He runs like a cheetah. (any correct simile)'},
+      {q:'Make a sentence using "had to" in the past tense.',a:'I had to finish my homework before going out. (any past necessity sentence)'},
+      {q:'Fill in the blank: The boys ___ play cricket after school. (shall/will)',a:'shall / will (both accepted)'},
+    ]},
+    magnolia:{name:'Magnolia',icon:'📖',color:'#A855F7',questions:[
+      {q:'What did Betty sell in her shop?',a:'Flowers'},
+      {q:'Where did Mr Jeremy Fisher live?',a:'In a little damp house near a pond / among the buttercups at the edge of a pond'},
+      {q:'What kind of animal is Mr Jeremy Fisher?',a:'A frog'},
+      {q:'Why was Tenali Rama famous in the king\'s court?',a:'He was known for his exceptional wit, wisdom and clever thinking'},
+      {q:'What happened when Mr Jeremy Fisher went fishing?',a:'A large trout tried to swallow him / he had a big fright and nearly got eaten'},
+      {q:'Name one quality of Betty from "Betty\'s Flower Shop".',a:'Hardworking / kind / honest / caring / responsible (any one)'},
+      {q:'What is one lesson we learn from the Tenali Rama story?',a:'Quick thinking and wit can solve any problem / intelligence is more powerful than strength'},
+      {q:'Who came to dinner at Mr Jeremy Fisher\'s house?',a:'Alderman Ptolemy Tortoise and Sir Isaac Newton (a rat)'},
+      {q:'What was served at Mr Jeremy Fisher\'s dinner?',a:'Roasted grasshopper with ladybird sauce / butterfly sandwiches'},
+      {q:'What is the moral or lesson of "Betty\'s Flower Shop"?',a:'Hard work and honesty always pay off / perseverance leads to success'},
+      {q:'Describe the setting of the Mr Jeremy Fisher story in 1–2 sentences.',a:'A pond in the countryside with lily pads, buttercups and marshy banks — a typical frog\'s habitat'},
+      {q:'Is the Tenali Rama story fiction or non-fiction? Why?',a:'Fiction — it is a folk tale / story that may not be based on real events'},
+    ]},
+    grammar:{name:'English Grammar',icon:'✏️',color:'#6366F1',questions:[
+      {q:'What is a sentence?',a:'A group of words that makes complete sense'},
+      {q:'Identify the subject in: "The cat sat on the mat."',a:'The cat'},
+      {q:'What is the predicate in: "Birds fly high in the sky."?',a:'fly high in the sky'},
+      {q:'What is a proper noun? Give one example.',a:'The name of a specific person, place or thing. E.g., Patna, India, Monday'},
+      {q:'Give the plural of: child',a:'children'},
+      {q:'Give the plural of: mouse',a:'mice'},
+      {q:'Give the plural of: leaf',a:'leaves'},
+      {q:'What is the feminine of "king"?',a:'queen'},
+      {q:'What is the masculine of "hen"?',a:'cock / rooster'},
+      {q:'Give one example of a collective noun.',a:'flock (of birds), herd (of cattle), team, bunch (any one)'},
+      {q:'What is a common noun? Give one example.',a:'A word that names any person, place or thing of the same kind. E.g., city, dog, girl'},
+      {q:'Give the plural of: goose',a:'geese'},
+      {q:'What is the feminine of "tiger"?',a:'tigress'},
+      {q:'Give the plural of: tooth',a:'teeth'},
+    ]},
+    maths:{name:'Mathematics',icon:'🔢',color:'#14B8A6',questions:[
+      {q:'Write in words: 347',a:'Three hundred and forty-seven'},
+      {q:'What is the place value of 5 in 253?',a:'Fifty / 50 (tens place)'},
+      {q:'What is 126 + 245?',a:'371'},
+      {q:'What is 500 − 237?',a:'263'},
+      {q:'Which is greater: 487 or 478?',a:'487'},
+      {q:'Write in Roman numerals: 9',a:'IX'},
+      {q:'Write in Roman numerals: 4',a:'IV'},
+      {q:'What is the face value of 7 in 375?',a:'7 (face value is always the digit itself)'},
+      {q:'Arrange in ascending order: 342, 234, 423, 243',a:'234, 243, 342, 423'},
+      {q:'What is 1000 − 456?',a:'544'},
+      {q:'What is 235 + 148 + 112?',a:'495'},
+      {q:'Write the number: Four hundred and sixty-two',a:'462'},
+      {q:'What comes between 399 and 401?',a:'400'},
+      {q:'What is the largest 3-digit number?',a:'999'},
+    ]},
+    evs:{name:'EVS',icon:'🌿',color:'#22C55E',questions:[
+      {q:'Name the organ used for smelling.',a:'Nose'},
+      {q:'What should you do if a stranger offers you something?',a:'Say no and immediately tell a trusted adult (parent/teacher)'},
+      {q:'Name two foods that give us energy.',a:'Rice, bread, potato, wheat, sugar (any two carbohydrates)'},
+      {q:'Why do houses in hilly areas have sloping roofs?',a:'So that snow and rainwater can slide off easily without collecting on the roof'},
+      {q:'Why do we wear woollen clothes in winter?',a:'Wool traps body heat and keeps us warm in cold weather'},
+      {q:'Name any three sense organs.',a:'Eyes, ears, nose, tongue, skin (any three)'},
+      {q:'What is a balanced diet?',a:'A diet that contains all nutrients — carbohydrates, proteins, fats, vitamins and minerals — in the right amounts'},
+      {q:'What is the function of the heart?',a:'To pump blood to all parts of the body'},
+      {q:'Name the type of house found in flood-prone areas.',a:'House on stilts / stilt house'},
+      {q:'Why should we wash our hands before eating?',a:'To remove germs/bacteria and prevent illness and infection'},
+      {q:'What nutrients do fruits and vegetables give us?',a:'Vitamins and minerals'},
+      {q:'Name two safety rules we should follow at home.',a:'Do not play with sharp objects; do not touch electric sockets; do not play with fire (any two)'},
+    ]},
+    gk:{name:'General Knowledge',icon:'🌍',color:'#EF4444',questions:[
+      {q:'Name the highest mountain peak in the world.',a:'Mount Everest'},
+      {q:'In which mountain range is Mount Everest located?',a:'The Himalayas'},
+      {q:'Which animal can go without water for many days?',a:'Camel'},
+      {q:'Name a mammal that lays eggs.',a:'Platypus (duck-billed platypus)'},
+      {q:'What does a computer keyboard do?',a:'It is used to type letters, numbers and commands into the computer'},
+      {q:'Which tree is called the "Tree of Life"?',a:'Coconut tree'},
+      {q:'Name a bird that cannot fly.',a:'Ostrich / Penguin / Kiwi (any one)'},
+      {q:'Name one use of the internet.',a:'Communication, getting information, entertainment, shopping (any one)'},
+      {q:'Name the mountain range along the western coast of India.',a:'Western Ghats'},
+      {q:'Which insect helps in pollination of flowers?',a:'Honey bee / Butterfly'},
+      {q:'What is unique about the Arctic fox?',a:'Its fur changes colour — white in winter and brown/grey in summer for camouflage'},
+      {q:'How many continents are there in the world? Name them.',a:'7 continents: Asia, Africa, North America, South America, Europe, Australia, Antarctica'},
+    ]},
+    hindi:{name:'Hindi Vaideeka',icon:'📕',color:'#F97316',questions:[
+      {q:'"विद्यालय" का अर्थ क्या है?',a:'School (पाठशाला)'},
+      {q:'हिंदी में सप्ताह के सात दिनों के नाम बताएँ।',a:'सोमवार, मंगलवार, बुधवार, गुरुवार, शुक्रवार, शनिवार, रविवार'},
+      {q:'"माता-पिता" का अर्थ क्या है?',a:'Parents — माता = Mother, पिता = Father'},
+      {q:'हिंदी में 1 से 10 तक गिनती बोलें।',a:'एक, दो, तीन, चार, पाँच, छह, सात, आठ, नौ, दस'},
+      {q:'"सूरज" किस दिशा में उगता है?',a:'पूर्व दिशा में (East)'},
+      {q:'"आकाश" का अर्थ क्या है?',a:'Sky'},
+      {q:'हिंदी में पाँच फलों के नाम बताएँ।',a:'आम, केला, सेब, अंगूर, संतरा, अमरूद (any five)'},
+      {q:'"घर" और "परिवार" में क्या अंतर है?',a:'घर = House (building), परिवार = Family (people)'},
+      {q:'हिंदी में अपना परिचय दीजिए।',a:'मेरा नाम ___ है। मैं कक्षा दो में पढ़ता/पढ़ती हूँ। (accept any correct self-introduction)'},
+      {q:'भारत की राजधानी का नाम हिंदी में बताएँ।',a:'नई दिल्ली'},
+      {q:'"पानी" का हिंदी में पर्यायवाची शब्द बताएँ।',a:'जल, नीर, वारि (any one)'},
+      {q:'हिंदी में तीन जानवरों के नाम बताएँ।',a:'गाय, कुत्ता, बिल्ली, शेर, हाथी (any three)'},
+    ]},
+    meru:{name:'Meru Grammar',icon:'📝',color:'#DC2626',questions:[
+      {q:'संज्ञा किसे कहते हैं? एक उदाहरण दीजिए।',a:'जिस शब्द से किसी व्यक्ति, स्थान या वस्तु का बोध हो, उसे संज्ञा कहते हैं। जैसे: राम, पटना, किताब'},
+      {q:'"लड़का" का बहुवचन क्या है?',a:'लड़के'},
+      {q:'वचन कितने प्रकार के होते हैं? नाम बताएँ।',a:'दो प्रकार: एकवचन (Singular) और बहुवचन (Plural)'},
+      {q:'लिंग कितने प्रकार के होते हैं?',a:'दो: पुल्लिंग (Masculine) और स्त्रीलिंग (Feminine)'},
+      {q:'"राजा" का स्त्रीलिंग क्या है?',a:'रानी'},
+      {q:'"शेर" का स्त्रीलिंग क्या है?',a:'शेरनी'},
+      {q:'क्रिया किसे कहते हैं? एक उदाहरण दीजिए।',a:'जो शब्द काम करने का बोध कराए उसे क्रिया कहते हैं। जैसे: खाना, पीना, खेलना, पढ़ना'},
+      {q:'"पुस्तक" का बहुवचन क्या है?',a:'पुस्तकें'},
+      {q:'विशेषण किसे कहते हैं? उदाहरण दीजिए।',a:'संज्ञा की विशेषता बताने वाले शब्द को विशेषण कहते हैं। जैसे: लाल, बड़ा, सुंदर, मीठा'},
+      {q:'सर्वनाम किसे कहते हैं? उदाहरण दीजिए।',a:'संज्ञा के स्थान पर प्रयोग होने वाले शब्द को सर्वनाम कहते हैं। जैसे: वह, मैं, हम, तुम, यह'},
+      {q:'"गाय" का पुल्लिंग क्या है?',a:'बैल'},
+      {q:'"कमरा" का बहुवचन क्या है?',a:'कमरे'},
+    ]},
+  },
+  std3:{
+    english:{name:'Active English',icon:'📘',color:'#3B82F6',questions:[
+      {q:'Make a sentence using "shall" to show a promise.',a:'I shall finish my homework before dinner. (any correct promise sentence)'},
+      {q:'Use "may" to show possibility (not permission).',a:'It may rain today. / She may come to the party. (any possibility sentence)'},
+      {q:'What is the difference between "since" and "for"?',a:'"Since" is used with a point of time (since Monday, since 9 AM); "for" is used with a period of time (for two hours, for three days)'},
+      {q:'Use "have to" in a sentence to show necessity.',a:'I have to complete my project today. (any obligation sentence)'},
+      {q:'Use "had to" in a past tense sentence.',a:'She had to stay home because she was sick. (any past necessity)'},
+      {q:'Make a sentence using "often".',a:'We often go for evening walks. / He often reads before bed. (any correct sentence)'},
+      {q:'Make a sentence using "never".',a:'I never waste food. / She never tells lies. (any correct sentence)'},
+      {q:'Use "same as" in a comparison sentence.',a:'My pencil box is the same as yours. (any correct comparison)'},
+      {q:'Fill in the blank: Two hours ___, we had lunch. (since/ago)',a:'ago'},
+      {q:'Fill in the blank: She has been my friend ___ three years. (since/for)',a:'for'},
+      {q:'Fill in the blank: He has been waiting ___ 9 o\'clock. (since/for)',a:'since'},
+      {q:'"Has to" is used with which pronouns? Give an example.',a:'"Has to" is used with He, She, It (third person singular). E.g., She has to practise daily.'},
+    ]},
+    magnolia:{name:'Magnolia',icon:'📖',color:'#A855F7',questions:[
+      {q:'Describe Betty\'s character in "Betty\'s Flower Shop" in 2–3 sentences.',a:'Betty is hardworking, honest and caring. She runs her shop with dedication and always gives her best. She is a responsible and cheerful person.'},
+      {q:'Why was Tenali Rama considered special among the king\'s courtiers?',a:'He was known for exceptional wit, wisdom and quick thinking. He could solve problems cleverly that others found impossible.'},
+      {q:'What danger did Mr Jeremy Fisher face while fishing? How did he escape?',a:'A large trout tried to swallow him. He escaped because the trout disliked the taste of his macintosh coat and spat him out.'},
+      {q:'What is the central theme of the Tenali Rama story?',a:'Intelligence and wit triumph over brute force / clever thinking can solve any problem'},
+      {q:'Describe the setting of "Mr Jeremy Fisher" in 2 sentences.',a:'The story is set near a pond in the countryside, with lily pads, buttercups and marshy banks — the perfect home for a frog.'},
+      {q:'What lesson do we learn from "Betty\'s Flower Shop"?',a:'Hard work, honesty and perseverance always pay off. If we work sincerely, success follows.'},
+      {q:'What did Alderman Ptolemy Tortoise bring for dinner at Mr Fisher\'s?',a:'A salad of watercress and a pot of honey'},
+      {q:'Describe the poem "Parrots" from Magnolia in 2–3 sentences.',a:'The poem describes parrots — their bright colours, noisy chatter and lively nature. It captures the beauty and playfulness of these birds. (accept any reasonable description)'},
+      {q:'What type of text is "Tenali Rama" — fiction or non-fiction? Justify.',a:'Fiction — it is a folk tale / traditional story. It uses exaggeration and may not be historically accurate.'},
+      {q:'Write one vocabulary word from any Magnolia unit and its meaning.',a:'Accept any word from the units with a correct meaning'},
+      {q:'How did Tenali Rama use his cleverness in the story?',a:'Accept any specific incident describing his witty solution to a problem'},
+      {q:'Compare Mr Jeremy Fisher and Tenali Rama as characters.',a:'Both are clever in their own way — Fisher is adventurous but careless; Tenali Rama is thoughtful and always composed. (accept any reasonable comparison)'},
+    ]},
+    grammar:{name:'English Grammar',icon:'✏️',color:'#6366F1',questions:[
+      {q:'What is a noun? Name three types of nouns.',a:'A noun is a naming word. Types: Proper noun, Common noun, Collective noun (also Abstract noun)'},
+      {q:'Give the plural of: ox',a:'oxen'},
+      {q:'Give the plural of: half',a:'halves'},
+      {q:'What is the feminine of "nephew"?',a:'niece'},
+      {q:'What is the masculine of "empress"?',a:'emperor'},
+      {q:'Give one example of an abstract noun.',a:'love, happiness, courage, honesty, bravery (any one)'},
+      {q:'What is a collective noun for a group of fish?',a:'school / shoal'},
+      {q:'Identify the subject and predicate: "The little girl danced gracefully."',a:'Subject: The little girl | Predicate: danced gracefully'},
+      {q:'Give the feminine of "bachelor".',a:'spinster / bachelorette'},
+      {q:'What is the difference between a common noun and a proper noun?',a:'A common noun names any person/place/thing (e.g., city, dog). A proper noun names a specific one and starts with a capital letter (e.g., Patna, Max).'},
+      {q:'Write one sentence using a collective noun correctly.',a:'A flock of birds flew over the building. / A herd of cattle grazed in the field. (any correct sentence)'},
+      {q:'Give the plural of: calf',a:'calves'},
+      {q:'What is the masculine of "mare"?',a:'stallion'},
+      {q:'What is an abstract noun? How is it different from a concrete noun?',a:'An abstract noun names a feeling, quality or idea (e.g., love, courage). A concrete noun names something you can see or touch (e.g., book, dog).'},
+    ]},
+    maths:{name:'Mathematics',icon:'🔢',color:'#14B8A6',questions:[
+      {q:'Write in words: 4,567',a:'Four thousand five hundred and sixty-seven'},
+      {q:'What is the place value of 8 in 3,856?',a:'Eight hundred / 800 (hundreds place)'},
+      {q:'What is 1,234 + 2,567?',a:'3,801'},
+      {q:'What is 5,000 − 2,346?',a:'2,654'},
+      {q:'Write in Roman numerals: 14',a:'XIV'},
+      {q:'Write in Roman numerals: 9',a:'IX'},
+      {q:'Write the expanded form of 4,356.',a:'4000 + 300 + 50 + 6'},
+      {q:'Compare using > or <: 4,567 ___ 4,576',a:'< (4,567 is less than 4,576)'},
+      {q:'What is 2,345 + 1,678?',a:'4,023'},
+      {q:'What is the largest 4-digit number?',a:'9,999'},
+      {q:'What is 3,000 − 1,456?',a:'1,544'},
+      {q:'Write the predecessor of 5,000.',a:'4,999'},
+      {q:'Write in ascending order: 3456, 2345, 4567, 1234',a:'1234, 2345, 3456, 4567'},
+      {q:'What is the sum of the place values of 6 and 4 in 4,607?',a:'600 + 4 = 604 (6 is in hundreds, 4 is in ones)'},
+    ]},
+    evs:{name:'EVS',icon:'🌿',color:'#22C55E',questions:[
+      {q:'Name and explain the function of the largest organ of the human body.',a:'Skin — it protects the body from infection, regulates temperature and allows us to feel touch, heat and cold'},
+      {q:'What is first aid? Give one example of a first aid situation.',a:'First aid is immediate help given to a sick or injured person before professional medical help arrives. E.g., applying pressure on a cut to stop bleeding'},
+      {q:'Name the six main nutrients found in food.',a:'Carbohydrates, Proteins, Fats, Vitamins, Minerals, Water'},
+      {q:'What is a pucca house? How is it different from a kutcha house?',a:'Pucca: built with bricks, cement and steel — strong and permanent. Kutcha: built with mud, straw or wood — temporary and less durable'},
+      {q:'Why do people in different regions wear different types of clothing?',a:'Clothes are worn according to the climate — cotton in hot areas, wool in cold areas, silk in some regions. Clothes also reflect culture and tradition.'},
+      {q:'What is the function of the skeleton?',a:'It gives the body its shape, supports it, allows movement and protects internal organs like the brain and heart'},
+      {q:'Name two diseases caused by eating contaminated food.',a:'Typhoid, cholera, food poisoning, diarrhoea, jaundice (any two)'},
+      {q:'What is a nuclear family? Give an example.',a:'A nuclear family consists of parents and their children only. E.g., Father, Mother and one or two children living together'},
+      {q:'What type of clothes do people in the desert wear? Why?',a:'Light, loose, light-coloured cotton clothes — to protect from heat, allow airflow and reflect sunlight'},
+      {q:'What is the function of the lungs?',a:'The lungs help us breathe — they take in oxygen and release carbon dioxide during respiration'},
+      {q:'What is a joint? Name two types of joints in the human body.',a:'A joint is where two bones meet. Types: Ball-and-socket joint (shoulder/hip), Hinge joint (knee/elbow)'},
+      {q:'Why is water important for our body? Name two functions.',a:'Water keeps the body hydrated, aids digestion, removes waste through urine/sweat, regulates temperature (any two)'},
+    ]},
+    gk:{name:'General Knowledge',icon:'🌍',color:'#EF4444',questions:[
+      {q:'Name the planet closest to the Sun.',a:'Mercury'},
+      {q:'How many planets are in our Solar System? Name any four.',a:'Eight planets: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune'},
+      {q:'Name the planet known as the "Red Planet". Why is it called so?',a:'Mars — its surface is covered with reddish iron oxide (rust), giving it a red appearance'},
+      {q:'Name the highest mountain range in the world.',a:'The Himalayas'},
+      {q:'Which is the longest river in the world?',a:'The Nile (in Africa)'},
+      {q:'What makes the platypus unusual among mammals?',a:'It is a mammal that lays eggs, has a duck-like bill, and the male has venomous spurs on its hind legs'},
+      {q:'Name an animal that has no backbone. What is it called?',a:'Jellyfish, earthworm, octopus, crab (any one) — they are called invertebrates'},
+      {q:'What is photosynthesis? Explain in simple terms.',a:'The process by which plants make their own food using sunlight, water and carbon dioxide, releasing oxygen as a by-product'},
+      {q:'Which is the largest tree in the world by volume?',a:'General Sherman — a Giant Sequoia tree in California, USA'},
+      {q:'Name one use of a robot in everyday life.',a:'Manufacturing cars, performing surgery, exploring space, cleaning (any one)'},
+      {q:'What is the wingspan of an albatross? Why is it remarkable?',a:'Up to 3.5 metres — it is the largest wingspan of any living bird, allowing it to glide for hours without flapping'},
+      {q:'Name two foods that are rich in protein.',a:'Eggs, milk, pulses, meat, fish, cheese, soya (any two)'},
+    ]},
+    hindi:{name:'Hindi Vaideeka',icon:'📕',color:'#F97316',questions:[
+      {q:'"पर्यावरण" का अर्थ क्या है?',a:'Environment (वातावरण / प्रकृति और उसके आसपास की चीज़ें)'},
+      {q:'हिंदी में 11 से 20 तक की गिनती बोलें।',a:'ग्यारह, बारह, तेरह, चौदह, पंद्रह, सोलह, सत्रह, अट्ठारह, उन्नीस, बीस'},
+      {q:'"देश-भक्ति" का अर्थ क्या है? एक वाक्य में बताएँ।',a:'देश-भक्ति = Patriotism (अपने देश से प्रेम और उसकी सेवा करने की भावना)'},
+      {q:'हिंदी में बारह महीनों के नाम बताएँ।',a:'जनवरी, फ़रवरी, मार्च, अप्रैल, मई, जून, जुलाई, अगस्त, सितंबर, अक्टूबर, नवंबर, दिसंबर'},
+      {q:'"स्वच्छता का महत्व" पर दो वाक्य हिंदी में बोलें।',a:'स्वच्छता हमें स्वस्थ रखती है। गंदगी से बीमारियाँ फैलती हैं। (accept any two correct sentences)'},
+      {q:'"आत्मनिर्भर" का अर्थ क्या है?',a:'Self-reliant / self-dependent (अपने आप पर निर्भर रहना)'},
+      {q:'हिंदी में अपने पसंदीदा त्योहार के बारे में दो वाक्य बोलें।',a:'Accept any two sentences about any festival in Hindi'},
+      {q:'"प्रकृति" के बारे में हिंदी में दो वाक्य बोलें।',a:'प्रकृति हमें हवा, पानी और भोजन देती है। हमें प्रकृति की रक्षा करनी चाहिए। (accept any relevant sentences)'},
+      {q:'"पानी" के दो हिंदी पर्यायवाची शब्द बताएँ।',a:'जल, नीर, वारि, अंबु (any two)'},
+      {q:'हिंदी में किसी एक पाठ का सारांश अपने शब्दों में बताएँ।',a:'Accept any reasonable summary of a Vaideeka lesson in Hindi'},
+      {q:'"परिश्रम का फल मीठा होता है" — इस कहावत का अर्थ बताएँ।',a:'Hard work always yields good results / the fruits of hard work are sweet (accept any correct explanation)'},
+      {q:'हिंदी में पाँच सब्जियों के नाम बताएँ।',a:'आलू, टमाटर, गाजर, पालक, मटर, प्याज़, भिंडी (any five)'},
+    ]},
+    meru:{name:'Meru Grammar',icon:'📝',color:'#DC2626',questions:[
+      {q:'संज्ञा के कितने भेद होते हैं? नाम बताएँ।',a:'पाँच भेद: व्यक्तिवाचक, जातिवाचक, भाववाचक, समूहवाचक, द्रव्यवाचक'},
+      {q:'भाववाचक संज्ञा किसे कहते हैं? एक उदाहरण दीजिए।',a:'जो संज्ञा किसी भाव, गुण या अवस्था का बोध कराए। जैसे: सुंदरता, ईमानदारी, बचपन, प्रेम'},
+      {q:'"बच्चा" का बहुवचन क्या है?',a:'बच्चे'},
+      {q:'विशेषण के चार भेदों के नाम बताएँ।',a:'गुणवाचक, संख्यावाचक, परिमाणवाचक, सार्वनामिक विशेषण'},
+      {q:'"मोर" का स्त्रीलिंग क्या है?',a:'मोरनी'},
+      {q:'"नेता" का स्त्रीलिंग क्या है?',a:'नेत्री'},
+      {q:'सकर्मक और अकर्मक क्रिया में क्या अंतर है? उदाहरण दीजिए।',a:'सकर्मक: जिस क्रिया का कर्म हो — राम ने सेब खाया। अकर्मक: जिसका कर्म न हो — वह सोती है।'},
+      {q:'वाक्य में कर्ता, कर्म और क्रिया क्या होते हैं? एक उदाहरण दीजिए।',a:'कर्ता = काम करने वाला, कर्म = जिस पर काम हो, क्रिया = काम का शब्द। उदा: राम ने सेब खाया।'},
+      {q:'मुहावरा किसे कहते हैं? एक उदाहरण अर्थ सहित दीजिए।',a:'ऐसा वाक्यांश जिसका शाब्दिक अर्थ नहीं होता। उदा: आँखें खुलना = सच्चाई का पता चलना'},
+      {q:'पर्यायवाची शब्द किसे कहते हैं? "सूरज" के दो पर्यायवाची बताएँ।',a:'समान अर्थ वाले शब्द। सूर्य, रवि, दिनकर, भास्कर (any two)'},
+      {q:'"हाथी" का स्त्रीलिंग क्या है?',a:'हथिनी'},
+      {q:'विलोम शब्द किसे कहते हैं? "दिन" का विलोम बताएँ।',a:'विपरीत अर्थ वाले शब्दों को विलोम शब्द कहते हैं। "दिन" का विलोम = रात'},
+    ]},
+  }
+};
+
+// ── YouTube Recommendations (ICSE Class 2 & 3) ───────────
+const YT_LINKS={
+  english:[
+    {title:'ICSE Class 2 English — Full Lessons',channel:'Vedantu Junior',lang:'en',icon:'📘',url:'https://www.youtube.com/results?search_query=ICSE+class+2+English+grammar+lessons'},
+    {title:'English Grammar for Kids — Nouns, Verbs, Tenses',channel:'Periwinkle',lang:'en',icon:'📗',url:'https://www.youtube.com/c/PeriwinkleEnglish'},
+    {title:'ICSE Class 3 English Grammar Explained',channel:'LearnFatafat',lang:'en',icon:'📙',url:'https://www.youtube.com/results?search_query=ICSE+class+3+English+grammar+LearnFatafat'},
+    {title:'English Speaking & Reading for Children',channel:'Kids TV',lang:'en',icon:'🎤',url:'https://www.youtube.com/results?search_query=English+speaking+for+kids+class+2+3'},
+  ],
+  magnolia:[
+    {title:'Story Reading & Comprehension — Class 2 & 3',channel:'Periwinkle',lang:'en',icon:'📖',url:'https://www.youtube.com/c/PeriwinkleEnglish'},
+    {title:'Tenali Raman Stories for Children',channel:'Pebbles Kids',lang:'en',icon:'🧠',url:'https://www.youtube.com/results?search_query=Tenali+Raman+stories+for+children'},
+    {title:'The Tale of Mr Jeremy Fisher — Read Aloud',channel:'Story Time',lang:'en',icon:'🐸',url:'https://www.youtube.com/results?search_query=Mr+Jeremy+Fisher+Beatrix+Potter+read+aloud'},
+    {title:'English Story Comprehension Skills',channel:'Magnet Brains',lang:'en',icon:'✍️',url:'https://www.youtube.com/results?search_query=English+comprehension+class+2+3+ICSE'},
+  ],
+  grammar:[
+    {title:'English Grammar — Nouns, Verbs, Adjectives (ICSE)',channel:'Vedantu Junior',lang:'en',icon:'✏️',url:'https://www.youtube.com/results?search_query=ICSE+English+grammar+class+2+3+nouns+verbs'},
+    {title:'Subject and Predicate for Kids',channel:'Periwinkle',lang:'en',icon:'📝',url:'https://www.youtube.com/results?search_query=subject+predicate+English+grammar+kids'},
+    {title:'Singular and Plural — Fun Grammar Lessons',channel:'Kids Learning Tube',lang:'en',icon:'🔤',url:'https://www.youtube.com/results?search_query=singular+plural+nouns+for+kids+class+2'},
+    {title:'ICSE English Grammar Practice (Class 3)',channel:'LearnFatafat',lang:'en',icon:'📚',url:'https://www.youtube.com/results?search_query=ICSE+class+3+grammar+gender+number'},
+  ],
+  maths:[
+    {title:'Maths for Class 2 — Numbers, Addition, Subtraction',channel:'Vedantu Junior',lang:'en',icon:'🔢',url:'https://www.youtube.com/results?search_query=ICSE+class+2+maths+numbers+addition+subtraction'},
+    {title:'गणित कक्षा 3 — जोड़, घटाव, स्थानीय मान',channel:'Magnet Brains Hindi',lang:'hi',icon:'🧮',url:'https://www.youtube.com/results?search_query=class+3+maths+in+hindi+addition+subtraction'},
+    {title:'Roman Numerals for Kids — I to X',channel:'Periwinkle',lang:'en',icon:'🏛️',url:'https://www.youtube.com/results?search_query=Roman+numerals+for+kids+class+2+3'},
+    {title:'Place Value — Hundreds, Tens, Ones',channel:'Khan Academy India',lang:'en',icon:'📊',url:'https://www.youtube.com/results?search_query=place+value+hundreds+tens+ones+class+2+3'},
+  ],
+  evs:[
+    {title:'EVS Class 2 — Human Body, Food, Shelter (ICSE)',channel:'Vedantu Junior',lang:'en',icon:'🌿',url:'https://www.youtube.com/results?search_query=ICSE+EVS+class+2+human+body+food+shelter'},
+    {title:'हमारा शरीर — EVS कक्षा 2 और 3',channel:'Magnet Brains',lang:'hi',icon:'🫀',url:'https://www.youtube.com/results?search_query=EVS+class+2+human+body+hindi'},
+    {title:'Types of Houses Around the World — EVS',channel:'Pebbles ICSE',lang:'en',icon:'🏠',url:'https://www.youtube.com/results?search_query=types+of+houses+EVS+class+2+3+ICSE'},
+    {title:'Food and Nutrition for Kids — Balanced Diet',channel:'Smile and Learn',lang:'en',icon:'🥗',url:'https://www.youtube.com/results?search_query=balanced+diet+for+kids+class+2+3+EVS'},
+  ],
+  gk:[
+    {title:'GK for Kids — Solar System, Mountains, Animals',channel:'Pebbles Kids',lang:'en',icon:'🌍',url:'https://www.youtube.com/results?search_query=GK+for+kids+class+2+3+solar+system+mountains'},
+    {title:'General Knowledge Questions for Class 2 & 3',channel:'Vedantu Junior',lang:'en',icon:'❓',url:'https://www.youtube.com/results?search_query=general+knowledge+questions+for+class+2+3+kids'},
+    {title:'Amazing Animals of the World for Children',channel:'National Geographic Kids',lang:'en',icon:'🐾',url:'https://www.youtube.com/results?search_query=amazing+animals+for+kids+unusual+animals'},
+    {title:'सामान्य ज्ञान — कक्षा 2 और 3 के लिए',channel:'Kids GK Hindi',lang:'hi',icon:'📰',url:'https://www.youtube.com/results?search_query=GK+questions+hindi+class+2+3+kids'},
+  ],
+  hindi:[
+    {title:'Hindi Vaideeka — कक्षा 2 के पाठ',channel:'Vedantu Hindi',lang:'hi',icon:'📕',url:'https://www.youtube.com/results?search_query=Hindi+class+2+ICSE+Vaideeka+lessons'},
+    {title:'हिंदी व्याकरण — संज्ञा, सर्वनाम, क्रिया',channel:'Magnet Brains',lang:'hi',icon:'📚',url:'https://www.youtube.com/c/MagnetBrains'},
+    {title:'Hindi Stories for Kids — Moral Stories',channel:'Pebbles Hindi',lang:'hi',icon:'📖',url:'https://www.youtube.com/results?search_query=Hindi+moral+stories+for+kids+class+2+3'},
+    {title:'हिंदी गिनती और वर्णमाला सीखें',channel:'Kids Hindi',lang:'hi',icon:'🔤',url:'https://www.youtube.com/results?search_query=Hindi+ginti+varnamala+for+kids+class+2'},
+  ],
+  meru:[
+    {title:'हिंदी व्याकरण — वचन, लिंग, संज्ञा, विशेषण',channel:'Magnet Brains',lang:'hi',icon:'📝',url:'https://www.youtube.com/results?search_query=Hindi+grammar+vachan+ling+sangya+class+2+3'},
+    {title:'Hindi Grammar — Nouns, Gender, Number (ICSE)',channel:'Vedantu Hindi',lang:'hi',icon:'✍️',url:'https://www.youtube.com/results?search_query=ICSE+Hindi+grammar+class+2+3+Meru'},
+    {title:'मुहावरे और लोकोक्तियाँ — Class 3',channel:'Pebbles Hindi',lang:'hi',icon:'💬',url:'https://www.youtube.com/results?search_query=Hindi+muhavare+class+3+kids'},
+    {title:'हिंदी व्याकरण — क्रिया, विशेषण, सर्वनाम',channel:'Smart School',lang:'hi',icon:'🏫',url:'https://www.youtube.com/results?search_query=Hindi+vyakaran+kriya+visheshan+sarvanam+class+3'},
+  ],
+};
+
 // Summer vacation checklist — date navigator
 // Use local date string to avoid UTC/IST timezone shift
 function _localDateStr(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-let _summerDate=_localDateStr(new Date()); // today in local time, e.g. "2026-05-17"
+let _summerDate=_localDateStr(new Date()); // today in local time
+if(_summerDate<'2026-05-17') _summerDate='2026-05-17';
+if(_summerDate>'2026-06-21') _summerDate='2026-06-21';
 let _showSchoolSchedule=true; // collapsible during summer vacation
 
 // True if today's date falls within the summer vacation window
@@ -1100,18 +1482,10 @@ function renderSchedule(){
     }),
     div({class:'today-btn',onclick:()=>{activeDay=ti;render();}},'Today')
   );
-  // Summer day notes — one per day of week, vacation-relevant
-  const SUMMER_DAY_NOTES=['☀️ Full study day — morning blocks start at 8:00 AM. Outdoor play after 11:10 AM!','☀️ Shrutlekh day for Hindi — dictate 10 words after the Hindi slot. Keep it fun!','☀️ Wednesday — halfway through the week! Focus on written practice today.','☀️ Thursday — Tables drill target: all 15 tables in under 3 minutes oral.','☀️ Friday — wrap up the week strong. Review any slot you skipped earlier.','🌅 Saturday — lighter day is fine. Poems + Spelling are the priority today.','🌿 Sunday — light revision only, 9:00–9:45 AM. Afternoon is completely free!'];
-  const headerNote=inSummer?SUMMER_DAY_NOTES[new Date().getDay()]:day.note;
   const header=div({class:'day-header',style:{background:dc}},
-    div({class:'day-header-top'},div({style:{fontSize:'24px'}},day.emoji),div({class:'day-header-info'},div({class:'day-name'},day.day),div({class:'day-note-text'},'📌 '+headerNote))),
-    div({class:'day-badges'},
-      inSummer
-        ? div({class:'day-badge'},'☀️ Summer vacation · Full-day schedule')
-        : prog.total>0?div({class:'day-badge'},prog.done===prog.total?'✅ All done!':`📋 ${prog.done}/${prog.total} completed`):null,
-      !inSummer&&activeDay<5?div({class:'day-badge'},'⚽ Free till 6:30 PM'):null
-    ),
-    !inSummer&&prog.total>0?div({class:'day-pb-wrap'},div({class:'day-pb',style:{width:Math.round((prog.done/prog.total)*100)+'%',background:prog.done===prog.total?'#22C55E':'rgba(255,255,255,.75)'}})):null
+    div({class:'day-header-top'},div({style:{fontSize:'24px'}},day.emoji),div({class:'day-header-info'},div({class:'day-name'},day.day),div({class:'day-note-text'},'📌 '+day.note))),
+    div({class:'day-badges'},prog.total>0?div({class:'day-badge'},prog.done===prog.total?'✅ All done!':`📋 ${prog.done}/${prog.total} completed`):null,activeDay<5?div({class:'day-badge'},'⚽ Free till 6:30 PM'):null),
+    prog.total>0?div({class:'day-pb-wrap'},div({class:'day-pb',style:{width:Math.round((prog.done/prog.total)*100)+'%',background:prog.done===prog.total?'#22C55E':'rgba(255,255,255,.75)'}})):null
   );
   const slots=div({class:'slots-list'},...day.slots.map(slot=>{
     if(slot.brk)return div({class:'slot-break'},span({},'☕'),span({style:{fontSize:'12px',color:'#9CA3AF'}},`${slot.time} – ${slot.end}  ·  Break`));
@@ -1140,8 +1514,7 @@ function renderSchedule(){
   }));
   const cd=CLASS_DATA[_currentClass];
   const flowRows=activeDay===5?cd.satFlow:activeDay===6?cd.sunFlow:cd.weekdayFlow;
-  // Flow card is school-term specific — hide during summer vacation
-  const flowCard=inSummer?null:div({class:'flow-card'},div({class:'flow-card-title'},'🕐 '+(activeDay<5?'Weekday Flow':activeDay===5?'Saturday Flow':'Sunday Flow')),...flowRows.map(r=>div({class:'flow-row'},div({class:'flow-dot',style:{background:r.bold?dc:'#9CA3AF'}}),div({},div({class:'flow-time',style:{color:r.bold?dc:'#9CA3AF'}},r.t),div({class:'flow-lbl'+(r.bold?' bold':'')},r.l)))));
+  const flowCard=div({class:'flow-card'},div({class:'flow-card-title'},'🕐 '+(activeDay<5?'Weekday Flow':activeDay===5?'Saturday Flow':'Sunday Flow')),...flowRows.map(r=>div({class:'flow-row'},div({class:'flow-dot',style:{background:r.bold?dc:'#9CA3AF'}}),div({},div({class:'flow-time',style:{color:r.bold?dc:'#9CA3AF'}},r.t),div({class:'flow-lbl'+(r.bold?' bold':'')},r.l)))));
   const summerCard=div({class:'summer-card'},
     div({class:'summer-head',onclick:()=>{showSummer=!showSummer;render();},role:'button','aria-expanded':showSummer?'true':'false'},span({style:{fontSize:'18px'}},'☀️'),div({style:{flex:1}},div({style:{fontWeight:900,fontSize:'13px',color:'#EA580C'}},'Summer Vacation Schedule  (May 17 – Jun 21)'),div({style:{fontSize:'11px',color:'#9CA3AF',marginTop:'2px'}},'Full-day study plan · tap to '+(showSummer?'hide':'view'))),span({class:'insight-arrow'},showSummer?'▲':'▼')),
     showSummer?(()=>{
@@ -1154,9 +1527,11 @@ function renderSchedule(){
       const prog=summerProg(_summerDate);
       const pct=prog.total?Math.round((prog.done/prog.total)*100):0;
       const bg={study:'#EFF6FF',play:'#E0F2FE',rest:'#FEFCE8',routine:'#F8FAFC'};
+      const todayStr=(()=>{const t=_localDateStr(new Date());return t<'2026-05-17'?'2026-05-17':t>'2026-06-21'?'2026-06-21':t;})();
+      const isToday=_summerDate===todayStr;
       const dateNav=div({class:'summer-date-nav'},
         btn({class:'summer-nav-btn',...(atStart?{disabled:''}:{}),onclick:(e)=>{e.stopPropagation();moveSummerDate(-1);}}, '◀'),
-        span({class:'summer-date-lbl'},dateLbl),
+        span({class:'summer-date-lbl'},dateLbl+(isToday?' · Today':'')),
         btn({class:'summer-nav-btn',...(atEnd?{disabled:''}:{}),onclick:(e)=>{e.stopPropagation();moveSummerDate(1);}}, '▶')
       );
       const progRow=div({class:'summer-prog-row'},
@@ -1214,7 +1589,162 @@ function renderSchedule(){
   return div({class:'tab-content'},streakBanner,dayScroll,header,schoolSection,summerCard);
 }
 
-// ── Roadmap ───────────────────────────────────────────────
+// ── Mock Tests ────────────────────────────────────────────
+function renderMock(){
+  const subjects=MOCK_Q[_currentClass];
+  const subjKeys=Object.keys(subjects);
+
+  // Subject picker
+  const subjGrid=div({class:'mock-subj-grid'},...subjKeys.map(k=>{
+    const s=subjects[k];
+    const hist=_mockHistory.filter(h=>h.subj===k&&h.class===_currentClass);
+    const lastScore=hist.length?`Last: ${hist[0].score}/${hist[0].total}`:`${s.questions.length} questions`;
+    return btn({class:'mock-subj-btn'+(_mockSubject===k?' active':''),onclick:()=>{
+      _mockSubject=k; _mockAnswers=new Array(subjects[k].questions.length).fill(null);
+      _mockRevealed=new Array(subjects[k].questions.length).fill(false);
+      _mockDone=false; render();
+    }},
+      div({class:'mock-subj-icon'},s.icon),
+      div({class:'mock-subj-name'},s.name),
+      div({class:'mock-subj-count'},lastScore)
+    );
+  }));
+
+  // No subject selected yet
+  if(!_mockSubject){
+    return div({class:'tab-content'},
+      div({class:'mock-intro'},
+        div({class:'mock-intro-title'},'📝 Mock Tests'),
+        div({class:'mock-intro-sub'},'Parent reads the question · Child answers · Tap ✅ or ❌ · Score saved to cloud')
+      ),
+      subjGrid,
+      renderMockHistory()
+    );
+  }
+
+  const subj=subjects[_mockSubject];
+  const qs=subj.questions;
+  const answered=_mockAnswers.filter(a=>a!==null).length;
+  const correct=_mockAnswers.filter(a=>a===true).length;
+
+  // Results screen
+  if(_mockDone){
+    const pct=Math.round((correct/qs.length)*100);
+    const msg=pct===100?'🌟 Perfect score! Outstanding performance!'
+      :pct>=80?'🎉 Excellent! Almost there — keep it up!'
+      :pct>=60?'👍 Good effort! Review the wrong answers and try again.'
+      :'📚 Keep practising! Revisit the subject and try again soon.';
+    return div({class:'tab-content'},
+      div({class:'mock-intro'},
+        div({class:'mock-intro-title'},'📝 Mock Tests'),
+        div({class:'mock-intro-sub'},'Parent reads the question · Child answers · Tap ✅ or ❌')
+      ),
+      div({class:'mock-result-card'},
+        div({class:'mock-result-score'},correct+'/'+qs.length),
+        div({class:'mock-result-label'},subj.icon+' '+subj.name+' · '+pct+'%'),
+        div({class:'mock-result-msg'},msg),
+        div({style:{display:'flex',gap:'8px',justifyContent:'center',flexWrap:'wrap'}},
+          btn({class:'mock-restart-btn',onclick:()=>{
+            _mockAnswers=new Array(qs.length).fill(null);
+            _mockRevealed=new Array(qs.length).fill(false);
+            _mockDone=false; render();
+          }},'🔄 Try Again'),
+          btn({class:'mock-restart-btn',style:{background:'var(--border2)',color:'var(--text)',border:'1.5px solid var(--border)'},onclick:()=>{
+            _mockSubject=null; _mockDone=false; render();
+          }},'← Back to Subjects')
+        )
+      ),
+      renderMockHistory()
+    );
+  }
+
+  // Active test session
+  const sessionHead=div({class:'mock-session-head'},
+    div({class:'mock-session-title'},subj.icon+' '+subj.name),
+    div({class:'mock-session-score'},correct+' / '+answered+' done')
+  );
+  const qRows=qs.map((q,i)=>{
+    const ans=_mockAnswers[i];
+    const revealed=_mockRevealed[i];
+    const rowClass='mock-q-row'+(ans===true?' answered-correct':ans===false?' answered-wrong':'');
+    return div({class:rowClass},
+      div({class:'mock-q-num'},'Q'+( i+1)+' of '+qs.length),
+      div({class:'mock-q-text'},q.q),
+      div({class:'mock-q-ans'+(revealed?' revealed':''),id:'mock-ans-'+i},'✅ Answer: '+q.a),
+      div({class:'mock-q-actions'},
+        ans===null?btn({class:'mock-reveal-btn',onclick:()=>{_mockRevealed[i]=true;render();}},'👁️ Show Answer'):null,
+        ans===null?btn({class:'mock-correct-btn',onclick:()=>{_mockAnswers[i]=true;if(_mockAnswers.every(a=>a!==null)){FB.saveMockResult(_mockSubject,_mockAnswers.filter(a=>a===true).length,qs.length).then(()=>FB.loadMockHistory().then(h=>{_mockHistory=h;render();}));_mockDone=true;}render();}},'✅ Correct'):null,
+        ans===null?btn({class:'mock-wrong-btn',onclick:()=>{_mockAnswers[i]=false;if(_mockAnswers.every(a=>a!==null)){FB.saveMockResult(_mockSubject,_mockAnswers.filter(a=>a===true).length,qs.length).then(()=>FB.loadMockHistory().then(h=>{_mockHistory=h;render();}));_mockDone=true;}render();}},'❌ Wrong'):null,
+        ans!==null?span({style:{fontSize:'20px'}},ans===true?'✅':'❌'):null,
+        ans!==null?div({class:'mock-q-ans revealed',style:{display:'inline',marginLeft:'8px'}},''+q.a):null
+      )
+    );
+  });
+
+  return div({class:'tab-content'},
+    div({class:'mock-intro'},
+      div({class:'mock-intro-title'},'📝 Mock Tests'),
+      div({class:'mock-intro-sub'},'Parent reads the question · Child answers · Tap ✅ or ❌')
+    ),
+    div({style:{display:'flex',gap:'8px',alignItems:'center'}},
+      btn({style:{background:'none',border:'1.5px solid var(--border)',borderRadius:'10px',padding:'5px 12px',fontSize:'12px',fontWeight:900,fontFamily:'\'Nunito\',sans-serif',cursor:'pointer',color:'var(--text)'},onclick:()=>{_mockSubject=null;_mockDone=false;render();}},'← Subjects'),
+      div({style:{fontSize:'12px',fontWeight:800,color:'var(--text3)'}},answered+'/'+qs.length+' answered')
+    ),
+    div({class:'mock-session-card'},sessionHead,div({class:'mock-q-list'},...qRows))
+  );
+}
+
+function renderMockHistory(){
+  if(!_mockHistory.length) return div({class:'mock-history-card'},div({class:'mock-history-head'},'📊 Test History'),div({class:'mock-history-empty'},'No tests taken yet. Pick a subject above to start!'));
+  const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const monthNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const recent=_mockHistory.slice(0,10);
+  return div({class:'mock-history-card'},
+    div({class:'mock-history-head'},'📊 Recent Test History'),
+    ...recent.map(h=>{
+      const subjData=(MOCK_Q[h.class||_currentClass]||MOCK_Q[_currentClass])[h.subj];
+      const d=new Date(h.date);
+      const pct=Math.round((h.score/h.total)*100);
+      return div({class:'mock-history-row'},
+        div({},
+          div({class:'mock-history-subj'},(subjData?.icon||'📝')+' '+(subjData?.name||h.subj)+' · '+(h.class==='std2'?'Std 2':'Std 3')),
+          div({class:'mock-history-date'},dayNames[d.getDay()]+', '+d.getDate()+' '+monthNames[d.getMonth()]+'  '+d.getHours()+':'+String(d.getMinutes()).padStart(2,'0'))
+        ),
+        div({style:{textAlign:'right'}},
+          div({class:'mock-history-score'},h.score+'/'+h.total),
+          div({style:{fontSize:'10px',color:pct>=80?'#16A34A':pct>=60?'#D97706':'#DC2626',fontWeight:800}},pct+'%')
+        )
+      );
+    })
+  );
+}
+
+// ── YouTube Recommendations ───────────────────────────────
+function renderYouTube(){
+  const ytSubjNames={english:'English',magnolia:'Magnolia',grammar:'Grammar',maths:'Maths',evs:'EVS',gk:'GK',hindi:'Hindi',meru:'Meru'};
+  const [ytOpen,setYtOpen]=[_mockYtSubject,(v)=>{_mockYtSubject=v;localStorage.setItem('ytSubject',v);render();}];
+  const links=YT_LINKS[ytOpen]||[];
+  return div({class:'yt-card'},
+    div({class:'yt-card-head'},
+      span({class:'yt-card-icon'},'📺'),
+      div({class:'yt-card-title'},'Learning Resources — YouTube')
+    ),
+    div({class:'yt-subj-tabs'},...Object.keys(YT_LINKS).map(k=>
+      btn({class:'yt-subj-tab'+(ytOpen===k?' active':''),onclick:()=>setYtOpen(k)},ytSubjNames[k]||k)
+    )),
+    div({class:'yt-links-list'},...links.map(lk=>
+      el('a',{class:'yt-link-row',href:lk.url,target:'_blank',rel:'noopener'},
+        div({class:'yt-link-thumb'},lk.icon),
+        div({class:'yt-link-info'},
+          div({class:'yt-link-title'},lk.title),
+          div({class:'yt-link-channel'},lk.channel)
+        ),
+        span({class:'yt-lang-badge '+(lk.lang==='hi'?'yt-lang-hi':'yt-lang-en')},lk.lang==='hi'?'HI':'EN'),
+        span({class:'yt-link-arrow'},'▶')
+      )
+    ))
+  );
+}
 function renderRoadmap(){
   const ph=PHASES[activePhase],cw=curWeekNum(),cp=curPhaseIdx(),wo=activePhase===0?0:activePhase===1?5:10,pct=Math.min(Math.round(((cw-1)/11)*100),100);
   const phaseToggle=div({class:'phase-toggle'},...PHASES.map((p,i)=>btn({class:'phase-btn'+(i===activePhase?' active':'')+(i===cp?' cur-phase':''),style:i===activePhase?{background:p.color,color:'#fff',borderColor:p.color}:{},onclick:()=>{activePhase=i;render();}},p.icon+'  '+p.label+(i===cp?' 📍':''))));
@@ -1227,57 +1757,14 @@ function renderRoadmap(){
 
 // ── Insights ──────────────────────────────────────────────
 function renderStats(){
-  const streak=FB.calculateStreak();
-  const inSummer=isSummerVacation();
-
-  if(inSummer){
-    // Summer mode: count sv_ keys for current week (Mon–Sun)
-    const today=new Date();
-    const todayDow=today.getDay(); // 0=Sun
-    const weekDates=[];
-    for(let i=0;i<7;i++){
-      const d=new Date(today);
-      d.setDate(today.getDate()-todayDow+i);
-      weekDates.push(_localDateStr(d));
-    }
-    const studySlotCount=SUMMER_SLOTS.filter(s=>s.type==='study').length;
-    let weekDone=0,weekTotal=0;
-    // Count only dates within summer vacation window
-    weekDates.forEach(ds=>{
-      if(ds>='2026-05-17'&&ds<='2026-06-21'){
-        weekTotal+=studySlotCount;
-        SUMMER_SLOTS.forEach((s,i)=>{
-          if(s.type==='study'&&FB.isSlotDone(svKey(ds,i))) weekDone++;
-        });
-      }
-    });
-    // Today's summer progress
-    const todayProg=summerProg(_localDateStr(today));
-    const todayPct=todayProg.total?Math.round((todayProg.done/todayProg.total)*100):0;
-    const weekPct=weekTotal?Math.round((weekDone/weekTotal)*100):0;
-    return div({class:'stats-card'},
-      div({class:'stats-title'},'📊 Summer Progress'),
-      div({class:'stats-grid'},
-        div({class:'stats-box'},div({class:'stats-num',style:{color:'#EA580C'}},todayProg.done+'/'+todayProg.total),div({class:'stats-lbl'},'Today done')),
-        div({class:'stats-box'},div({class:'stats-num',style:{color:'#3B82F6'}},weekDone+''),div({class:'stats-lbl'},'This week')),
-        div({class:'stats-box'},div({class:'stats-num',style:{color:streak>=3?'#F97316':'#22C55E'}},streak===0?'–':streak+'🔥'),div({class:'stats-lbl'},'Day streak')),
-        div({class:'stats-box'},div({class:'stats-num',style:{color:todayPct===100?'#22C55E':'#14B8A6'}},todayPct+'%'),div({class:'stats-lbl'},'Today %'))
-      ),
-      div({class:'stats-bar-track'},div({class:'stats-bar-fill',style:{width:weekPct+'%',background:weekPct===100?'#22C55E':'linear-gradient(90deg,#EA580C,#F97316)'}})),
-      div({style:{fontSize:'11px',color:'var(--text3)',fontWeight:700,marginTop:'4px'}},`Week: ${weekDone} of ${weekTotal} slots done (${weekPct}%)`),
-      div({class:'motiv-tip'},span({class:'motiv-icon'},'💬'),span({class:'motiv-text'},todayMotiv()))
-    );
-  }
-
-  // School-term mode (original)
-  const{doneMins,totalMins,subjectDone}=FB.weeklyStats(),pct=totalMins?Math.round((doneMins/totalMins)*100):0,top=Object.entries(subjectDone).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  const{doneMins,totalMins,subjectDone}=FB.weeklyStats(),streak=FB.calculateStreak(),pct=totalMins?Math.round((doneMins/totalMins)*100):0,top=Object.entries(subjectDone).sort((a,b)=>b[1]-a[1]).slice(0,3);
   return div({class:'stats-card'},div({class:'stats-title'},'📊 This Week\'s Progress'),div({class:'stats-grid'},div({class:'stats-box'},div({class:'stats-num',style:{color:'#3B82F6'}},doneMins+'m'),div({class:'stats-lbl'},'Study done')),div({class:'stats-box'},div({class:'stats-num',style:{color:'#9CA3AF'}},(totalMins-doneMins)+'m'),div({class:'stats-lbl'},'Remaining')),div({class:'stats-box'},div({class:'stats-num',style:{color:streak>=3?'#F97316':'#22C55E'}},streak===0?'–':streak+'🔥'),div({class:'stats-lbl'},'Day streak')),div({class:'stats-box'},div({class:'stats-num',style:{color:pct===100?'#22C55E':'#14B8A6'}},pct+'%'),div({class:'stats-lbl'},'Completion'))),div({class:'stats-bar-track'},div({class:'stats-bar-fill',style:{width:pct+'%',background:pct===100?'#22C55E':'linear-gradient(90deg,#3B82F6,#14B8A6)'}})),top.length>0?div({class:'stats-top'},div({class:'stats-top-lbl'},'Most studied this week:'),div({},...top.map(([s,m])=>div({class:'stats-top-item'},span({style:{fontSize:'14px'}},EMOJI[s]),span({style:{fontWeight:800,fontSize:'11px',color:COLORS[s]}},LABELS[s]),span({style:{fontSize:'10px',color:'var(--text3)'}},m+'m'))))):null,div({class:'motiv-tip'},span({class:'motiv-icon'},'💬'),span({class:'motiv-text'},todayMotiv())));
 }
 function renderInsights(){
   const cards=INSIGHTS.map((ins,i)=>div({class:'insight-card'},div({class:'insight-head',style:{background:ins.color},onclick:()=>{openInsight=openInsight===i?-1:i;render();},role:'button','aria-expanded':openInsight===i?'true':'false'},div({class:'insight-head-left'},span({style:{fontSize:'20px'}},ins.emoji),span({class:'insight-title-text'},ins.title)),span({class:'insight-arrow'},openInsight===i?'▲':'▼')),openInsight===i?div({class:'insight-body'},ins.body):null));
   const tipsCard=div({class:'tips-card'},div({class:'tips-title'},'👨‍👩‍👧 Parent Action Points'),...TIPS.map(([h,d],i)=>div({class:'tip-row'},span({class:'tip-num'},`${i+1}.`),div({class:'tip-text'},el('strong',{},h+' — '),d))));
   const feedbackCard=div({class:'feedback-card'},div({class:'feedback-title'},'💬 Account & Feedback'),div({class:'feedback-body'},'Signed in as ',el('strong',{},FB.currentUser?.email||'—'),'. Progress syncs across all devices — separately for each child.'),div({class:'feedback-actions'},el('a',{href:'https://github.com/santosh6785/DBPS-Study-Planner/issues/new',target:'_blank',rel:'noopener',class:'feedback-link'},'🐛 Report / Suggest'),btn({class:'ical-btn',onclick:exportIcal},'📅 Export key dates (.ics)')));
-  return div({class:'tab-content'},div({class:'insights-intro'},div({class:'insights-intro-title'},'💡 Insights & Stats'),div({class:'insights-intro-sub'},'Cloud-synced · Live progress · Textbook guidance')),renderStats(),...cards,tipsCard,renderCalSyncCard(),feedbackCard);
+  return div({class:'tab-content'},div({class:'insights-intro'},div({class:'insights-intro-title'},'💡 Insights & Stats'),div({class:'insights-intro-sub'},'Cloud-synced · Live progress · Textbook guidance')),renderStats(),...cards,tipsCard,renderYouTube(),renderCalSyncCard(),feedbackCard);
 }
 
 // ── Onboarding ────────────────────────────────────────────
@@ -1310,7 +1797,7 @@ function render(){
   if(!main)return;
   main.innerHTML='';
   main.style.opacity='0';
-  const content=activeTab==='schedule'?renderSchedule():activeTab==='roadmap'?renderRoadmap():renderInsights();
+  const content=activeTab==='schedule'?renderSchedule():activeTab==='roadmap'?renderRoadmap():activeTab==='mock'?renderMock():renderInsights();
   main.appendChild(content);
   requestAnimationFrame(()=>{main.style.transition='opacity .15s';main.style.opacity='1';});
   if(activeTab==='roadmap')setTimeout(()=>document.getElementById('cur-week-card')?.scrollIntoView({behavior:'smooth',block:'nearest'}),250);
@@ -1361,11 +1848,14 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(user){
       document.getElementById('login-screen').style.display='none';
       document.getElementById('app').style.display='flex';
+      // Load mock test history from Firestore
+      FB.loadMockHistory().then(h=>{ _mockHistory=h; render(); });
       render();
       setTimeout(showOnboarding,500);
     } else {
       document.getElementById('app').style.display='none';
       document.getElementById('login-screen').style.display='flex';
+      _mockHistory=[];
     }
   });
 });
