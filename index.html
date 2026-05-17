@@ -153,6 +153,22 @@ body.theme-dark .summer-head{background:#1c1300;}
 .summer-slot-lbl{font-size:12px;font-weight:800;color:var(--text);}
 .summer-slot-time{font-size:10px;font-weight:800;flex-shrink:0;}
 .summer-slot-note{font-size:11px;color:var(--text2);margin-top:2px;line-height:1.4;}
+/* Summer checklist additions */
+.summer-date-nav{display:flex;align-items:center;gap:6px;padding:8px 12px 4px;background:var(--border2);}
+.summer-date-lbl{font-size:12px;font-weight:900;color:#EA580C;flex:1;text-align:center;}
+.summer-nav-btn{background:none;border:1.5px solid #FED7AA;border-radius:8px;padding:3px 10px;font-size:14px;cursor:pointer;font-family:'Nunito',sans-serif;color:#EA580C;font-weight:900;line-height:1;}
+.summer-nav-btn:disabled{opacity:.3;cursor:not-allowed;}
+.summer-progress-bar-wrap{height:5px;background:var(--border2);margin:0 10px 6px;}
+.summer-progress-bar-fill{height:5px;background:#EA580C;border-radius:3px;transition:width .3s;}
+.summer-prog-row{display:flex;justify-content:space-between;align-items:center;padding:4px 12px 6px;font-size:11px;font-weight:800;color:#EA580C;}
+.summer-slot.sv-done{opacity:.6;}
+.summer-slot.sv-done .summer-slot-lbl{text-decoration:line-through;color:var(--text3);}
+.summer-slot-check-wrap{display:flex;justify-content:flex-end;margin-top:4px;}
+.sv-check-label{display:flex;align-items:center;gap:5px;cursor:pointer;font-size:11px;font-weight:800;color:var(--text3);padding:3px 8px;border-radius:8px;background:var(--border2);border:1.5px solid var(--border);transition:background .15s;}
+.sv-check-label:has(input:checked){background:#FFF7ED;border-color:#FED7AA;color:#EA580C;}
+body.theme-dark .sv-check-label:has(input:checked){background:#2a1500;border-color:#92400e;color:#FB923C;}
+.sv-check-label input{width:14px;height:14px;accent-color:#EA580C;cursor:pointer;}
+.summer-nonschool-note{text-align:center;padding:14px 12px;font-size:12px;color:var(--text3);font-weight:700;}
 /* Note dialog */
 .dialog-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);display:flex;align-items:flex-end;justify-content:center;padding:0 12px 12px;}
 .dialog-card{background:var(--surface);border-radius:20px;padding:18px;width:100%;max-width:460px;}
@@ -582,10 +598,9 @@ const FB = {
   signOut(){ return _auth.signOut(); },
   async reloadForClass(){ if(_user)await _loadData(_user.uid); else {_progress={};_notes={};} },
   isSlotDone(k){ return _progress[k]===true; },
-  toggleSlot(k){ if(_progress[k]){ delete _progress[k]; _progRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } else { _progress[k]=true; _progRef().set({[k]:true},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } },
-  getNote(k){ return _notes[k]||''; },
+  toggleSlot(k){ if(_progress[k]){ delete _progress[k]; _progRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } else { _progress[k]=true; _progRef().set({[k]:true},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } },  getNote(k){ return _notes[k]||''; },
   saveNote(k,t){ const v=(t||'').trim(); if(v){_notes[k]=v;_notesRef().set({[k]:v},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));}else{delete _notes[k];_notesRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));} },
-  calculateStreak(){ let s=0; const now=new Date(); for(let b=0;b<30;b++){const d=new Date(now);d.setDate(d.getDate()-b);const ds=d.toISOString().slice(0,10);const any=Object.keys(_progress).some(k=>k.startsWith(ds+'_')&&_progress[k]===true);if(any)s++;else if(b>0)break;} return s; },
+  calculateStreak(){ let s=0; const now=new Date(); for(let b=0;b<30;b++){const d=new Date(now);d.setDate(d.getDate()-b);const ds=d.toISOString().slice(0,10);const anyReg=Object.keys(_progress).some(k=>k.startsWith(ds+'_')&&_progress[k]===true);const anySv=Object.keys(_progress).some(k=>k.startsWith('sv_'+ds+'_')&&_progress[k]===true);if(anyReg||anySv)s++;else if(b>0)break;} return s; },
   weeklyStats(){ let dm=0,tm=0,sd={}; const now=new Date(),ti=[6,0,1,2,3,4,5][now.getDay()]; DAYS.forEach((day,di)=>{const d=new Date(now);d.setDate(d.getDate()+(di-ti));const ds=d.toISOString().slice(0,10);let si=0;day.slots.forEach(sl=>{if(sl.brk)return;tm+=sl.dur;if(_progress[`${ds}_${di}_${si}`]===true){dm+=sl.dur;sd[sl.subj]=(sd[sl.subj]||0)+sl.dur;}si++;});}); return{doneMins:dm,totalMins:tm,subjectDone:sd}; }
 };
 
@@ -596,6 +611,8 @@ let activeTab='schedule', activeDay=[6,0,1,2,3,4,5][new Date().getDay()]??0;
 let openInsight=-1, activePhase=0, showSummer=false;
 let darkMode=localStorage.getItem('theme')||'auto';
 let _gcalHelpOpen=false;
+// Summer vacation checklist — date navigator
+let _summerDate=new Date().toISOString().slice(0,10); // e.g. "2026-05-18"
 
 function todayIdx(){ return [6,0,1,2,3,4,5][new Date().getDay()]??0; }
 function dateKey(off=0){ const d=new Date();d.setDate(d.getDate()+off);return d.toISOString().slice(0,10); }
@@ -605,6 +622,31 @@ function todayMotiv(){ const doy=Math.floor((new Date()-new Date(new Date().getF
 function progKey(di,si){ return `${dateKey(di-todayIdx())}_${di}_${si}`; }
 function noteKey(di,si){ return `${di}_${si}`; }
 function dayProg(di){ const slots=DAYS[di].slots.filter(s=>!s.brk);return{done:slots.filter((_,si)=>FB.isSlotDone(progKey(di,si))).length,total:slots.length}; }
+// Summer vacation checklist keys: sv_YYYY-MM-DD_slotIndex
+function svKey(date,si){ return `sv_${date}_${si}`; }
+function summerProg(date){
+  const studySlots=SUMMER_SLOTS.map((s,i)=>({s,i})).filter(({s})=>s.type==='study');
+  const done=studySlots.filter(({i})=>FB.isSlotDone(svKey(date,i))).length;
+  return{done,total:studySlots.length};
+}
+// Is a given date string a school day (Mon–Fri) within summer vacation?
+function isSummerSchoolDay(dateStr){
+  const d=new Date(dateStr+'T00:00:00');
+  const dow=d.getDay(); // 0=Sun,6=Sat
+  if(dow===0||dow===6) return false;
+  const start=new Date('2026-05-17T00:00:00'),end=new Date('2026-06-21T00:00:00');
+  return d>=start&&d<=end;
+}
+// Navigate summer date by offset days, staying within May 17 – Jun 21
+function moveSummerDate(offset){
+  const d=new Date(_summerDate+'T00:00:00');
+  d.setDate(d.getDate()+offset);
+  const s=new Date('2026-05-17T00:00:00'),e=new Date('2026-06-21T00:00:00');
+  if(d<s)d.setTime(s.getTime());
+  if(d>e)d.setTime(e.getTime());
+  _summerDate=d.toISOString().slice(0,10);
+  render();
+}
 
 function applyTheme(){
   document.body.classList.remove('theme-dark','theme-light');
@@ -1078,7 +1120,54 @@ function renderSchedule(){
   const flowCard=div({class:'flow-card'},div({class:'flow-card-title'},'🕐 '+(activeDay<5?'Weekday Flow':activeDay===5?'Saturday Flow':'Sunday Flow')),...flowRows.map(r=>div({class:'flow-row'},div({class:'flow-dot',style:{background:r.bold?dc:'#9CA3AF'}}),div({},div({class:'flow-time',style:{color:r.bold?dc:'#9CA3AF'}},r.t),div({class:'flow-lbl'+(r.bold?' bold':'')},r.l)))));
   const summerCard=div({class:'summer-card'},
     div({class:'summer-head',onclick:()=>{showSummer=!showSummer;render();},role:'button','aria-expanded':showSummer?'true':'false'},span({style:{fontSize:'18px'}},'☀️'),div({style:{flex:1}},div({style:{fontWeight:900,fontSize:'13px',color:'#EA580C'}},'Summer Vacation Schedule  (May 17 – Jun 21)'),div({style:{fontSize:'11px',color:'#9CA3AF',marginTop:'2px'}},'Full-day study plan · tap to '+(showSummer?'hide':'view'))),span({class:'insight-arrow'},showSummer?'▲':'▼')),
-    showSummer?div({class:'summer-slots'},...SUMMER_SLOTS.map(s=>{if(s.type==='break')return div({class:'slot-break',style:{margin:'3px 0'}},span({},'☕'),span({style:{fontSize:'11px',color:'#9CA3AF'}},s.time+' · Break'));const bg={study:'#EFF6FF',play:'#E0F2FE',rest:'#FEFCE8',routine:'#F8FAFC'};return div({class:'summer-slot',style:{background:bg[s.type]||'#F8FAFC'}},div({class:'summer-slot-icon',style:{background:s.color}},s.icon),div({},div({style:{display:'flex',justifyContent:'space-between',alignItems:'center',gap:'6px'}},span({class:'summer-slot-lbl'},s.label),span({class:'summer-slot-time',style:{color:s.color}},s.time)),s.note?div({class:'summer-slot-note'},s.note):null));})):null
+    showSummer?(()=>{
+      // Date navigator
+      const atStart=_summerDate<='2026-05-17', atEnd=_summerDate>='2026-06-21';
+      const dispDate=new Date(_summerDate+'T00:00:00');
+      const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      const monthNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const dateLbl=`${dayNames[dispDate.getDay()]}, ${dispDate.getDate()} ${monthNames[dispDate.getMonth()]}`;
+      const isSchoolDay=isSummerSchoolDay(_summerDate);
+      const prog=summerProg(_summerDate);
+      const pct=prog.total?Math.round((prog.done/prog.total)*100):0;
+      const bg={study:'#EFF6FF',play:'#E0F2FE',rest:'#FEFCE8',routine:'#F8FAFC'};
+      const dateNav=div({class:'summer-date-nav'},
+        btn({class:'summer-nav-btn',...(atStart?{disabled:''}:{}),onclick:(e)=>{e.stopPropagation();moveSummerDate(-1);}}, '◀'),
+        span({class:'summer-date-lbl'},dateLbl),
+        btn({class:'summer-nav-btn',...(atEnd?{disabled:''}:{}),onclick:(e)=>{e.stopPropagation();moveSummerDate(1);}}, '▶')
+      );
+      const progRow=isSchoolDay?div({class:'summer-prog-row'},
+        span({},prog.done===prog.total&&prog.total>0?'✅ All done!':'☀️ '+prog.done+' / '+prog.total+' study slots done'),
+        span({style:{color:prog.done===prog.total&&prog.total>0?'#16A34A':'#9CA3AF'}},pct+'%')
+      ):null;
+      const progBar=isSchoolDay&&prog.total>0?div({class:'summer-progress-bar-wrap'},div({class:'summer-progress-bar-fill',style:{width:pct+'%'}})):null;
+      const slotsEl=isSchoolDay
+        ? div({class:'summer-slots'},...SUMMER_SLOTS.map((s,i)=>{
+            if(s.type==='break') return div({class:'slot-break',style:{margin:'3px 0'}},span({},'☕'),span({style:{fontSize:'11px',color:'#9CA3AF'}},s.time+' · Break'));
+            const isStudy=s.type==='study';
+            const done=isStudy&&FB.isSlotDone(svKey(_summerDate,i));
+            const slotEl=div({class:'summer-slot'+(done?' sv-done':''),style:{background:bg[s.type]||'#F8FAFC'}},
+              div({class:'summer-slot-icon',style:{background:done?'#9CA3AF':s.color}},s.icon),
+              div({style:{flex:1,minWidth:0}},
+                div({style:{display:'flex',justifyContent:'space-between',alignItems:'center',gap:'6px'}},
+                  span({class:'summer-slot-lbl'},s.label),
+                  span({class:'summer-slot-time',style:{color:done?'#9CA3AF':s.color}},s.time)
+                ),
+                s.note?div({class:'summer-slot-note'},s.note):null,
+                isStudy?div({class:'summer-slot-check-wrap'},
+                  el('label',{class:'sv-check-label',onclick:(e)=>e.stopPropagation()},
+                    el('input',{type:'checkbox',...(done?{checked:''}:{}),onchange:(e)=>{e.stopPropagation();FB.toggleSlot(svKey(_summerDate,i));render();}}),
+                    span({},done?'✓ Done':'Mark done')
+                  )
+                ):null
+              )
+            );
+            return slotEl;
+          }))
+        : div({class:'summer-nonschool-note'},'📅 '+dateLbl+' is a '+(['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][dispDate.getDay()])+' — checklist is for Mon–Fri school days only.\nWeekend is free time! 🎉');
+      return [dateNav, progRow, progBar, slotsEl];
+    })()
+    :null
   );
   return div({class:'tab-content'},streakBanner,dayScroll,header,slots,flowCard,summerCard);
 }
