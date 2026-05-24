@@ -401,6 +401,11 @@ body.theme-dark .yt-subj-tab.active{background:#2d0606;border-color:#7f1d1d;colo
 .yt-lang-en{background:#DBEAFE;color:#1D4ED8;}
 .yt-lang-hi{background:#FEF3C7;color:#92400E;}
 .yt-link-arrow{font-size:14px;color:var(--text3);flex-shrink:0;}
+.summer-week-banner{margin:6px 10px 2px;padding:9px 12px;border-radius:12px;border-left:4px solid #EA580C;background:#FFF7ED;}
+body.theme-dark .summer-week-banner{background:#2a1500;}
+.summer-week-name{font-size:11px;font-weight:900;color:#EA580C;margin-bottom:2px;}
+.summer-week-focus{font-size:11px;color:var(--text2);font-weight:700;line-height:1.4;}
+.summer-slot-note-extra{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4;padding-top:3px;border-top:1px solid var(--border2);}
 </style>
 </head>
 <body>
@@ -1166,6 +1171,63 @@ function isSummerVacation(){
   return today>='2026-05-17'&&today<='2026-06-21';
 }
 
+// Returns the Phase 2 week object for a given date string
+function getSummerWeekData(dateStr){
+  const phase2=PHASES.find(p=>p.label==='Summer Vacation');
+  if(!phase2)return null;
+  const ranges=[
+    {start:'2026-05-17',end:'2026-05-23',idx:0},
+    {start:'2026-05-24',end:'2026-05-30',idx:1},
+    {start:'2026-05-31',end:'2026-06-06',idx:2},
+    {start:'2026-06-07',end:'2026-06-13',idx:3},
+    {start:'2026-06-14',end:'2026-06-21',idx:4},
+  ];
+  const r=ranges.find(x=>dateStr>=x.start&&dateStr<=x.end);
+  return r?phase2.weeks[r.idx]||null:null;
+}
+
+// Match a summer slot label to its roadmap row description for the current week
+// Returns { note, extraNote } where extraNote is for combined slots (Active English / Magnolia)
+function getSlotWeekNote(weekData,slotLabel){
+  if(!weekData||!weekData.rows)return{note:null,extraNote:null};
+  const lbl=slotLabel.toLowerCase();
+  // Keyword map: slot keyword → row subject keywords to search
+  const map=[
+    {slot:'active english',keys:['active english']},
+    {slot:'magnolia',keys:['magnolia']},
+    {slot:'mathematics',keys:['maths']},
+    {slot:'evs',keys:['evs']},
+    {slot:'hindi vaideeka',keys:['hindi']},
+    {slot:'english grammar',keys:['eng grammar','grammar']},
+    {slot:'general knowledge',keys:['gk']},
+    {slot:'hindi grammar',keys:['hindi']},
+    {slot:'spelling',keys:['poems']},
+    {slot:'poem',keys:['poems']},
+    {slot:'tables',keys:['maths']},
+    {slot:'mental maths',keys:['maths']},
+  ];
+  const findRow=(keys)=>{
+    for(const row of weekData.rows){
+      const rs=row[0].toLowerCase();
+      if(keys.some(k=>rs.includes(k)))return row[1];
+    }
+    return null;
+  };
+  // Special case: "Active English / Magnolia" → combine both rows
+  if(lbl.includes('active english')&&lbl.includes('magnolia')){
+    const n1=findRow(['active english']);
+    const n2=findRow(['magnolia']);
+    return{note:n1,extraNote:n2};
+  }
+  // General case
+  for(const m of map){
+    if(lbl.includes(m.slot)){
+      return{note:findRow(m.keys),extraNote:null};
+    }
+  }
+  return{note:null,extraNote:null};
+}
+
 function todayIdx(){ return [6,0,1,2,3,4,5][new Date().getDay()]??0; }
 function dateKey(off=0){ const d=new Date();d.setDate(d.getDate()+off);return d.toISOString().slice(0,10); }
 function curWeekNum(){ return Math.min(Math.max(Math.floor((new Date()-new Date('2026-04-13'))/604800000)+1,1),11); }
@@ -1700,10 +1762,19 @@ function renderSchedule(){
         span({style:{color:prog.done===prog.total&&prog.total>0?'#16A34A':'#9CA3AF'}},pct+'%')
       );
       const progBar=prog.total>0?div({class:'summer-progress-bar-wrap'},div({class:'summer-progress-bar-fill',style:{width:pct+'%'}})):null;
+      // Week-specific context from roadmap
+      const weekData=getSummerWeekData(_summerDate);
+      const weekBanner=weekData?div({class:'summer-week-banner'},
+        div({class:'summer-week-name'},weekData.week+' · '+weekData.tag),
+        div({class:'summer-week-focus'},'★ '+weekData.focus)
+      ):null;
       const slotsEl=div({class:'summer-slots'},...SUMMER_SLOTS.map((s,i)=>{
             if(s.type==='break') return div({class:'slot-break',style:{margin:'3px 0'}},span({},'☕'),span({style:{fontSize:'11px',color:'#9CA3AF'}},s.time+' · Break'));
             const isStudy=s.type==='study';
             const done=isStudy&&FB.isSlotDone(svKey(_summerDate,i));
+            // Get week-specific note from roadmap, fall back to generic note
+            const {note:weekNote,extraNote}=isStudy?getSlotWeekNote(weekData,s.label):{note:null,extraNote:null};
+            const displayNote=weekNote||s.note;
             return div({class:'summer-slot'+(done?' sv-done':''),style:{background:bg[s.type]||'#F8FAFC'}},
               div({class:'summer-slot-icon',style:{background:done?'#9CA3AF':s.color}},s.icon),
               div({style:{flex:1,minWidth:0}},
@@ -1711,7 +1782,8 @@ function renderSchedule(){
                   span({class:'summer-slot-lbl'},s.label),
                   span({class:'summer-slot-time',style:{color:done?'#9CA3AF':s.color}},s.time)
                 ),
-                s.note?div({class:'summer-slot-note'},s.note):null,
+                displayNote?div({class:'summer-slot-note'},displayNote):null,
+                extraNote?div({class:'summer-slot-note-extra'},'📖 Magnolia: '+extraNote):null,
                 isStudy?div({class:'summer-slot-check-wrap'},
                   el('label',{class:'sv-check-label',onclick:(e)=>e.stopPropagation()},
                     el('input',{type:'checkbox',...(done?{checked:''}:{}),onchange:(e)=>{e.stopPropagation();FB.toggleSlot(svKey(_summerDate,i));render();}}),
@@ -1721,7 +1793,7 @@ function renderSchedule(){
               )
             );
           }));
-      return [dateNav, progRow, progBar, slotsEl];
+      return [dateNav, progRow, progBar, weekBanner, slotsEl];
     })()
     :null
   );
