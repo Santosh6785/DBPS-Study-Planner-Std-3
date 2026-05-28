@@ -1,6 +1,6 @@
-const CACHE = "studyplan-v5";
+const CACHE = "studyplan-v6";
 const LOCAL_FILES = [
-  "./index.html","./data.js","./app.js","./firebase.js",
+  "./index.html",
   "./manifest.json","./icon-192.svg","./icon-512.svg","./icon-180.png",
 ];
 self.addEventListener("install",e=>{

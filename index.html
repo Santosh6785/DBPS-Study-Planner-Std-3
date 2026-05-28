@@ -406,6 +406,11 @@ body.theme-dark .summer-week-banner{background:#2a1500;}
 .summer-week-name{font-size:11px;font-weight:900;color:#EA580C;margin-bottom:2px;}
 .summer-week-focus{font-size:11px;color:var(--text2);font-weight:700;line-height:1.4;}
 .summer-slot-note-extra{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4;padding-top:3px;border-top:1px solid var(--border2);}
+/* Toast */
+.toast{position:fixed;bottom:calc(var(--nav-h) + var(--safe-bot) + 12px);left:50%;transform:translateX(-50%);background:#1f2937;color:#fff;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:700;z-index:9999;animation:toastin .2s ease,toastout .3s ease 2.7s forwards;white-space:nowrap;max-width:calc(100vw - 32px);pointer-events:none;box-shadow:0 4px 12px rgba(0,0,0,.3);}
+.toast.toast-error{background:#DC2626;}
+@keyframes toastin{from{opacity:0;transform:translateX(-50%) translateY(8px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+@keyframes toastout{from{opacity:1;}to{opacity:0;}}
 </style>
 </head>
 <body>
@@ -448,7 +453,7 @@ body.theme-dark .summer-week-banner{background:#2a1500;}
       </div>
     </div>
     <div id="class-selector-row" style="margin-bottom:8px;">
-      <select id="class-selector" class="class-selector" title="Switch child">
+      <select id="class-selector" class="class-selector" aria-label="Switch child" title="Switch child">
         <option value="std2">Sanrachna (Std 2)</option>
         <option value="std3">Saarthak (Std 3)</option>
       </select>
@@ -715,6 +720,19 @@ async function _loadData(uid) {
   }
 }
 
+let _toastTimer;
+function showToast(msg, isError) {
+  const existing = document.getElementById('toast-el');
+  if (existing) existing.remove();
+  clearTimeout(_toastTimer);
+  const t = document.createElement('div');
+  t.id = 'toast-el';
+  t.className = 'toast' + (isError ? ' toast-error' : '');
+  t.textContent = msg;
+  document.body.appendChild(t);
+  _toastTimer = setTimeout(() => t.remove(), 3000);
+}
+
 _auth.onAuthStateChanged(async user => {
   console.log('[FB] auth state:',user?'signed in':'signed out');
   _user = user;
@@ -733,8 +751,9 @@ const FB = {
   async saveSettings(data){ if(!_user)return; try{ await _db.doc(`users/${_user.uid}/data/settings`).set(data,{merge:true}); }catch(e){console.warn('[FB] settings:',e.code);} },
   async loadSettings(){ if(!_user)return null; try{ const s=await _db.doc(`users/${_user.uid}/data/settings`).get(); return s.exists?s.data():null; }catch(e){return null;} },
   isSlotDone(k){ return _progress[k]===true; },
-  toggleSlot(k){ if(_progress[k]){ delete _progress[k]; _progRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } else { _progress[k]=true; _progRef().set({[k]:true},{merge:true}).catch(e=>console.warn('[FB] toggle:',e.code)); } },  getNote(k){ return _notes[k]||''; },
-  saveNote(k,t){ const v=(t||'').trim(); if(v){_notes[k]=v;_notesRef().set({[k]:v},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));}else{delete _notes[k];_notesRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>console.warn('[FB] note:',e.code));} },
+  toggleSlot(k){ if(_progress[k]){ delete _progress[k]; _progRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>{console.warn('[FB] toggle:',e.code);showToast('⚠️ Could not save — check your connection',true);}); } else { _progress[k]=true; _progRef().set({[k]:true},{merge:true}).catch(e=>{console.warn('[FB] toggle:',e.code);showToast('⚠️ Could not save — check your connection',true);}); } },
+  getNote(k){ return _notes[k]||''; },
+  saveNote(k,t){ const v=(t||'').trim(); if(v){_notes[k]=v;_notesRef().set({[k]:v},{merge:true}).catch(e=>{console.warn('[FB] note:',e.code);showToast('⚠️ Note not saved — check your connection',true);});}else{delete _notes[k];_notesRef().set({[k]:firebase.firestore.FieldValue.delete()},{merge:true}).catch(e=>{console.warn('[FB] note:',e.code);showToast('⚠️ Note not saved — check your connection',true);});} },
   calculateStreak(){ let s=0; const now=new Date(); for(let b=0;b<30;b++){const d=new Date(now);d.setDate(d.getDate()-b);const ds=d.toISOString().slice(0,10);const anyReg=Object.keys(_progress).some(k=>k.startsWith(ds+'_')&&_progress[k]===true);const anySv=Object.keys(_progress).some(k=>k.startsWith('sv_'+ds+'_')&&_progress[k]===true);if(anyReg||anySv)s++;else if(b>0)break;} return s; },
   weeklyStats(){ let dm=0,tm=0,sd={}; const now=new Date(),ti=[6,0,1,2,3,4,5][now.getDay()]; DAYS.forEach((day,di)=>{const d=new Date(now);d.setDate(d.getDate()+(di-ti));const ds=d.toISOString().slice(0,10);let si=0;day.slots.forEach(sl=>{if(sl.brk)return;tm+=sl.dur;if(_progress[`${ds}_${di}_${si}`]===true){dm+=sl.dur;sd[sl.subj]=(sd[sl.subj]||0)+sl.dur;}si++;});}); return{doneMins:dm,totalMins:tm,subjectDone:sd}; },
   async saveMockResult(subj,score,total){
@@ -742,7 +761,7 @@ const FB = {
     const rec={subj,score,total,date:new Date().toISOString(),class:_currentClass};
     try{
       await _db.collection('users').doc(_user.uid).collection('mock_history').add(rec);
-    }catch(e){console.warn('[FB] mock save:',e.code);}
+    }catch(e){console.warn('[FB] mock save:',e.code);showToast('⚠️ Score not saved — check your connection',true);}
   },
   async loadMockHistory(){
     if(!_user) return [];
@@ -2109,8 +2128,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 
-// Service worker registration intentionally removed — no sw.js shipped with this build.
-// If offline caching is wanted later, add a sw.js and reinstate the registration here.
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(e => console.warn('[SW] Registration failed:', e));
+  });
+}
 </script>
 </body>
 </html>
