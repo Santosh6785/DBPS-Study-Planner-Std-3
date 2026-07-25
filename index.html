@@ -1447,8 +1447,8 @@ function getSlotWeekNote(weekData,slotLabel){
 
 function todayIdx(){ return [6,0,1,2,3,4,5][new Date().getDay()]??0; }
 function dateKey(off=0){ const d=new Date();d.setDate(d.getDate()+off);return d.toISOString().slice(0,10); }
-function curWeekNum(){ return Math.min(Math.max(Math.floor((new Date()-new Date('2026-04-13'))/604800000)+1,1),11); }
-function curPhaseIdx(){ const w=curWeekNum();return w<=5?0:w<=10?1:2; }
+function curWeekNum(){ return Math.min(Math.max(Math.floor((new Date()-new Date('2026-07-25T00:00:00'))/604800000)+1,1),6); }
+function curPhaseIdx(){ const w=curWeekNum();return w<=3?0:w<=5?1:2; }
 function todayMotiv(){ const doy=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/86400000);return MOTIV_TIPS[doy%MOTIV_TIPS.length]; }
 function progKey(di,si){ return `${dateKey(di-todayIdx())}_${di}_${si}`; }
 function noteKey(di,si){ return `${di}_${si}`; }
@@ -2196,13 +2196,13 @@ function renderYouTube(){
   );
 }
 function renderRoadmap(){
-  const ph=PHASES[activePhase],cw=curWeekNum(),cp=curPhaseIdx(),wo=activePhase===0?0:activePhase===1?5:10,pct=Math.min(Math.round(((cw-1)/11)*100),100);
+  const ph=PHASES[activePhase],cw=curWeekNum(),cp=curPhaseIdx(),wo=activePhase===0?0:activePhase===1?3:5,pct=Math.min(Math.round(((cw-1)/6)*100),100);
   const phaseToggle=div({class:'phase-toggle'},...PHASES.map((p,i)=>btn({class:'phase-btn'+(i===activePhase?' active':'')+(i===cp?' cur-phase':''),style:i===activePhase?{background:p.color,color:'#fff',borderColor:p.color}:{},onclick:()=>{activePhase=i;render();}},p.icon+'  '+p.label+(i===cp?' 📍':''))));
-  const overallCard=div({class:'overall-card'},div({class:'overall-title'},`📍 Currently in Week ${cw} of 11`),div({class:'overall-track'},div({class:'overall-fill',style:{width:pct+'%'}})),div({class:'overall-labels'},span({},'Apr 13'),span({style:{fontWeight:800,color:'#2563EB'}},`Wk ${cw}`),span({},'Sep 2026 🎯')),div({class:'ical-row'},btn({class:'ical-btn',onclick:exportIcal},'📅 Export key dates to calendar (.ics)')));
+  const overallCard=div({class:'overall-card'},div({class:'overall-title'},`📍 Currently in Week ${cw} of 6`),div({class:'overall-track'},div({class:'overall-fill',style:{width:pct+'%'}})),div({class:'overall-labels'},span({},'Jul 25'),span({style:{fontWeight:800,color:'#2563EB'}},`Wk ${cw}`),span({},'Sep 2026 🎯')),div({class:'ical-row'},btn({class:'ical-btn',onclick:exportIcal},'📅 Export key dates to calendar (.ics)')));
   const phaseHeader=div({class:'phase-header',style:{background:ph.color}},div({class:'phase-header-top'},span({style:{fontSize:'28px'}},ph.icon),div({},div({class:'phase-title'},ph.phase+': '+ph.label),div({class:'phase-dates'},ph.dates))),div({class:'phase-note'},'📌 '+ph.note));
   const weekCards=ph.weeks.map((wk,wi)=>{const gn=wo+wi+1,isCur=gn===cw,isPast=gn<cw;return div({class:'week-card'+(isCur?' week-current':'')+(isPast?' week-past':''),...(isCur?{id:'cur-week-card'}:{})},div({class:'week-head',style:{background:isPast?'#6b7280':wk.color}},span({class:'week-title'},(isCur?'📍 ':'')+(isPast?'✓ ':'')+wk.week),span({class:'week-tag'},isCur?'← This Week':isPast?'Done':wk.tag)),div({class:'week-focus',style:{borderColor:isPast?'#9CA3AF':wk.color,color:isPast?'#9CA3AF':wk.color}},'★  '+wk.focus),div({class:'week-rows'},...wk.rows.map(([l,v])=>div({class:'week-row'},span({class:'week-row-lbl'},l),span({class:'week-row-val'},v)))));});
   const summaryCard=div({class:'summary-card'},div({class:'summary-title'},'📊 Full Timeline at a Glance'),...PHASES.map(p=>div({class:'sum-row'},div({class:'sum-dot',style:{background:p.color}}),span({class:'sum-lbl'},p.icon+' '+p.phase+': '+p.label+' — '+p.dates),span({class:'sum-time',style:{color:p.color}},p.weeks.length+' wk'+(p.weeks.length>1?'s':'')))),div({class:'sum-total'},span({},'Total weeks until assessment'),span({style:{color:'#DC2626',fontWeight:'900'}},'11 weeks')),div({class:'sum-note'},'Assessment: Sep 2026 · Keep following the plan — you\'ve got this!'));
-  return div({class:'tab-content'},div({class:'roadmap-intro'},div({class:'roadmap-intro-title'},'🗺️ 3-Phase · 11-Week Roadmap'),div({class:'roadmap-intro-sub'},'Phase 1: School term · Phase 2: Summer vacation · Phase 3: Pre-assessment')),overallCard,phaseToggle,phaseHeader,...weekCards,summaryCard);
+  return div({class:'tab-content'},div({class:'roadmap-intro'},div({class:'roadmap-intro-title'},'🗺️ 3-Phase · 6-Week Roadmap'),div({class:'roadmap-intro-sub'},'Phase 1: New Content · Phase 2: Practice · Phase 3: Revision Sprint')),overallCard,phaseToggle,phaseHeader,...weekCards,summaryCard);
 }
 
 // ── Insights ──────────────────────────────────────────────
