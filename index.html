@@ -1762,8 +1762,7 @@ const GCAL = {
   async syncAll() {
     const keyDates    = await this.syncKeyDates();
     const reminders   = await this.syncDailyReminders();
-    const summerBlocks= await this.syncSummerBlocks();
-    return { keyDates, reminders, summerBlocks };
+    return { keyDates, reminders };
   }
 };
 
@@ -1812,7 +1811,7 @@ function renderCalSyncCard() {
 
   // Status line
   const statusText = configured
-    ? 'Ready · Tap a button to sync ' + lbl + ' events to Google Calendar.'
+    ? 'Ready · Sync ' + lbl + ' events for 1st Term 2nd Assessment to Google Calendar.'
     : '⚠️ Client ID not configured — follow the setup guide below to get started.';
   const statusEl = div({ id: 'gcal-status', class: configured ? 'gcal-status-idle' : 'gcal-status-error' }, statusText);
 
@@ -1864,9 +1863,9 @@ function renderCalSyncCard() {
         () => GCAL.syncDailyReminders(),
         () => '✅ Added recurring 6:25 PM reminders for Phase 1 and Phase 3 school days.'
       ),
-      makeActionBtn('☀️', 'Add summer study blocks', 'May 17–Jun 21 · Mon–Fri recurring events for each study slot', false,
-        () => GCAL.syncSummerBlocks(),
-        (n) => `✅ Added ${n} recurring summer study blocks to Google Calendar (Mon–Fri, May 17–Jun 21).`
+      makeActionBtn('☀️', 'Add summer study blocks', 'Summer is over — this button is disabled', false,
+        () => Promise.reject(new Error('Summer vacation (May 17–Jun 21) is over. No summer blocks needed.')),
+        () => ''
       ),
 
       div({ class: 'gcal-divider' }),
@@ -1874,7 +1873,7 @@ function renderCalSyncCard() {
       // Primary "Set up all" button
       makeActionBtn('⚡', 'Set up all', 'One-time Google sign-in · Runs all three actions above', true,
         () => GCAL.syncAll(),
-        (r) => `✅ Done! ${r.keyDates} key dates · 2 daily reminder series · ${r.summerBlocks} summer blocks added.`
+        (r) => `✅ Done! ${r.keyDates} key dates · 2 daily reminder series added to Google Calendar.`
       ),
 
       div({ class: 'gcal-divider' }),
