@@ -1,4 +1,4 @@
-const CACHE = "studyplan-v6";
+const CACHE = "studyplan-v7";
 const LOCAL_FILES = [
   "./index.html",
   "./manifest.json","./icon-192.svg","./icon-512.svg","./icon-180.png",
