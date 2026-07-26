@@ -411,6 +411,62 @@ body.theme-dark .summer-week-banner{background:#2a1500;}
 .toast.toast-error{background:#DC2626;}
 @keyframes toastin{from{opacity:0;transform:translateX(-50%) translateY(8px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
 @keyframes toastout{from{opacity:1;}to{opacity:0;}}
+
+/* ── Spelling Practice ───────────────────────────────────── */
+.spell-wrap{padding:10px 12px;}
+.spell-header-row{margin-bottom:14px;}
+.spell-h1{font-size:16px;font-weight:900;color:var(--text);}
+.spell-sub{font-size:11px;color:var(--text3);font-weight:700;margin-top:2px;}
+.spell-lang-row{display:flex;gap:8px;margin-bottom:16px;}
+.spell-lang-btn{flex:1;padding:9px;border-radius:12px;border:2px solid var(--border);background:var(--border2);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;transition:all .15s;}
+.spell-lang-btn.active{border-color:#3B82F6;background:#EFF6FF;color:#1D4ED8;}
+body.theme-dark .spell-lang-btn.active{background:#1e3a5f;color:#93C5FD;}
+.spell-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.spell-card-topic{background:var(--surface);border-radius:14px;padding:14px 12px;cursor:pointer;border:2px solid var(--border);transition:all .15s;}
+.spell-card-topic:active{transform:scale(.96);}
+.spell-topic-icon{font-size:26px;margin-bottom:5px;}
+.spell-topic-name{font-size:12px;font-weight:900;color:var(--text);line-height:1.2;margin-bottom:2px;}
+.spell-topic-count{font-size:10px;color:var(--text3);font-weight:700;margin-bottom:7px;}
+.spell-topic-bar{height:4px;background:var(--border2);border-radius:2px;overflow:hidden;}
+.spell-topic-fill{height:4px;border-radius:2px;background:linear-gradient(90deg,#22C55E,#16A34A);transition:width .3s;}
+.spell-mastery-label{font-size:10px;color:#22C55E;font-weight:900;margin-top:3px;}
+/* Drill screen */
+.spell-drill{padding:10px 12px;}
+.spell-back{display:flex;align-items:center;gap:5px;background:none;border:none;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--text2);cursor:pointer;margin-bottom:12px;padding:0;}
+.spell-drill-h{font-size:15px;font-weight:900;color:var(--text);margin-bottom:2px;}
+.spell-drill-desc{font-size:11px;color:var(--text3);font-weight:700;margin-bottom:10px;}
+.spell-prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.spell-prog-txt{font-size:12px;font-weight:800;color:var(--text2);}
+.spell-badges{display:flex;gap:8px;}
+.spell-b-ok{font-size:12px;font-weight:900;color:#22C55E;}
+.spell-b-ng{font-size:12px;font-weight:900;color:#EF4444;}
+.spell-track{height:5px;background:var(--border2);border-radius:3px;overflow:hidden;margin-bottom:14px;}
+.spell-track-fill{height:5px;border-radius:3px;background:linear-gradient(90deg,#3B82F6,#8B5CF6);transition:width .3s;}
+.spell-fc{background:var(--surface);border-radius:20px;padding:24px 16px;min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin-bottom:14px;box-shadow:0 3px 16px rgba(0,0,0,.08);border:2px solid var(--border);cursor:pointer;}
+.spell-fc-type{font-size:10px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;}
+.spell-fc-hint{font-size:11px;color:#F97316;font-weight:800;background:#FFF7ED;padding:5px 10px;border-radius:8px;margin-bottom:10px;}
+body.theme-dark .spell-fc-hint{background:#2a1500;color:#FB923C;}
+.spell-fc-prompt{font-size:12px;color:var(--text2);font-weight:700;margin-bottom:6px;}
+.spell-fc-word{font-size:26px;font-weight:900;color:var(--text);line-height:1.2;margin-bottom:6px;}
+.spell-fc-word.hindi{font-size:20px;}
+.spell-fc-tap{font-size:11px;color:var(--text3);font-weight:700;margin-top:8px;}
+.spell-fc-answer{font-size:20px;font-weight:900;color:#2563EB;margin-top:10px;padding-top:10px;border-top:2px dashed var(--border);width:100%;line-height:1.4;}
+.spell-fc-answer.hindi{font-size:16px;}
+.spell-btns{display:flex;gap:10px;}
+.spell-reveal-btn{flex:1;padding:13px;background:linear-gradient(135deg,#1a1a2e,#3B82F6);color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;cursor:pointer;}
+.spell-ok-btn{flex:1;padding:13px;background:#22C55E;color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;cursor:pointer;}
+.spell-ng-btn{flex:1;padding:13px;background:#EF4444;color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;cursor:pointer;}
+/* Result */
+.spell-result{background:var(--surface);border-radius:20px;padding:24px 16px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.08);}
+.spell-res-emoji{font-size:48px;margin-bottom:10px;}
+.spell-res-title{font-size:17px;font-weight:900;color:var(--text);margin-bottom:4px;}
+.spell-res-score{font-size:36px;font-weight:900;margin:6px 0;}
+.spell-res-sub{font-size:12px;color:var(--text2);font-weight:700;margin-bottom:18px;}
+.spell-res-actions{display:flex;flex-direction:column;gap:9px;}
+.spell-review-btn{padding:12px;background:#F97316;color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;cursor:pointer;}
+.spell-retry-btn{padding:12px;background:#3B82F6;color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;cursor:pointer;}
+.spell-back-btn2{padding:12px;background:var(--border2);border:2px solid var(--border);border-radius:14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--text2);cursor:pointer;}
+
 </style>
 </head>
 <body>
@@ -466,6 +522,7 @@ body.theme-dark .summer-week-banner{background:#2a1500;}
     <button class="tab-btn" data-tab="roadmap">🗺️ Roadmap</button>
     <button class="tab-btn" data-tab="insights">💡 Insights</button>
     <button class="tab-btn" data-tab="mock">📝 Tests</button>
+    <button class="tab-btn" data-tab="spelling">📚 Spell</button>
   </div>
   <main id="main"></main>
   <nav class="bottom-nav">
@@ -473,6 +530,7 @@ body.theme-dark .summer-week-banner{background:#2a1500;}
     <button class="nav-btn" data-tab="roadmap"><span class="nav-icon">🗺️</span><span class="nav-lbl">Roadmap</span></button>
     <button class="nav-btn" data-tab="insights"><span class="nav-icon">💡</span><span class="nav-lbl">Insights</span></button>
     <button class="nav-btn" data-tab="mock"><span class="nav-icon">📝</span><span class="nav-lbl">Tests</span></button>
+    <button class="nav-btn" data-tab="spelling"><span class="nav-icon">📚</span><span class="nav-lbl">Spell</span></button>
   </nav>
   <!-- Child name / count setup modal -->
   <div id="name-modal-overlay" class="name-modal-overlay" style="display:none;">
@@ -1080,6 +1138,7 @@ async function checkNameSetup(){
   }
 }
 // Mock test state
+let _spellLang='english',_spellTopic=null,_spellQueue=[],_spellIdx=0,_spellRevealed=false,_spellCorrect=[],_spellWrong=[],_spellDone=false,_spellRound=1;
 let _mockSubject=null, _mockAnswers=[], _mockRevealed=[], _mockDone=false, _mockHistory=[], _mockYtSubject=localStorage.getItem('ytSubject')||'english';
 
 // ── Mock Test Questions (ICSE Class 2 & 3) ───────────────
@@ -2258,7 +2317,7 @@ function render(){
   if(!main)return;
   main.innerHTML='';
   main.style.opacity='0';
-  const content=activeTab==='schedule'?renderSchedule():activeTab==='roadmap'?renderRoadmap():activeTab==='mock'?renderMock():renderInsights();
+  const content=activeTab==='schedule'?renderSchedule():activeTab==='roadmap'?renderRoadmap():activeTab==='mock'?renderMock():activeTab==='spelling'?renderSpelling():renderInsights();
   main.appendChild(content);
   requestAnimationFrame(()=>{main.style.transition='opacity .15s';main.style.opacity='1';});
   if(activeTab==='roadmap')setTimeout(()=>document.getElementById('cur-week-card')?.scrollIntoView({behavior:'smooth',block:'nearest'}),250);
@@ -2330,6 +2389,250 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(e => console.warn('[SW] Registration failed:', e));
   });
 }
+
+// ══════════════════════════════════════════════════════════════════
+// SPELLING PRACTICE — Data + Logic
+// ══════════════════════════════════════════════════════════════════
+const SPELLING_DATA={
+ std2:{
+  english:[
+   {id:'spellings',name:'Spellings',icon:'🔤',type:'dictation',desc:'📢 Read word aloud — child writes it',
+    words:['grunted','mothball','material','gather','snuggled','hornet','collector','labour','whispered','python','natural','community','quickly','leopard','product','occupation','discovered','gourd','religious','profession','cuddled','quarrel','independence','pleasure','listen','patch','British','leisure','laughed','occasion','Prime Minister','puppet','mosquitoes','religion','unfurl','carpenter','polyester','Janmashtami','tableau','dragged','acrylic','mosque','performance','frightened','comfortable','offering','believe','promise','cardigan','hymns','non-violence','exercising','uniform','pollution','honour','jewellery','traditional','plastic','jaggery','distribute','Japanese','drain','improve','accident']},
+   {id:'antonyms',name:'Antonyms',icon:'↔️',type:'pair',prompt:'Opposite of',desc:'Show word — child gives opposite',
+    words:[['weep','laugh'],['better','worse'],['safe','unsafe'],['children','parents'],['awake','asleep'],['follow','lead'],['borrow','lend'],['sink','float'],['everywhere','nowhere'],['deep','shallow'],['rough','smooth'],['simple','difficult']]},
+   {id:'synonyms',name:'Synonyms',icon:'≈',type:'pair',prompt:'Same meaning as',desc:'Show word — child gives synonym',
+    words:[['dirty','unclean'],['afraid','frightened'],['sad','unhappy'],['test','examine'],['ill','sick'],['whole','full'],['saved','rescued'],['bought','purchased'],['home','residence'],['near','close']]},
+   {id:'rhyming',name:'Rhyming Words',icon:'🎵',type:'pair',prompt:'Rhymes with',desc:'Say a word that rhymes',
+    words:[['cattle','battle'],['leader','reader'],['breeze','freeze'],['seat','meat'],['bricks','tricks'],['feast','beast'],['litter','bitter'],['loud','cloud'],['better','letter'],['mouse','house'],['found','sound'],['things','rings'],['grass','brass'],['treasure','measure']]},
+   {id:'homophones',name:'Homophones',icon:'👂',type:'pair',prompt:'Sounds the same as',desc:'Give the other word with the same sound',
+    words:[['meat','meet'],['four','for'],['blue','blew'],['beat','beet'],['pain','pane'],['would','wood'],['knows','nose'],['past','passed'],['hear','here'],['dear','deer'],['lead','led'],['pole','poll']]},
+   {id:'compound',name:'Compound Words',icon:'🔗',type:'compound',desc:'Join the two parts to make one word',
+    words:[['pencil','box','pencilbox'],['note','book','notebook'],['fisher','man','fisherman'],['basket','ball','basketball'],['house','fly','housefly'],['pop','corn','popcorn'],['flower','pot','flowerpot'],['hair','brush','hairbrush'],['table','cloth','tablecloth'],['class','room','classroom']]},
+   {id:'missing',name:'Missing Letters',icon:'✍️',type:'dictation',desc:'📢 Read word — child fills in missing letters',
+    words:['mothball','acrylic','polyester','pollution','accidents','hymns','traditional','mosque','jaggery','exercising']},
+   {id:'jumbled',name:'Jumbled Words',icon:'🔀',type:'jumbled',desc:'Unjumble the letters to find the correct word',
+    words:[['TENLIS','listen'],['QCKILYU','quickly'],['SLAIRETAM','materials'],['PPPTEU','puppet'],['HRTONE','hornet'],['PROVEIM','improve'],['OUSGIRELI','religious'],['LSEIREU','leisure']]},
+   {id:'building',name:'Building Words',icon:'🏗️',type:'building',desc:'Find 3+ letter words hidden in the base word',
+    words:[{base:'PROFESSION',found:['proof','noise','fine','soon','pine','for','son','on','pro']},{base:'COMFORTABLE',found:['table','comb','comfort','late','belt','able','fort','come','car']}]},
+  ],
+  hindi:[
+   {id:'vartani',name:'वर्तनी सूची',icon:'📝',type:'dictation',desc:'📢 शब्द पढ़ें — बच्चा लिखे',
+    words:['मिसरी','कोमल','एवरेस्ट','भारतीय','संदेशा','छोड़कर','चढ़ना','ईमानदार','कवयित्री','सूँघता','उछलना','लकड़हारा','प्यासी','मूँडराना','अवसर','सच्चाई','धरती','चक्कर','हिमालय','परिणाम','माँगती','प्रार्थना','महिला','कुल्हाड़ी','मेघों','तारीफ़','शिखर','परिश्रमी','वर्णन','कक्षा','आखिरी','गाँव','स्वर','उत्पन्न','ईश्वर','अचानक','मधुर','प्रयास','धन्यवाद','जलपरी','मिठास','प्रशंसा','आशीर्वाद','उदास','सिखलाई','प्रतीक्षा','विजय','इनाम','राष्ट्रीय','आराधना','लक्ष्य','प्रसन्नता','मुलायम','सागरमाथा','घबराना','डुबकी','लुढ़कता','निश्चय','पड़ोसी','लालची','नाखून','साहस','सराहनीय','ओझल','इंतजार','जय हिंद','सफलता','किनारे']},
+   {id:'paryayvachi',name:'पर्यायवाची',icon:'≈',type:'pair',prompt:'का पर्यायवाची',desc:'शब्द दिखाएँ — बच्चा पर्यायवाची बताए',
+    words:[['कोयल','कोकिला / पिक'],['धरती','धरा / भूमि'],['मिठास','मधुरता / मीठापन'],['माँ','माता / जननी'],['मुलायम','नरम / कोमल'],['तारीफ़','प्रशंसा / बड़ाई'],['प्रार्थना','विनती / याचना'],['कक्षा','वर्ग / श्रेणी'],['साहस','हिम्मत / बहादुरी'],['पाठशाला','विद्यालय / गुरुकुल']]},
+   {id:'vilom',name:'विलोम शब्द',icon:'↔️',type:'pair',prompt:'का विलोम',desc:'शब्द दिखाएँ — बच्चा विलोम बताए',
+    words:[['धरती','आसमान'],['विजय','पराजय'],['मीठी','कड़वी'],['आगे','पीछे'],['भला','बुरा'],['ईमानदार','बेईमान'],['तारीफ़','निंदा'],['मित्र','शत्रु'],['ऊँची','नीची'],['परिश्रमी','आलसी'],['महिला','पुरुष'],['शुद्ध','अशुद्ध']]},
+   {id:'tukant',name:'तुकांत शब्द',icon:'🎵',type:'pair',prompt:'से तुकांत',desc:'शब्द दिखाएँ — बच्चा तुकांत शब्द बताए',
+    words:[['डाली','माली / बाली'],['लकड़ी','मकड़ी / किड़ी'],['छोड़कर','तोड़कर / मोड़कर'],['चढ़ता','बढ़ता / पढ़ता'],['जाती','गाती / आती'],['बुलाती','सुलाती / रुलाती'],['रानी','नानी / पानी'],['छोटा','मोटा / लोटा'],['नरम','गरम / परम'],['जाऊँगा','लाऊँगा / खाऊँगा'],['बाल','डाल / खाल'],['वहाँ','जहाँ / कहाँ']]},
+   {id:'new_words',name:'नए शब्द बनाएँ',icon:'🏗️',type:'building',desc:'इन शब्दों से नए शब्द बनाएँ',
+    words:[{base:'लकड़हारा',found:['हारा','हाल','लड़']},{base:'जलपरी',found:['जल','परी','जर']},{base:'ईमानदार',found:['ईमान','दान','मान']},{base:'सफलता',found:['फल','लता','सफ']},{base:'धन्यवाद',found:['धन्य','दवा','धन']}]},
+  ]
+ },
+ std3:{
+  english:[
+   {id:'spellings',name:'Spellings',icon:'🔤',type:'dictation',desc:'📢 Read word aloud — child writes it',
+    words:['Olympics','constitution','aerial','flint','athlete','Kartavya Path','centaur','domesticate','gymnastic','spectacular','prophet','availability','ease','anniversary','cloak','transportation','operator','programme','Anauros','groove','announce','gratitude','veil','axle','champion','procession','southern','wandered','kindergarten','co-exist','peninsular','universities','greengrocer','immersed','parallel','fascinating','neighbourhood','auspicious','glacier','tuberculosis','veterinary','awakened','plateau','rickshaw','withdraw','thumping','bogle','opportunities','automated','trail','hedgy','knowledgeable','courier','experience','creature','secondary','restaurant','pine marten','clover','rural','meadow','kerosene','gradually','technologically']},
+   {id:'antonyms',name:'Antonyms',icon:'↔️',type:'pair',prompt:'Opposite of',desc:'Show word — child gives opposite',
+    words:[['broad','narrow'],['covered','uncovered'],['busy','idle'],['bottom','top'],['entrance','exit'],['quiet','noisy'],['weak','strong'],['beneath','above'],['sweet','sour'],['hard','soft'],['honest','dishonest'],['behind','ahead'],['kind','cruel'],['start','finish'],['asleep','awake']]},
+   {id:'synonyms',name:'Synonyms',icon:'≈',type:'pair',prompt:'Same meaning as',desc:'Show word — child gives synonym',
+    words:[['forest','jungle'],['repair','mend'],['street','road'],['collect','gather'],['fastened','tied'],['sure','certain'],['broad','wide'],['frightened','afraid'],['glad','happy'],['famous','popular'],['kind','generous'],['beautiful','pretty'],['answered','replied'],['jumped','leaped'],['present','gift']]},
+   {id:'rhyming',name:'Rhyming Words',icon:'🎵',type:'pair',prompt:'Rhymes with',desc:'Say a word that rhymes',
+    words:[['spend','lend'],['danger','manger'],['money','honey'],['wish','dish'],['might','right'],['brain','drain'],['ticking','licking'],['ditch','pitch'],['hissing','missing'],['found','round'],['mouth','south'],['feather','leather'],['cross','gross'],['chop','shop'],['best','rest']]},
+   {id:'analogies',name:'Analogies',icon:'🧩',type:'analogy',desc:'Complete the comparison — fill in the blank',
+    words:[['Wide is to narrow as tall is to ___','short'],['Author is to story as poet is to ___','poem'],['Lemon is to fruit as lettuce is to ___','leaf'],['Green is to colour as circle is to ___','shape'],['Desk is to write as chair is to ___','sit'],['Eye is to see as tooth is to ___','chew'],['Soft is to loud as slow is to ___','fast'],['Purple is to grapes as red is to ___','cherries'],['Fire is to hot as ice is to ___','cold'],['Fox is to den as bee is to ___','hive']]},
+   {id:'similes',name:'Similes',icon:'💬',type:'analogy',desc:'Complete the simile',
+    words:[['as old as ___','the hills'],['as light as ___','a feather'],['as playful as ___','a kitten'],['as happy as ___','a lark'],['as cute as ___','a baby'],['as quick as ___','lightning'],['as slow as ___','a tortoise'],['as smooth as ___','silk'],['as large as ___','life'],['as proud as ___','a peacock']]},
+   {id:'clipwords',name:'Clip Words',icon:'✂️',type:'pair',prompt:'Short form of',desc:'Show full word — child gives the short (clip) form',
+    words:[['zoological garden','zoo'],['photograph','photo'],['microphone','mike'],['rhinoceros','rhino'],['influenza','flu'],['gymnasium','gym'],['videography','video'],['hippopotamus','hippo']]},
+   {id:'plurals',name:'Special Plurals',icon:'🔢',type:'pair',prompt:'Plural of',desc:'Show word — child gives special plural form',
+    words:[['deer','deer (unchanged)'],['penny','pence'],['furniture','furniture (unchanged)'],['ox','oxen'],['news','news (unchanged)'],['child','children'],['scissors','scissors (unchanged)'],['gold','gold (unchanged)']]},
+   {id:'compound',name:'Compound Words',icon:'🔗',type:'compound',desc:'Join the parts — child says the compound word',
+    words:[['wall','paper','wallpaper'],['pocket','knife','pocketknife'],['horse','back','horseback'],['ear','phones','earphones'],['book','room','bookroom'],['water','mark','watermark'],['hair','clip','hairclip'],['broad','cast','broadcast']]},
+   {id:'homophones',name:'Homophones',icon:'👂',type:'pair',prompt:'Sounds the same as',desc:'Give the other word with the same sound',
+    words:[['foul','fowl'],['steel','steal'],['great','grate'],['beat','beet'],['road','rode'],['earn','urn'],['knight','night'],['read','red'],['root','route'],['none','nun'],['passed','past'],['flee','flea']]},
+   {id:'prefixes',name:'Prefixes',icon:'⬅️',type:'compound',desc:'Add the prefix to make a new word',
+    words:[['up+','hill','uphill'],['un+','able','unable'],['inter+','act','interact'],['un+','pleasant','unpleasant'],['multi+','media','multimedia'],['un+','aware','unaware'],['multi+','colour','multicolour'],['dis+','honest','dishonest'],['dis+','agree','disagree'],['micro+','scope','microscope'],['mid+','night','midnight'],['inter+','national','international']]},
+   {id:'suffixes',name:'Suffixes',icon:'➡️',type:'compound',desc:'Add the suffix to make a new word',
+    words:[['help','+ful','helpful'],['care','+ful','careful'],['mix','+ture','mixture'],['art','+ist','artist'],['up','+hold','uphold'],['post','+age','postage'],['clock','+wise','clockwise'],['manage','+able','manageable'],['bag','+gage','baggage'],['fix','+ture','fixture'],['enjoy','+able','enjoyable']]},
+  ],
+  hindi:[
+   {id:'vartani',name:'वर्तनी सूची',icon:'📝',type:'dictation',desc:'📢 शब्द पढ़ें — बच्चा लिखे',
+    words:['अर्थ','जहाँगीर','बदबू','हड़प','व्यर्थ','प्रसिद्ध','चुहिया','महाराज','उपयुक्त','सौंदर्य','तलाश','सम्राट','वांछित','किलोमीटर','सांत्वना','तीर्थयात्रा','विधान','क्यारियों','सब्र','न्याय','निराश','गलीचा','अलावा','दरबार','प्रभु','सीढ़ीनुमा','किचकिच','अनजान','प्राप्त','चबूतरे','लापरवाही','महामंत्री','वस्तु','फव्वारे','छलांग','महोदय','अलभ्य','चिनार','पत्तावार','मुकदमे','दर्शनीय','दर्शकों','परिणाम','निर्णय','प्रकृति','संदेह','उछलता','उपस्थित','कश्मीर','मनमोहन','फैसला','दोहराई','शालीमार','सुगंध','पड़ोसियों','सुचेते','स्वर्ग','श्रीनगर','चाणक्य','राजदंड','प्रबंध','शरारती','चतुराई','मिन्नतें','प्रतिवर्ष','गंदगी','चंद्रगुप्त','अनुशासन']},
+   {id:'paryayvachi',name:'पर्यायवाची',icon:'≈',type:'pair',prompt:'का पर्यायवाची',desc:'शब्द दिखाएँ — बच्चा पर्यायवाची बताए',
+    words:[['संदेश','खबर / समाचार'],['स्वर्ग','देवलोक / सुरलोक'],['हाथ','हस्त / कर'],['सुंदर','रम्य / मनोहर'],['धरती','धरा / पृथ्वी'],['आवाज़','स्वर / ध्वनि'],['बाग','बगीचा / उपवन'],['परिणाम','फल / नतीजा'],['प्रसिद्ध','मशहूर / विख्यात'],['मित्र','सखा / दोस्त'],['वृक्ष','तरु / पेड़'],['किसान','कृषक / खेतिहर'],['महाराज','नृप / नरेश'],['सब्र','धैर्य / धीरज'],['सांत्वना','दिलासा / तसल्ली'],['तलाश','खोज / जानबीन']]},
+   {id:'vilom',name:'विलोम शब्द',icon:'↔️',type:'pair',prompt:'का विलोम',desc:'शब्द दिखाएँ — बच्चा विलोम बताए',
+    words:[['जीवन','मरण'],['भलाई','बुराई'],['अर्थ','अनर्थ'],['खुश','नाखुश'],['धरती','अंबर'],['बूढ़','जवान'],['स्वर्ग','नरक'],['आज्ञा','अवज्ञा'],['सुंदर','कुरूप'],['उपस्थित','अनुपस्थित'],['सुगंध','दुर्गंध'],['न्याय','अन्याय'],['विशाल','सूक्ष्म'],['आदि','अंत'],['खुशबू','बदबू'],['मित्र','शत्रु']]},
+   {id:'tukant',name:'तुकांत शब्द',icon:'🎵',type:'pair',prompt:'से तुकांत',desc:'शब्द दिखाएँ — बच्चा तुकांत शब्द बताए',
+    words:[['काम','नाम'],['भलाई','मलाई'],['रहना','सहना'],['कालू','आलू'],['बात','रात'],['नंदन','चंदन'],['रानी','नानी'],['बुलाया','सुलाया'],['ऐसा','जैसा'],['धन','जन'],['पास','दास'],['अब्बा','डब्बा'],['सजाया','बजाया'],['दान','पान'],['बंदर','अंदर'],['भवन','पवन']]},
+   {id:'new_words',name:'नए शब्द बनाएँ',icon:'🏗️',type:'building',desc:'इन शब्दों से नए शब्द बनाएँ',
+    words:[{base:'राजदंड',found:['राज','जरा','दंड']},{base:'श्रीनगर',found:['नर','नगर','नग']},{base:'उछलता',found:['उछल','लता','ताल']},{base:'शालीमार',found:['रमा','माली']},{base:'दोहराई',found:['हरा','राई','राह']},{base:'तीर्थयात्रा',found:['तीर्थ','यात्रा']}]},
+  ]
+ }
+};
+
+function _spellData(){return SPELLING_DATA[_currentClass]?.[_spellLang]||[];}
+function _spellKey(tid){return 'spm_'+_currentClass+'_'+_spellLang+'_'+tid;}
+function _spellMastery(tid){try{return JSON.parse(localStorage.getItem(_spellKey(tid)))||{c:0,t:0};}catch(e){return {c:0,t:0};}}
+function _saveMastery(tid,c,t){localStorage.setItem(_spellKey(tid),JSON.stringify({c,t}));}
+
+function startSpell(topic){
+  _spellTopic=topic;
+  _spellQueue=topic.words.map((_,i)=>i);
+  for(let i=_spellQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[_spellQueue[i],_spellQueue[j]]=[_spellQueue[j],_spellQueue[i]];}
+  _spellIdx=0;_spellRevealed=false;_spellCorrect=[];_spellWrong=[];_spellDone=false;_spellRound=1;
+  render();
+}
+function spellReveal(){_spellRevealed=true;render();}
+function spellMark(ok){
+  const wi=_spellQueue[_spellIdx];
+  if(ok)_spellCorrect.push(wi); else _spellWrong.push(wi);
+  _spellIdx++;_spellRevealed=false;
+  if(_spellIdx>=_spellQueue.length){
+    _saveMastery(_spellTopic.id,_spellCorrect.length,_spellTopic.words.length);
+    _spellDone=true;
+  }
+  render();
+}
+function spellReviewWrong(){
+  _spellQueue=[..._spellWrong];_spellWrong=[];
+  _spellIdx=0;_spellRevealed=false;_spellDone=false;_spellRound=2;render();
+}
+function spellRestart(){startSpell(_spellTopic);}
+function spellBack(){_spellTopic=null;_spellDone=false;render();}
+
+function renderSpellCard(){
+  const topic=_spellTopic,hi=_spellLang==='hindi';
+  const w=topic.words[_spellQueue[_spellIdx]];
+  const reveal=_spellRevealed,tap=!reveal;
+  let inner=[];
+
+  if(topic.type==='dictation'){
+    inner=[
+      div({class:'spell-fc-type'},'Dictation'),
+      div({class:'spell-fc-hint'},w.desc||topic.desc),
+      div({class:'spell-fc-word'+(hi?' hindi':''),style:{marginTop:'14px'}},String(w)),
+      div({class:'spell-fc-tap'},'Child writes on paper → tap ✅ or ❌'),
+    ];
+  } else if(topic.type==='pair'){
+    const[a,b]=w;
+    inner=[
+      div({class:'spell-fc-type'},topic.prompt||'Word Pair'),
+      div({class:'spell-fc-word'+(hi?' hindi':'')},a),
+      tap?div({class:'spell-fc-tap'},'👆 Tap to reveal')
+         :div({class:'spell-fc-answer'+(hi?' hindi':''),'style':''},'→ '+b),
+    ];
+  } else if(topic.type==='compound'){
+    const parts=w.slice(0,w.length-1),result=w[w.length-1];
+    inner=[
+      div({class:'spell-fc-type'},'Compound Word'),
+      div({class:'spell-fc-word',style:{color:'#3B82F6',fontSize:'22px'}},parts.join(' + ')+' = ?'),
+      tap?div({class:'spell-fc-tap'},'👆 Tap to reveal')
+         :div({class:'spell-fc-answer'},result),
+    ];
+  } else if(topic.type==='jumbled'){
+    const[j,a]=w;
+    inner=[
+      div({class:'spell-fc-type'},'Unjumble the Letters'),
+      div({class:'spell-fc-prompt'},'Make a correct word from:'),
+      div({class:'spell-fc-word',style:{letterSpacing:'4px',color:'#F97316'}},j),
+      tap?div({class:'spell-fc-tap'},'👆 Tap to reveal answer')
+         :div({class:'spell-fc-answer'},'✓ '+a),
+    ];
+  } else if(topic.type==='analogy'){
+    const[q,a]=w;
+    inner=[
+      div({class:'spell-fc-type'},'Complete the Analogy'),
+      div({class:'spell-fc-word',style:{fontSize:'17px',lineHeight:'1.6'}},q),
+      tap?div({class:'spell-fc-tap'},'👆 Tap to reveal')
+         :div({class:'spell-fc-answer'},a),
+    ];
+  } else if(topic.type==='building'){
+    const base=w.base||w,found=w.found||[];
+    inner=[
+      div({class:'spell-fc-type'},'Building Words'),
+      div({class:'spell-fc-prompt'},'Find words (3+ letters) from:'),
+      div({class:'spell-fc-word'+(hi?' hindi':''),style:{color:'#8B5CF6'}},base),
+      tap?div({class:'spell-fc-tap'},'Think of words → 👆 tap to check')
+         :div({class:'spell-fc-answer',style:{fontSize:'15px'}},found.join('  ·  ')),
+    ];
+  }
+
+  return div({class:'spell-fc',onclick:(!reveal&&topic.type!=='dictation')?spellReveal:null},
+    ...inner.filter(Boolean));
+}
+
+function renderSpelling(){
+  if(_spellTopic){
+    const total=_spellQueue.length,done=_spellIdx,pct=total?Math.round((done/total)*100):0;
+    const round2=_spellRound===2;
+
+    if(_spellDone){
+      const correct=_spellCorrect.length,all=_spellTopic.words.length;
+      const perfect=correct===all,emoji=perfect?'🌟':correct>=all*.8?'✅':correct>=all*.5?'👍':'💪';
+      return div({class:'tab-content'},div({class:'spell-drill'},
+        btn({class:'spell-back',onclick:spellBack},'← All Topics'),
+        div({class:'spell-result'},
+          div({class:'spell-res-emoji'},emoji),
+          div({class:'spell-res-title'},perfect?'Perfect score!':round2?'Round 2 done!':'Well done!'),
+          div({class:'spell-res-score',style:{color:perfect?'#22C55E':'#3B82F6'}},correct+' / '+all),
+          div({class:'spell-res-sub'},_spellWrong.length>0?_spellWrong.length+' word(s) still need practice':'All correct! 🎉'),
+          div({class:'spell-res-actions'},
+            _spellWrong.length>0&&!round2?btn({class:'spell-review-btn',onclick:spellReviewWrong},'🔄 Review '+_spellWrong.length+' wrong word'+(_spellWrong.length>1?'s':'')):null,
+            btn({class:'spell-retry-btn',onclick:spellRestart},'↺ Restart from beginning'),
+            btn({class:'spell-back-btn2',onclick:spellBack},'← Back to all topics'),
+          )
+        )
+      ));
+    }
+
+    return div({class:'tab-content'},div({class:'spell-drill'},
+      btn({class:'spell-back',onclick:spellBack},'← All Topics'),
+      div({class:'spell-drill-h'},_spellTopic.icon+' '+_spellTopic.name+(round2?' — Round 2':'')),
+      div({class:'spell-drill-desc'},_spellTopic.desc),
+      div({class:'spell-prog-row'},
+        span({class:'spell-prog-txt'},'Card '+(done+1)+' of '+total),
+        div({class:'spell-badges'},
+          span({class:'spell-b-ok'},'✅ '+_spellCorrect.length),
+          span({class:'spell-b-ng'},'❌ '+_spellWrong.length)
+        )
+      ),
+      div({class:'spell-track'},div({class:'spell-track-fill',style:{width:pct+'%'}})),
+      renderSpellCard(),
+      (_spellRevealed||_spellTopic.type==='dictation')
+        ?div({class:'spell-btns'},
+            btn({class:'spell-ng-btn',onclick:()=>spellMark(false)},'❌ Wrong'),
+            btn({class:'spell-ok-btn',onclick:()=>spellMark(true)},'✅ Got it'),
+          )
+        :div({class:'spell-btns'},
+            btn({class:'spell-reveal-btn',onclick:spellReveal},'👆 Reveal Answer'),
+          )
+    ));
+  }
+
+  // Topic grid
+  const topics=_spellData();
+  return div({class:'tab-content'},div({class:'spell-wrap'},
+    div({class:'spell-header-row'},
+      div({class:'spell-h1'},'📚 Spelling Practice'),
+      div({class:'spell-sub'},CLASS_DATA[_currentClass].label+' · '+(_spellLang==='english'?'English Vocabulary':'Hindi Vocabulary')),
+    ),
+    div({class:'spell-lang-row'},
+      btn({class:'spell-lang-btn'+(_spellLang==='english'?' active':''),onclick:()=>{_spellLang='english';render();}},'🇬🇧 English'),
+      btn({class:'spell-lang-btn'+(_spellLang==='hindi'?' active':''),onclick:()=>{_spellLang='hindi';render();}},'🇮🇳 Hindi'),
+    ),
+    div({class:'spell-grid'},...topics.map(t=>{
+      const m=_spellMastery(t.id),cnt=t.words.length,pct=m.t>0?Math.round((m.c/m.t)*100):0;
+      return div({class:'spell-card-topic',onclick:()=>startSpell(t)},
+        div({class:'spell-topic-icon'},t.icon),
+        div({class:'spell-topic-name'},t.name),
+        div({class:'spell-topic-count'},cnt+' item'+(cnt>1?'s':'')),
+        div({class:'spell-topic-bar'},div({class:'spell-topic-fill',style:{width:pct+'%'}})),
+        m.t>0?div({class:'spell-mastery-label'},pct+'% mastered'):null,
+      );
+    }))
+  ));
+}
+
 </script>
 </body>
 </html>
