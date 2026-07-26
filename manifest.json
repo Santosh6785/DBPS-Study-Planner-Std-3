@@ -1,19 +1,28 @@
 {
-  "name": "Study Planner – Std 3 – 2026-27",
-  "short_name": "StudyPlan",
-  "description": "Weekly study planner for Standard 3, First Assessment July 1 2026",
-  "start_url": "./index.html",
+  "name": "DBPS Study Planner",
+  "short_name": "Study Plan",
+  "description": "Study planner for Sanrachna & Saarthak — DBPS Patna 2026-27",
+  "start_url": "/DBPS-Study-Planner-Std-3/",
+  "scope": "/DBPS-Study-Planner-Std-3/",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#1a1a2e",
   "theme_color": "#1a1a2e",
+  "orientation": "portrait",
+  "lang": "en",
   "icons": [
-    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png",     "purpose": "any" },
-    { "src": "icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
-    { "src": "icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "maskable" },
-    { "src": "icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" },
-    { "src": "icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "maskable" }
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj4KICA8cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSIjMWExYTJlIi8+CiAgPHRleHQgeD0iOTYiIHk9IjEzMCIgZm9udC1zaXplPSIxMTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcHBsZSBDb2xvciBFbW9qaSxTZWdvZSBVSSBFbW9qaSxzYW5zLXNlcmlmIj7wn46SPC90ZXh0Pgo8L3N2Zz4=",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjQwIiBmaWxsPSIjMWExYTJlIi8+CiAgPHRleHQgeD0iMjU2IiB5PSIzNDAiIGZvbnQtc2l6ZT0iMjkwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXBwbGUgQ29sb3IgRW1vamksU2Vnb2UgVUkgRW1vamksc2Fucy1zZXJpZiI+8J+OkjwvdGV4dD4KPC9zdmc+",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
   ],
-  "categories": ["education"],
-  "lang": "en-IN"
+  "screenshots": [],
+  "categories": ["education"]
 }
